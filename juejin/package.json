@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
-    "start": "cross-env NODE_ENV=production node build/main.js",
+    "start": "cross-env NODE_ENV=production pm2 start build/main.js",
     "generate": "nuxt generate",
     "nuxt": "nuxt",
     "nuxt-build": "nuxt build",
