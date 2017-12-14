@@ -10,7 +10,7 @@ import {default as devConfig} from './development.js';
 
 let proConfig = {
     devEnv: false,
-    port: 3002,
+    port: 3002,//如果package.json里面不一样，以这里为准
     sslModel: false
 }
 let disConfig = Object.assign({}, devConfig, proConfig);

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	/*
 	 ** Headers of the page
 	 */

@@ -4,16 +4,21 @@
   "description": "Nuxt.js project",
   "author": "huangchengdu <394042583@qq.com>",
   "private": true,
+  "config": {
+    "nuxt": {
+      "port": "3002"
+    }
+  },
   "scripts": {
-    "dev": "backpack dev",
-    "build": "nuxt build && backpack build",
+    "dev": "cross-env NODE_ENV=development backpack dev",
+    "build": "cross-env NODE_ENV=development nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production pm2 start build/main.js",
-    "generate": "nuxt generate",
-    "nuxt": "nuxt",
-    "nuxt-build": "nuxt build",
-    "nuxt-start": "nuxt start",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "generate": "cross-env NODE_ENV=development nuxt generate",
+    "nuxt": "cross-env NODE_ENV=development nuxt",
+    "nuxt-build": "cross-env NODE_ENV=development nuxt build",
+    "nuxt-start": "cross-env NODE_ENV=development nuxt start",
+    "lint": "cross-env NODE_ENV=development eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "cross-env NODE_ENV=development npm run lint"
   },
   "dependencies": {
     "axios": "^0.17.1",

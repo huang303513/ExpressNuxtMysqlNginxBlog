@@ -3,7 +3,7 @@ import {default as devConfig} from './default.js';
 
 let proConfig = {
     devEnv: true,
-    port: 5000,
+    port: 3002,
     sslModel: false
 }
 let disConfig = Object.assign({}, devConfig, proConfig);

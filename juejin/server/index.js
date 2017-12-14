@@ -3,15 +3,17 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import { startRouter } from './api/index'
-import { default as config } from '../nuxt.config.js';
+let nuxtConfig = require('../nuxt.config.js');
+import getConfig from '../config';
+let config = getConfig(process.env.NODE_ENV);
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 const host = process.env.HOST || '127.0.0.1';
-const port = process.env.PORT || 5000;
-app.set('port', port);
+const port = process.env.PORT || config.port;
+// app.set('port', port);
 // Import Routes
 startRouter(app);
 process.on('uncaughtException', (err) => {
@@ -21,11 +23,8 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at:', p, 'reason:', reason);
 });
-// Import and Set Nuxt.js options
-config.dev = !(process.env.NODE_ENV === 'production');
-// Instanciate nuxt.js
-let nuxt = new Nuxt(config);
-if (config.dev) {
+let nuxt = new Nuxt(nuxtConfig);
+if (true) {
 	const builder = new Builder(nuxt);
 	builder.build();
 }

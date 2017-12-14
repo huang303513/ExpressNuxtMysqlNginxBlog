@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,31 +70,51 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(9);
+// let devConfig = require('./default.js');
+
+
+var proConfig = {
+    devEnv: true,
+    port: 3002,
+    sslModel: false
+};
+var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__default_js__["a" /* default */], proConfig);
+
+/* harmony default export */ __webpack_exports__["a"] = (disConfig);
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_cookie_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_index__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_index__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(8);
 
 
 
 
 
+var nuxtConfig = __webpack_require__(7);
 
+var config = Object(__WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */])("development");
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 app.use(__WEBPACK_IMPORTED_MODULE_2_body_parser___default.a.urlencoded({ extended: true }));
 app.use(__WEBPACK_IMPORTED_MODULE_2_body_parser___default.a.json());
 app.use(__WEBPACK_IMPORTED_MODULE_3_cookie_parser___default()());
 var host = process.env.HOST || '127.0.0.1';
-var port = process.env.PORT || 5000;
-app.set('port', port);
+var port = process.env.PORT || config.port;
+// app.set('port', port);
 // Import Routes
 Object(__WEBPACK_IMPORTED_MODULE_4__api_index__["a" /* startRouter */])(app);
 process.on('uncaughtException', function (err) {
@@ -104,11 +124,8 @@ process.on('uncaughtException', function (err) {
 process.on('unhandledRejection', function (reason, p) {
 	console.log('Unhandled Rejection at:', p, 'reason:', reason);
 });
-// Import and Set Nuxt.js options
-__WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__["a" /* default */].dev = !("development" === 'production');
-// Instanciate nuxt.js
-var nuxt = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Nuxt"](__WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__["a" /* default */]);
-if (__WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__["a" /* default */].dev) {
+var nuxt = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Nuxt"](nuxtConfig);
+if (true) {
 	var builder = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Builder"](nuxt);
 	builder.build();
 }
@@ -120,31 +137,31 @@ app.listen(port, host, function () {
 });
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -170,11 +187,10 @@ function startRouter(app) {
 }
 
 /***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 7 */
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
+module.exports = {
 	/*
   ** Headers of the page
   */
@@ -286,7 +302,88 @@ function startRouter(app) {
 		src: '~plugins/vue-notification',
 		ssr: false
 	}]
-});
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getConfig;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__development_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__production_js__ = __webpack_require__(10);
+
+
+
+function getConfig() {
+    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "production";
+
+    if (name == 'production') {
+        return __WEBPACK_IMPORTED_MODULE_1__production_js__["a" /* default */];
+    } else {
+        return __WEBPACK_IMPORTED_MODULE_0__development_js__["a" /* default */];
+    }
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/*
+ * @Author: huangchengdu
+ * @Date:   2017-01-13 16:19:01
+ * @Last Modified by:   huangchengdu
+ * @Last Modified time: 2017-01-16 11:00:33
+ */
+
+var devConfig = {
+    port: 443,
+    sslModel: false,
+    session: {
+        secret: 'session',
+        key: 'session',
+        maxAge: 2592000
+    },
+    dbConfig: {
+        connectionLimit: 30,
+        host: '47.96.6.227',
+        user: 'huang303513',
+        password: 'huang303513',
+        port: '3306',
+        database: 'blog'
+    },
+    devEnv: true
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (devConfig);
+
+//这两个文件必须写成comment.js规范。引用他们的第三方库只支持这个规范。
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__development_js__ = __webpack_require__(0);
+/*
+ * @Author: huangchengdu
+ * @Date:   2017-01-14 18:47:32
+ * @Last Modified by:   huangchengdu
+ * @Last Modified time: 2017-01-15 08:18:01
+ */
+
+// let devConfig = require('./default.js');
+
+
+var proConfig = {
+  devEnv: false,
+  port: 3002, //如果package.json里面不一样，以这里为准
+  sslModel: false
+};
+var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__["a" /* default */], proConfig);
+
+/* harmony default export */ __webpack_exports__["a"] = (disConfig);
 
 /***/ })
 /******/ ]);
