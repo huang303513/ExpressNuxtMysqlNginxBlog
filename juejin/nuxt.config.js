@@ -11,11 +11,11 @@ export default {
 			name: 'viewport',
 			content: 'width=device-width, initial-scale=1'
 		},
-		//   {
-		//     hid: 'description',
-		//     name: 'description',
-		//     content: '黄成都的技术博客'
-		//   },
+		  {
+		    hid: 'description',
+		    name: 'description',
+		    content: '黄成都的技术博客'
+		  },
 		/*优先使用 IE 最新版本和 Chrome  */
 		{
 			name: 'renderer',

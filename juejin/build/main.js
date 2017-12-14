@@ -71,16 +71,16 @@ module.exports =
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_cookie_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_index__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_index__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nuxt_config_js__ = __webpack_require__(6);
 
 
 
@@ -120,33 +120,57 @@ app.listen(port, host, function () {
 });
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */
+/* 1 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 7 */
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startRouter;
+
+
+function startRouter(app) {
+
+    //实现登陆拦截
+    // app.use('/api', jwtAuth)
+
+    app.get('/api', function (req, res) {
+        res.json({ message: '欢迎使用justyeh的API服务！' });
+    });
+
+    // app.use('/api/user', require('./user'))
+
+    // app.use('/api/post', require('./post'))
+
+    // app.use('/api/tag', require('./tag'))
+
+    // app.use('/api/post/tag', require('./postTag'))
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -161,12 +185,11 @@ module.exports = require("cookie-parser");
 		}, {
 			name: 'viewport',
 			content: 'width=device-width, initial-scale=1'
+		}, {
+			hid: 'description',
+			name: 'description',
+			content: '黄成都的技术博客'
 		},
-		//   {
-		//     hid: 'description',
-		//     name: 'description',
-		//     content: '黄成都的技术博客'
-		//   },
 		/*优先使用 IE 最新版本和 Chrome  */
 		{
 			name: 'renderer',
@@ -264,32 +287,6 @@ module.exports = require("cookie-parser");
 		ssr: false
 	}]
 });
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = startRouter;
-
-
-function startRouter(app) {
-
-    //实现登陆拦截
-    // app.use('/api', jwtAuth)
-
-    app.get('/api', function (req, res) {
-        res.json({ message: '欢迎使用justyeh的API服务！' });
-    });
-
-    // app.use('/api/user', require('./user'))
-
-    // app.use('/api/post', require('./post'))
-
-    // app.use('/api/tag', require('./tag'))
-
-    // app.use('/api/post/tag', require('./postTag'))
-}
 
 /***/ })
 /******/ ]);

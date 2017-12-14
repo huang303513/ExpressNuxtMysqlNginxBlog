@@ -7,7 +7,7 @@
 
 let devConfig = {
     port: 443,
-    sslModel: true,
+    sslModel: false,
     session: {
         secret: 'session',
         key: 'session',
@@ -19,11 +19,11 @@ let devConfig = {
         user: 'huang303513',
         password: 'huang303513',
         port: '3306',
-        database: 'myblog'
+        database: 'blog'
     },
     devEnv: true
 };
 
-module.exports = devConfig;
+export default devConfig;
 
 //这两个文件必须写成comment.js规范。引用他们的第三方库只支持这个规范。
