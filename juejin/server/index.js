@@ -60,10 +60,10 @@ app.use(function (req, res, next) {
 
 app.use(expressWinston.logger({
   transports: [
-    new(winston.transports.Console)({
-      json: true,
-      colorize: true
-    }),
+    // new(winston.transports.Console)({
+    //   json: true,
+    //   colorize: true
+    // }),
     new winston.transports.File({
       filename: 'server/logs/success.log'
     })

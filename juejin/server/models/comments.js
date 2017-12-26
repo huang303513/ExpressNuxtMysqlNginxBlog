@@ -16,7 +16,7 @@ function contentToHtml(posts) {
     });
 }
 
-module.exports = {
+export default  {
     // 创建一个留言
     async create(comment) {
         const dateMap = formatDate(new Date(), 'typeDictionary');

@@ -7,7 +7,8 @@
 
 let express = require('express');
 let router = express.Router();
-let PostModel = require('../models/posts');
+// let PostModel = require('../models/posts');
+import PostModel from '../models/posts';
 let CommentModel = require('../models/comments');
 let checkLogin = require('../middlewares/check').checkLogin;
 
@@ -15,11 +16,13 @@ let checkLogin = require('../middlewares/check').checkLogin;
 // eg: GET /posts?author=xxx
 router.get('/', function(req, res, next) {
     let authorId = req.query.author;
+    //return PostModel.getPosts(authorId);
     PostModel.getPosts(authorId).then(posts => {
         // res.render('posts', {
         //     posts: posts
         // });
         res.json(posts);
+        //return Promise.resolve(posts);
     }).catch(next);
 });
 
@@ -155,4 +158,4 @@ router.get('/:postId/comment/:commentId/remove', checkLogin, function(req, res, 
         .catch(next);
 });
 
-module.exports = router;
+export default router;

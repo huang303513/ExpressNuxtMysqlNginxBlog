@@ -18,14 +18,8 @@
     export default {
         data() {
             return {
-                desc: "万事开头难,然后中间难,最后结尾难",
-                posts: []
+                desc: "万事开头难,然后中间难,最后结尾难"
             };
-        },
-        async asyncData({params}) {
-            var self = this;
-            let result =  await axios.get(`https://my-api/posts/${params.id}`);    
-            console.log("返回数据=======>",JSON.stringify(result));
         }
     }
 </script>

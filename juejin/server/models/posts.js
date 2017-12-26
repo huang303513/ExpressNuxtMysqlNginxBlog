@@ -1,6 +1,7 @@
 let marked = require('marked');
 let CommentModel = require('./comments');
-let mysqlQuery = require('../lib/sql').mysqlQuery;
+// let mysqlQuery = require('../lib/sql').mysqlQuery;
+import {mysqlQuery} from '../lib/sql.js';
 let formatDate = require('../lib/util.date').formatDate;
 
 
@@ -11,7 +12,7 @@ function contentToHtml(posts) {
     });
 }
 
-module.exports = {
+export default {
     // 创建一篇文章
     async create(post) {
         const dateMap = formatDate(new Date(), 'typeDictionary');
