@@ -288,9 +288,9 @@ function startRouter(app) {
     //实现登陆拦截
     // app.use('/api', jwtAuth)
 
-    app.get('/api', function (req, res) {
-        res.json({ message: '欢迎使用justyeh的API服务！' });
-    });
+    // app.get('/api', (req, res) => {
+    //     res.json({ message: '欢迎使用黄成都的API服务！' });
+    // })
 
     // app.use('/api/user', require('./user'))
 
@@ -299,6 +299,8 @@ function startRouter(app) {
     // app.use('/api/tag', require('./tag'))
 
     // app.use('/api/post/tag', require('./postTag'))
+
+
 }
 
 /***/ }),
@@ -466,7 +468,7 @@ var devConfig = {
         user: 'huang303513',
         password: 'huang303513',
         port: '3306',
-        database: 'blog'
+        database: 'myblog'
     },
     devEnv: true
 };

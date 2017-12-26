@@ -2,18 +2,20 @@
   <div class="bodyClass">
     <Header></Header>
     <div class="rootClass">
-      <Logo></Logo>
+      <post-cell></post-cell>
+      <!-- <Logo></Logo> -->
     </div>
   </div>
 </template>
 
 <script>
-  import Logo from '~/components/Logo.vue'
   import Header from '~/components/Header.vue'
+  import PostCell from '~/components/PostCell.vue'
+  import axios from 'axios'
   export default {
     components: {
-      Logo,
-      Header
+      Header,
+      PostCell
     }
   }
 </script>

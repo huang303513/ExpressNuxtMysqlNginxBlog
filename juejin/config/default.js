@@ -19,7 +19,7 @@ let devConfig = {
         user: 'huang303513',
         password: 'huang303513',
         port: '3306',
-        database: 'blog'
+        database: 'myblog'
     },
     devEnv: true
 };
