@@ -128,7 +128,7 @@ app.use(session({
 
 var uploadDir = "/usr/local/webserver/nginx/static/img";
 if (config.devEnv) {
-	uploadDir = path.join(__dirname, 'public/img');
+	uploadDir = path.join(__dirname, 'static/img');
 }
 
 // 处理表单及文件上传的中间件
@@ -371,7 +371,7 @@ module.exports = {
 		link: [{
 			rel: 'icon',
 			type: 'image/x-icon',
-			href: '/favicon.ico'
+			href: '/img/favicon.ico'
 		}]
 	},
 	css: [{

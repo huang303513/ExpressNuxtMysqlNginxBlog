@@ -36,7 +36,7 @@ app.use(session({
 
 let uploadDir = "/usr/local/webserver/nginx/static/img";
 if (config.devEnv) {
-	uploadDir = path.join(__dirname, 'public/img');
+	uploadDir = path.join(__dirname, 'static/img');
 }
 
 // 处理表单及文件上传的中间件
