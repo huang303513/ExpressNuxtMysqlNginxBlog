@@ -70,7 +70,7 @@ module.exports =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(12);
 // let devConfig = require('./default.js');
 
 
@@ -89,34 +89,94 @@ var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__default_js__["a" 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(__dirname, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_cookie_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_cookie_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_index__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(11);
 
 
+var session = __webpack_require__(5);
+var MySQLStore = __webpack_require__(6)(session);
+var winston = __webpack_require__(7);
+var expressWinston = __webpack_require__(8);
 
+var nuxtConfig = __webpack_require__(10);
 
-
-var nuxtConfig = __webpack_require__(7);
-
-var config = Object(__WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */])("development");
+var path = __webpack_require__(14);
+var pkg = __webpack_require__(15);
+var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
-app.use(__WEBPACK_IMPORTED_MODULE_2_body_parser___default.a.urlencoded({ extended: true }));
-app.use(__WEBPACK_IMPORTED_MODULE_2_body_parser___default.a.json());
-app.use(__WEBPACK_IMPORTED_MODULE_3_cookie_parser___default()());
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || config.port;
-// app.set('port', port);
-// Import Routes
-Object(__WEBPACK_IMPORTED_MODULE_4__api_index__["a" /* startRouter */])(app);
+
+// session 中间件
+app.use(session({
+	key: config.session.key,
+	secret: config.session.secret,
+	cookie: {
+		maxAge: config.session.maxAge
+	},
+	store: new MySQLStore(config.dbConfig),
+	connectionLimit: 10,
+	expiration: 86400000,
+	resave: true,
+	saveUninitialized: true
+}));
+
+var uploadDir = "/usr/local/webserver/nginx/static/img";
+if (config.devEnv) {
+	uploadDir = path.join(__dirname, 'public/img');
+}
+
+// 处理表单及文件上传的中间件
+app.use(__webpack_require__(16)({
+	uploadDir: uploadDir,
+	keepExtensions: true // 保留后缀
+}));
+
+app.locals.blog = {
+	title: pkg.name,
+	description: pkg.description
+};
+
+// 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
+app.use(function (req, res, next) {
+	res.locals.user = req.session.user;
+	// res.locals.success = req.flash('success').toString();
+	// res.locals.error = req.flash('error').toString();
+	next();
+});
+
+app.use(expressWinston.logger({
+	transports: [new winston.transports.Console({
+		json: true,
+		colorize: true
+	}), new winston.transports.File({
+		filename: 'server/logs/success.log'
+	})]
+}));
+
+Object(__WEBPACK_IMPORTED_MODULE_2__api_index__["a" /* startRouter */])(app);
+
+app.use(expressWinston.errorLogger({
+	transports: [new winston.transports.Console({
+		json: true,
+		colorize: true
+	}), new winston.transports.File({
+		filename: 'server/logs/error.log'
+	})]
+}));
+
+// error page
+// app.use(function (err, req, res, next) {
+// 	res.render('error', {
+// 		error: err
+// 	});
+// });
+
 process.on('uncaughtException', function (err) {
 	fs.writeSync(1, 'Caught exception: ' + err + '\n');
 });
@@ -124,6 +184,13 @@ process.on('uncaughtException', function (err) {
 process.on('unhandledRejection', function (reason, p) {
 	console.log('Unhandled Rejection at:', p, 'reason:', reason);
 });
+//系统警告
+process.on('warning', function (warning) {
+	console.warn(warning.name); // Print the warning name
+	console.warn(warning.message); // Print the warning message
+	console.warn(warning.stack); // Print the stack trace
+});
+
 var nuxt = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Nuxt"](nuxtConfig);
 if (true) {
 	var builder = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Builder"](nuxt);
@@ -131,37 +198,85 @@ if (true) {
 }
 // Add nuxt.js middleware
 app.use(nuxt.render);
-// Listen the server
-app.listen(port, host, function () {
-	console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
-});
+
+if (module.parent) {
+	module.exports = app;
+} else {
+	// Listen the server
+	app.listen(port, host, function () {
+		console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
+	});
+}
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "server", __webpack_require__(2)(module)))
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = function(originalModule) {
+	if(!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true,
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("nuxt");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("body-parser");
+module.exports = require("express");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("cookie-parser");
+module.exports = require("express-session");
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-mysql-session");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston");
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-winston");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -187,7 +302,7 @@ function startRouter(app) {
 }
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -305,13 +420,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = getConfig;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__development_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__production_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__production_js__ = __webpack_require__(13);
 
 
 
@@ -326,7 +441,7 @@ function getConfig() {
 }
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -361,7 +476,7 @@ var devConfig = {
 //这两个文件必须写成comment.js规范。引用他们的第三方库只支持这个规范。
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -384,6 +499,24 @@ var proConfig = {
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__["a" /* default */], proConfig);
 
 /* harmony default export */ __webpack_exports__["a"] = (disConfig);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = {"name":"juejin","version":"1.0.0","description":"Nuxt.js project","author":"huangchengdu <394042583@qq.com>","private":true,"config":{"nuxt":{"port":"3002"}},"scripts":{"dev":"cross-env NODE_ENV=development backpack dev","build":"cross-env NODE_ENV=development nuxt build && backpack build","start":"cross-env NODE_ENV=production pm2 start build/main.js","generate":"cross-env NODE_ENV=development nuxt generate","nuxt":"cross-env NODE_ENV=development nuxt","nuxt-build":"cross-env NODE_ENV=development nuxt build","nuxt-start":"cross-env NODE_ENV=development nuxt start","lint":"cross-env NODE_ENV=development eslint --ext .js,.vue --ignore-path .gitignore .","precommit":"cross-env NODE_ENV=development npm run lint"},"dependencies":{"axios":"^0.17.1","backpack-core":"^0.4.3","body-parser":"^1.18.2","cookie-parser":"^1.4.3","cross-env":"^5.1.1","crypto-js":"^3.1.9-1","express":"^4.16.2","express-formidable":"^1.0.0","express-mysql-session":"^1.2.3","express-session":"^1.15.6","express-winston":"^2.4.0","less":"^2.7.3","less-loader":"^4.0.5","marked":"^0.3.7","mysql":"^2.15.0","nuxt":"^1.0.0-rc11","vue-notification":"^1.3.4","winston":"^2.4.0"},"devDependencies":{"babel-eslint":"^7.2.3","eslint":"^4.3.0","eslint-config-standard":"^10.2.1","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1"}}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-formidable");
 
 /***/ })
 /******/ ]);
