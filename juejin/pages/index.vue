@@ -49,7 +49,7 @@ export default {
     });
     console.log("===============呵呵==============", result);
     return {
-      posts: test
+      posts: (success && result)?result:test
     };
   }
 };

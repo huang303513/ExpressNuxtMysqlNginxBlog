@@ -1209,41 +1209,51 @@ function contentToHtml(posts) {
                             result = _ref6.result;
                             _context3.prev = 7;
 
-                            result = contentToHtml(result);
-                            result.forEach(function (item, index) {
+                            //result = contentToHtml(result);
+                            //var resResult = [];
+                            result = result.map(function (item, index) {
                                 item.author = JSON.parse(item.author);
+                                return {
+                                    author: item.author,
+                                    _id: item._id,
+                                    pv: item.pv,
+                                    title: item.title,
+                                    authorId: item.authorId,
+                                    created_at: item.created_at,
+                                    commentCount: item.commentCount
+                                };
                             });
-                            _context3.next = 15;
+                            _context3.next = 14;
                             break;
 
-                        case 12:
-                            _context3.prev = 12;
+                        case 11:
+                            _context3.prev = 11;
                             _context3.t0 = _context3['catch'](7);
 
                             err = _context3.t0;
 
-                        case 15:
-                            _context3.prev = 15;
+                        case 14:
+                            _context3.prev = 14;
 
                             if (!err) {
-                                _context3.next = 20;
+                                _context3.next = 19;
                                 break;
                             }
 
                             return _context3.abrupt('return', Promise.reject(err));
 
-                        case 20:
+                        case 19:
                             return _context3.abrupt('return', Promise.resolve(result));
 
-                        case 21:
-                            return _context3.finish(15);
+                        case 20:
+                            return _context3.finish(14);
 
-                        case 22:
+                        case 21:
                         case 'end':
                             return _context3.stop();
                     }
                 }
-            }, _callee3, this, [[7, 12, 15, 22]]);
+            }, _callee3, this, [[7, 11, 14, 21]]);
         }));
 
         function getPosts(_x3) {

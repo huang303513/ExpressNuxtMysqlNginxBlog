@@ -67,9 +67,19 @@ export default {
         }
         let { err, result } = await mysqlQuery(sql);
         try {
-            result = contentToHtml(result);
-            result.forEach(function(item, index) {
+            //result = contentToHtml(result);
+            //var resResult = [];
+            result = result.map(function(item, index) {
                 item.author = JSON.parse(item.author);
+                return {
+                    author:item.author,
+                    _id:item._id,
+                    pv:item.pv,
+                    title:item.title,
+                    authorId:item.authorId,
+                    created_at:item.created_at,
+                    commentCount:item.commentCount
+                }
             });
         } catch (e) {
             err = e;
