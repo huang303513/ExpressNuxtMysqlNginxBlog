@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
         res.json(posts);
         //return Promise.resolve(posts);
     }).catch(error =>{
-        res.json(error)
+        //res.json(error)
     });
 });
 

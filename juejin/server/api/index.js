@@ -23,7 +23,7 @@ export function startRouter(app) {
         // app.use('/signup', require('./signup'));
         // app.use('/signin', require('./signin'));
         // app.use('/signout', require('./signout'));
-        app.use('/posts', PostModule);
+        app.use('/api/posts', PostModule);
 
         // 404 page
         // app.use(function(req, res) {

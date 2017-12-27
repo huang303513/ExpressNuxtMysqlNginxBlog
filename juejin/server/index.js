@@ -15,24 +15,27 @@ import getConfig from '../config';
 var path = require('path');
 var pkg = require('../package');
 let config = getConfig(process.env.NODE_ENV);
+import axios from 'axios';
+
+axios.defaults.withCredentials=true
 
 const app = express();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
 
 // session 中间件
-app.use(session({
-  key: config.session.key,
-  secret: config.session.secret,
-  cookie: {
-    maxAge: config.session.maxAge
-  },
-  store: new MySQLStore(config.dbConfig),
-  connectionLimit: 10,
-  expiration: 86400000,
-  resave: true,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   key: config.session.key,
+//   secret: config.session.secret,
+//   cookie: {
+//     maxAge: config.session.maxAge
+//   },
+//   store: new MySQLStore(config.dbConfig),
+//   connectionLimit: 10,
+//   expiration: 86400000,
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 let uploadDir = "/usr/local/webserver/nginx/static/img";
 if (config.devEnv) {
@@ -40,23 +43,23 @@ if (config.devEnv) {
 }
 
 // 处理表单及文件上传的中间件
-app.use(require('express-formidable')({
-  uploadDir: uploadDir,
-  keepExtensions: true // 保留后缀
-}));
+// app.use(require('express-formidable')({
+//   uploadDir: uploadDir,
+//   keepExtensions: true // 保留后缀
+// }));
 
-app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
-};
+// app.locals.blog = {
+//   title: pkg.name,
+//   description: pkg.description
+// };
 
 // 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
-app.use(function (req, res, next) {
-  res.locals.user = req.session.user;
-  // res.locals.success = req.flash('success').toString();
-  // res.locals.error = req.flash('error').toString();
-  next();
-});
+// app.use(function (req, res, next) {
+//   // res.locals.user = req.session.user;
+//   // res.locals.success = req.flash('success').toString();
+//   // res.locals.error = req.flash('error').toString();
+//   next();
+// });
 
 app.use(expressWinston.logger({
   transports: [

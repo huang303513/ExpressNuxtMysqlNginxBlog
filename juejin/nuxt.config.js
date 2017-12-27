@@ -113,7 +113,7 @@ module.exports = {
 	},
 	//配置路由
 	router: {
-		middleware: 'adminAuth'
+		// middleware: 'adminAuth'
 	},
 	//插件
 	plugins: [{

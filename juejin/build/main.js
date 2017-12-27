@@ -626,6 +626,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_index__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_axios__);
 
 
 var session = __webpack_require__(11);
@@ -639,23 +641,26 @@ var path = __webpack_require__(25);
 var pkg = __webpack_require__(26);
 var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
 
+
+__WEBPACK_IMPORTED_MODULE_4_axios___default.a.defaults.withCredentials = true;
+
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || config.port;
 
 // session 中间件
-app.use(session({
-  key: config.session.key,
-  secret: config.session.secret,
-  cookie: {
-    maxAge: config.session.maxAge
-  },
-  store: new MySQLStore(config.dbConfig),
-  connectionLimit: 10,
-  expiration: 86400000,
-  resave: true,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   key: config.session.key,
+//   secret: config.session.secret,
+//   cookie: {
+//     maxAge: config.session.maxAge
+//   },
+//   store: new MySQLStore(config.dbConfig),
+//   connectionLimit: 10,
+//   expiration: 86400000,
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 var uploadDir = "/usr/local/webserver/nginx/static/img";
 if (config.devEnv) {
@@ -663,23 +668,23 @@ if (config.devEnv) {
 }
 
 // 处理表单及文件上传的中间件
-app.use(__webpack_require__(27)({
-  uploadDir: uploadDir,
-  keepExtensions: true // 保留后缀
-}));
+// app.use(require('express-formidable')({
+//   uploadDir: uploadDir,
+//   keepExtensions: true // 保留后缀
+// }));
 
-app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
-};
+// app.locals.blog = {
+//   title: pkg.name,
+//   description: pkg.description
+// };
 
 // 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
-app.use(function (req, res, next) {
-  res.locals.user = req.session.user;
-  // res.locals.success = req.flash('success').toString();
-  // res.locals.error = req.flash('error').toString();
-  next();
-});
+// app.use(function (req, res, next) {
+//   // res.locals.user = req.session.user;
+//   // res.locals.success = req.flash('success').toString();
+//   // res.locals.error = req.flash('error').toString();
+//   next();
+// });
 
 app.use(expressWinston.logger({
   transports: [
@@ -834,7 +839,7 @@ function startRouter(app) {
     // app.use('/signup', require('./signup'));
     // app.use('/signin', require('./signin'));
     // app.use('/signout', require('./signout'));
-    app.use('/posts', __WEBPACK_IMPORTED_MODULE_0__posts_js__["a" /* default */]);
+    app.use('/api/posts', __WEBPACK_IMPORTED_MODULE_0__posts_js__["a" /* default */]);
 
     // 404 page
     // app.use(function(req, res) {
@@ -880,7 +885,7 @@ router.get('/', function (req, res, next) {
         res.json(posts);
         //return Promise.resolve(posts);
     }).catch(function (error) {
-        res.json(error);
+        //res.json(error)
     });
 });
 
@@ -1725,7 +1730,7 @@ module.exports = {
 	},
 	//配置路由
 	router: {
-		middleware: 'adminAuth'
+		// middleware: 'adminAuth'
 	},
 	//插件
 	plugins: [{
@@ -1752,7 +1757,7 @@ module.exports = {"name":"juejin","version":"1.0.0","description":"Nuxt.js proje
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("express-formidable");
+module.exports = require("axios");
 
 /***/ })
 /******/ ]);
