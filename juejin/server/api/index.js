@@ -17,9 +17,9 @@ export function startRouter(app) {
     
         // app.use('/api/post/tag', require('./postTag'))
 
-        app.get('/', function(req, res) {
-            res.redirect('/posts');
-        });
+        // app.get('/', function(req, res) {
+        //     res.redirect('/posts');
+        // });
         // app.use('/signup', require('./signup'));
         // app.use('/signin', require('./signin'));
         // app.use('/signout', require('./signout'));

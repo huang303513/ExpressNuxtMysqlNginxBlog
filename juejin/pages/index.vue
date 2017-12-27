@@ -2,7 +2,8 @@
   <div class="bodyClass">
     <Header></Header>
     <div class="rootClass">
-      <post-cell></post-cell>
+      <post-cell :posts="posts"></post-cell>
+      <!-- {{posts}} -->
       <!-- <Logo></Logo> -->
     </div>
   </div>
@@ -17,16 +18,26 @@ export default {
     Header,
     PostCell
   },
-  data() {
-    return {
-      posts: []
-    };
-  },
-  async asyncData({ params }) {
-    var self = this;
+  // data() {
+  //   return {
+  //     posts: []
+  //   };
+  // },
+  async asyncData({ error }) {
+    
+    let {data} = await axios.get('/posts');
     console.log("===============呵呵==============");
-    let result = await axios.get('/posts');
-    console.log("返回数据=======>", JSON.stringify(result));
+    // let posts = [];
+    // if (result.status == 200 && result.data) {
+    //     posts = result.posts;
+    // } else {
+    //    error({ statusCode: 400, message: err })
+    // }
+   console.log("===============呵呵==============",data);
+    return {
+      posts:data
+    }
+    
   }
 };
 </script>

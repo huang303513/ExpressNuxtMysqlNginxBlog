@@ -9,21 +9,26 @@ let express = require('express');
 let router = express.Router();
 // let PostModel = require('../models/posts');
 import PostModel from '../models/posts';
+import { postToSQLUpdate } from '../../util/assist';
 let CommentModel = require('../models/comments');
 let checkLogin = require('../middlewares/check').checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function(req, res, next) {
-    let authorId = req.query.author;
-    //return PostModel.getPosts(authorId);
+    let authorId = req.query&&req.query.author;
+   // return PostModel.getPosts(authorId);
+    //Promise.resolve("23423");
     PostModel.getPosts(authorId).then(posts => {
         // res.render('posts', {
         //     posts: posts
         // });
+        //console.log("============posts====================",posts);
         res.json(posts);
         //return Promise.resolve(posts);
-    }).catch(next);
+    }).catch(error =>{
+        res.json(error)
+    });
 });
 
 // GET /posts/create 发表文章页

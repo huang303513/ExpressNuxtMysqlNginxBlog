@@ -633,10 +633,10 @@ var MySQLStore = __webpack_require__(12)(session);
 var winston = __webpack_require__(13);
 var expressWinston = __webpack_require__(14);
 
-var nuxtConfig = __webpack_require__(23);
+var nuxtConfig = __webpack_require__(24);
 
-var path = __webpack_require__(24);
-var pkg = __webpack_require__(25);
+var path = __webpack_require__(25);
+var pkg = __webpack_require__(26);
 var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
@@ -663,7 +663,7 @@ if (config.devEnv) {
 }
 
 // 处理表单及文件上传的中间件
-app.use(__webpack_require__(26)({
+app.use(__webpack_require__(27)({
   uploadDir: uploadDir,
   keepExtensions: true // 保留后缀
 }));
@@ -828,9 +828,9 @@ function startRouter(app) {
 
     // app.use('/api/post/tag', require('./postTag'))
 
-    app.get('/', function (req, res) {
-        res.redirect('/posts');
-    });
+    // app.get('/', function(req, res) {
+    //     res.redirect('/posts');
+    // });
     // app.use('/signup', require('./signup'));
     // app.use('/signin', require('./signin'));
     // app.use('/signout', require('./signout'));
@@ -850,6 +850,7 @@ function startRouter(app) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_posts__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assist__ = __webpack_require__(22);
 /*
  * @Author: huangchengdu
  * @Date:   2017-01-13 21:41:07
@@ -861,21 +862,26 @@ var express = __webpack_require__(0);
 var router = express.Router();
 // let PostModel = require('../models/posts');
 
+
 var CommentModel = __webpack_require__(3);
-var checkLogin = __webpack_require__(22).checkLogin;
+var checkLogin = __webpack_require__(23).checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
-    var authorId = req.query.author;
-    //return PostModel.getPosts(authorId);
+    var authorId = req.query && req.query.author;
+    // return PostModel.getPosts(authorId);
+    //Promise.resolve("23423");
     __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId).then(function (posts) {
         // res.render('posts', {
         //     posts: posts
         // });
+        //console.log("============posts====================",posts);
         res.json(posts);
         //return Promise.resolve(posts);
-    }).catch(next);
+    }).catch(function (error) {
+        res.json(error);
+    });
 });
 
 // GET /posts/create 发表文章页
@@ -1467,6 +1473,125 @@ var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__[
 
 /***/ }),
 /* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export formatDate */
+/* unused harmony export postToSQLUpdate */
+/* unused harmony export deepCopy */
+/* unused harmony export timeAgo */
+/* unused harmony export getCookiesInServer */
+/* unused harmony export setCookieInClient */
+/* unused harmony export getCookieInClient */
+/* unused harmony export seo */
+/* unused harmony export isLogin */
+/* unused harmony export setToken */
+
+function formatDate(timestamp) {
+  var date = new Date(timestamp);
+  return date.getYear() + "-" + date.getMonth() + 1 + "-" + date.getDate() + "   " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}
+/**
+ * 把一个js对象转换为sql操作字符串
+ * @param {*} object 
+ */
+function postToSQLUpdate(object) {
+  var updated = [],
+      params = [];
+  for (var key in object) {
+    if (object.hasOwnProperty(key)) {
+      if (key === 'id') {
+        continue;
+      }
+      updated.push(key + ' = ?');
+      params.push(object[key]);
+    }
+  }
+  updated.push('updated_at = ?');
+  params.push(Date.now());
+  return {
+    updated: updated.join(','),
+    params: params
+  };
+}
+
+function deepCopy(object) {
+  return JSON.parse(JSON.stringify(object));
+}
+
+function timeAgo(time) {
+  var between = Date.now() / 1000 - Number(time);
+
+  if (between < 3600) {
+    return pluralize(~~(between / 60), ' 分钟前');
+  } else if (between < 86400) {
+    return pluralize(~~(between / 3600), ' 小时前');
+  } else {
+    return pluralize(~~(between / 86400), ' 天前');
+  }
+}
+/**
+ * 在服务端获取cookie
+ * @param {获取request的cookie} req 
+ */
+function getCookiesInServer(req) {
+  var Cookies = {};
+  req && req.headers.cookie && req.headers.cookie.split(';').forEach(function (Cookie) {
+    var parts = Cookie.split('=');
+    Cookies[parts[0].trim()] = (parts[1] || '').trim();
+  });
+  return Cookies;
+}
+/**
+ * 在客户端设置cookie
+ * @param {*} name 
+ * @param {*} value 
+ * @param {*} minutes 
+ */
+function setCookieInClient(name, value, minutes) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() + minutes * 60 * 1000);
+  document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+}
+
+/**
+ * 获取浏览器端指定的cookie
+ * @param {*} name 
+ */
+function getCookieInClient(name) {
+  var arr = void 0,
+      reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg)) return unescape(arr[2]);else return null;
+}
+
+/**
+ * 加载八度统计的脚本
+ */
+function seo() {
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+}
+
+function isLogin() {
+  if (getCookieInClient('token')) {
+    return true;
+  }
+  return false;
+}
+
+function setToken(tokenValue) {
+  setCookieInClient('token', tokenValue, 60 * 24 * 7);
+}
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports) {
 
 /*
@@ -1494,7 +1619,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -1612,19 +1737,19 @@ module.exports = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = {"name":"juejin","version":"1.0.0","description":"Nuxt.js project","author":"huangchengdu <394042583@qq.com>","private":true,"config":{"nuxt":{"port":"3002"}},"scripts":{"dev":"cross-env NODE_ENV=development backpack dev","build":"cross-env NODE_ENV=development nuxt build && backpack build","start":"cross-env NODE_ENV=production pm2 start build/main.js","generate":"cross-env NODE_ENV=development nuxt generate","nuxt":"cross-env NODE_ENV=development nuxt","nuxt-build":"cross-env NODE_ENV=development nuxt build","nuxt-start":"cross-env NODE_ENV=development nuxt start","lint":"cross-env NODE_ENV=development eslint --ext .js,.vue --ignore-path .gitignore .","precommit":"cross-env NODE_ENV=development npm run lint"},"dependencies":{"axios":"^0.17.1","backpack-core":"^0.4.3","body-parser":"^1.18.2","cookie-parser":"^1.4.3","cross-env":"^5.1.1","crypto-js":"^3.1.9-1","express":"^4.16.2","express-formidable":"^1.0.0","express-mysql-session":"^1.2.3","express-session":"^1.15.6","express-winston":"^2.4.0","less":"^2.7.3","less-loader":"^4.0.5","marked":"^0.3.7","mysql":"^2.15.0","nuxt":"^1.0.0-rc11","sha1":"^1.1.1","vue-notification":"^1.3.4","winston":"^2.4.0"},"devDependencies":{"babel-eslint":"^7.2.3","eslint":"^4.3.0","eslint-config-standard":"^10.2.1","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1"}}
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-formidable");
