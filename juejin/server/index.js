@@ -98,7 +98,7 @@ process.on('uncaughtException', (err) => {
 });
 //promise错误未处理
 process.on('unhandledRejection', (reason, p) => {
-  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
 });
 //系统警告
 process.on('warning', (warning) => {

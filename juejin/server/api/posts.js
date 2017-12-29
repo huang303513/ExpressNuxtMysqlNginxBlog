@@ -17,6 +17,7 @@ let checkLogin = require('../middlewares/check').checkLogin;
 // eg: GET /posts?author=xxx
 router.get('/', function(req, res, next) {
     let authorId = req.query&&req.query.author;
+    console.log("queyr=========",req.query);
    // return PostModel.getPosts(authorId);
     //Promise.resolve("23423");
     PostModel.getPosts(authorId).then(posts => {

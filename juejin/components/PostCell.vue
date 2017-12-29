@@ -1,7 +1,7 @@
 <template>
   <div>
     <article v-for="(post,index) in posts" :key="post._id">
-      <p>{{post.title}}</p>
+      <p>{{post.title}}{{post.author}}</p>
     </article>
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
 </script>
 <style lang="less" scoped>
 article {
+    border: 1px solid red;
     background: #fff;
     border-radius: 2px;
     height: 100px;

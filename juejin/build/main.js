@@ -719,7 +719,7 @@ process.on('uncaughtException', function (err) {
 });
 //promise错误未处理
 process.on('unhandledRejection', function (reason, p) {
-  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
 });
 //系统警告
 process.on('warning', function (warning) {
@@ -874,6 +874,7 @@ var checkLogin = __webpack_require__(23).checkLogin;
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
     var authorId = req.query && req.query.author;
+    console.log("queyr=========", req.query);
     // return PostModel.getPosts(authorId);
     //Promise.resolve("23423");
     __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId).then(function (posts) {
