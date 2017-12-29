@@ -24,18 +24,18 @@ const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
 
 // session 中间件
-// app.use(session({
-//   key: config.session.key,
-//   secret: config.session.secret,
-//   cookie: {
-//     maxAge: config.session.maxAge
-//   },
-//   store: new MySQLStore(config.dbConfig),
-//   connectionLimit: 10,
-//   expiration: 86400000,
-//   resave: true,
-//   saveUninitialized: true
-// }));
+app.use(session({
+  key: config.session.key,
+  secret: config.session.secret,
+  cookie: {
+    maxAge: config.session.maxAge
+  },
+  store: new MySQLStore(config.dbConfig),
+  connectionLimit: 10,
+  expiration: 86400000,
+  resave: true,
+  saveUninitialized: true
+}));
 
 let uploadDir = "/usr/local/webserver/nginx/static/img";
 if (config.devEnv) {
