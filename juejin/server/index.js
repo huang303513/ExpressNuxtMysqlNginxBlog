@@ -1,38 +1,129 @@
-import { Nuxt, Builder } from 'nuxt'
+import {
+  Nuxt,
+  Builder
+} from 'nuxt'
 import express from 'express'
-import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
-import { startRouter } from './api/index'
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var winston = require('winston');
+var expressWinston = require('express-winston');
+import {
+  startRouter
+} from './api/index'
 let nuxtConfig = require('../nuxt.config.js');
 import getConfig from '../config';
+var path = require('path');
+var pkg = require('../package');
 let config = getConfig(process.env.NODE_ENV);
+import axios from 'axios';
+
+process.env.DEBUG = 'nuxt:*'
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cookieParser());
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
-// app.set('port', port);
-// Import Routes
+
+// session 中间件
+app.use(session({
+  key: config.session.key,
+  secret: config.session.secret,
+  cookie: {
+    maxAge: config.session.maxAge
+  },
+  store: new MySQLStore(config.dbConfig),
+  connectionLimit: 10,
+  expiration: 86400000,
+  resave: true,
+  saveUninitialized: true
+}));
+// 处理表单及文件上传的中间件
+// app.use(require('express-formidable')({
+//   uploadDir: uploadDir,
+//   keepExtensions: true // 保留后缀
+// }));
+
+let uploadDir = "/usr/local/webserver/nginx/static/img";
+if (config.devEnv) {
+  uploadDir = path.join(__dirname, 'static/img');
+}
+
+// app.locals.blog = {
+//   title: pkg.name,
+//   description: pkg.description
+// };
+
+// 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
+// app.use(function (req, res, next) {
+//   // res.locals.user = req.session.user;
+//   // res.locals.success = req.flash('success').toString();
+//   // res.locals.error = req.flash('error').toString();
+//   next();
+// });
+
+app.use(expressWinston.logger({
+  transports: [
+    // new(winston.transports.Console)({
+    //   json: true,
+    //   colorize: true
+    // }),
+    new winston.transports.File({
+      filename: 'server/logs/success.log'
+    })
+  ]
+}));
+
 startRouter(app);
+
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'server/logs/error.log'
+    })
+  ]
+}));
+
+// error page
+// app.use(function (err, req, res, next) {
+// 	res.render('error', {
+// 		error: err
+// 	});
+// });
+
 process.on('uncaughtException', (err) => {
-	fs.writeSync(1, `Caught exception: ${err}\n`);
+  fs.writeSync(1, `Caught exception: ${err}\n`);
 });
 //promise错误未处理
 process.on('unhandledRejection', (reason, p) => {
-	console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
 });
+//系统警告
+process.on('warning', (warning) => {
+  console.warn(warning.name); // Print the warning name
+  console.warn(warning.message); // Print the warning message
+  console.warn(warning.stack); // Print the stack trace
+});
+
+
+
 let nuxt = new Nuxt(nuxtConfig);
 if (true) {
-	const builder = new Builder(nuxt);
-	builder.build();
+  const builder = new Builder(nuxt);
+  builder.build();
 }
 // Add nuxt.js middleware
 app.use(nuxt.render);
-// Listen the server
-app.listen(port, host, function () {
-	console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
-});
 
 
+
+if (module.parent) {
+  module.exports = app;
+} else {
+  // Listen the server
+  app.listen(port, host, function () {
+    console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
+  });
+}

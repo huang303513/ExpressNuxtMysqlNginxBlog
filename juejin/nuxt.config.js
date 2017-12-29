@@ -76,7 +76,7 @@ module.exports = {
 		link: [{
 			rel: 'icon',
 			type: 'image/x-icon',
-			href: '/favicon.ico'
+			href: '/img/favicon.ico'
 		}]
 	},
 	css: [{
@@ -113,10 +113,11 @@ module.exports = {
 	},
 	//配置路由
 	router: {
-		middleware: 'adminAuth'
+		// middleware: 'adminAuth'
 	},
 	//插件
-	plugins: [{
+	plugins: [
+		{
 		src: '~plugins/axios'
 	},
 	{

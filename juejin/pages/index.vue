@@ -1,58 +1,61 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        juejin
-      </h1>
-      <h2 class="subtitle">
-        Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+	<div class="bodyClass">
+		<Header></Header>
+		<div class="rootClass">
+			<post-cell :posts="posts"></post-cell>
+		</div>
+	</div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
-export default {
-  components: {
-    Logo
-  }
-}
+	var test = [{
+			_id: 42,
+			author: [Object],
+			title: "markdown测试第二",
+			content: '<p><a href="https://gold.xitu.io/post/587f8dbd570c3522011c0f59">你真的懂ajax吗？</a></br>\n<a href="http://www.jianshu.com/p/7337ac624b8e">Ajax-hook 原理解析(拦截和处理ajax请求和返回)</a></br>\n<a href="http://www.cnblogs.com/GerryOfZhong/p/6295211.html">ajax上传技术 大文件/超大文件前端切割上传，后端进行重组</a></br>\n<a href="https://github.com/huang303513/WebKeyPointExploration">https://github.com/huang303513/WebKeyPointExploration</a></br>\n<a href="http://www.cnblogs.com/wenanry/archive/2010/02/25/1673368.html">分析输入url到页面返回的过程</a></br></p>',
+			pv: 43,
+			created_at: "2017年11月9日 14:37:59",
+			commentsCount: 0,
+			authorId: "18"
+		},
+		{
+			_id: 43,
+			author: [Object],
+			title: "asdfasdfasdf",
+			content: '<p><img src="http://upload-images.jianshu.io/upload_images/680745-80edab1b32356857?imageMogr2/auto-orient/strip" alt="image"></p>\n',
+			pv: 27,
+			created_at: "2017年11月9日 14:54:36",
+			commentsCount: 1,
+			authorId: "20"
+		}
+	];
+	import Header from "~/components/Header.vue";
+	import PostCell from "~/components/PostCell.vue";
+	import axios from "axios";
+	export default {
+		components: {
+			Header,
+			PostCell
+		},
+		async asyncData() {
+			let resdata = [];
+			try {
+				let {
+					error,
+					data
+				} = await axios.get("/api/posts");
+				resdata = data;
+			} catch (error) {
+				console.log("=============出错了===============", error);
+			}
+			return {
+				posts: resdata
+			};
+		}
+	};
 </script>
 
-<style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+<style lang="less" scoped>
+	@import "~assets/less/posts.less";
 </style>
+
