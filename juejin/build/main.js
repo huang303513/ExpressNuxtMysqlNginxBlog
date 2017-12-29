@@ -642,7 +642,7 @@ var pkg = __webpack_require__(26);
 var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
 
 
-__WEBPACK_IMPORTED_MODULE_4_axios___default.a.defaults.withCredentials = true;
+process.env.DEBUG = 'nuxt:*';
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 var host = process.env.HOST || '127.0.0.1';
@@ -661,17 +661,16 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
-var uploadDir = "/usr/local/webserver/nginx/static/img";
-if (config.devEnv) {
-  uploadDir = path.join(__dirname, 'static/img');
-}
-
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({
 //   uploadDir: uploadDir,
 //   keepExtensions: true // 保留后缀
 // }));
+
+var uploadDir = "/usr/local/webserver/nginx/static/img";
+if (config.devEnv) {
+  uploadDir = path.join(__dirname, 'static/img');
+}
 
 // app.locals.blog = {
 //   title: pkg.name,

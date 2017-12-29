@@ -116,7 +116,8 @@ module.exports = {
 		// middleware: 'adminAuth'
 	},
 	//插件
-	plugins: [{
+	plugins: [
+		{
 		src: '~plugins/axios'
 	},
 	{

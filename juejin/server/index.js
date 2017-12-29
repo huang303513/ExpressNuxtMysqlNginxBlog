@@ -17,7 +17,7 @@ var pkg = require('../package');
 let config = getConfig(process.env.NODE_ENV);
 import axios from 'axios';
 
-axios.defaults.withCredentials=true
+process.env.DEBUG = 'nuxt:*'
 
 const app = express();
 const host = process.env.HOST || '127.0.0.1';
@@ -36,17 +36,16 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
-let uploadDir = "/usr/local/webserver/nginx/static/img";
-if (config.devEnv) {
-  uploadDir = path.join(__dirname, 'static/img');
-}
-
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({
 //   uploadDir: uploadDir,
 //   keepExtensions: true // 保留后缀
 // }));
+
+let uploadDir = "/usr/local/webserver/nginx/static/img";
+if (config.devEnv) {
+  uploadDir = path.join(__dirname, 'static/img');
+}
 
 // app.locals.blog = {
 //   title: pkg.name,
