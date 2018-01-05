@@ -1220,7 +1220,7 @@ function contentToHtml(posts) {
                                     title: item.title,
                                     authorId: item.authorId,
                                     created_at: item.created_at,
-                                    commentCount: item.commentCount
+                                    commentsCount: item.commentsCount
                                 };
                             });
                             _context3.next = 14;

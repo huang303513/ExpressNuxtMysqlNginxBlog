@@ -78,7 +78,7 @@ export default {
                     title:item.title,
                     authorId:item.authorId,
                     created_at:item.created_at,
-                    commentCount:item.commentCount
+                    commentsCount:item.commentsCount
                 }
             });
         } catch (e) {

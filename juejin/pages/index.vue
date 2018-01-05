@@ -1,8 +1,10 @@
 <template>
 	<div class="bodyClass">
 		<header-comp></header-comp>
-		<div class="rootClass">
-			<post-cell :posts="posts"></post-cell>
+		<div class="rootDiv">
+			<div class="rootClass">
+				<post-cell :posts="posts"></post-cell>
+			</div>
 		</div>
 	</div>
 </template>
@@ -23,7 +25,7 @@
 		},
 		async asyncData() {
 			let pageIndex = 0;
-				let pageSize = 3;
+			let pageSize = 3;
 			var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);
