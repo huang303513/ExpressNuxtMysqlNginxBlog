@@ -23,6 +23,10 @@ const app = express();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
 
+console.log("===========dirname",__dirname);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 // session 中间件
 app.use(session({
   key: config.session.key,

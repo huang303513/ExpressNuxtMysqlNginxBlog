@@ -11,10 +11,14 @@ console.log("=========response========", response.status);
 			data:response.data
 		});
 	}else{
-		return Promise.reject({
-			error:{message:"出错了"},
-			data:response
+		return Promise.resolve({
+			error:null,
+			data:response.data
 		});
+		// return Promise.reject({
+		// 	error:{message:"出错了"},
+		// 	data:response
+		// });
 	}
 });
 

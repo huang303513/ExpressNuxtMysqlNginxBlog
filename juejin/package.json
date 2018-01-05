@@ -32,6 +32,7 @@
     "express-mysql-session": "^1.2.3",
     "express-session": "^1.15.6",
     "express-winston": "^2.4.0",
+    "jade": "^1.11.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "marked": "^0.3.7",

@@ -2,19 +2,26 @@
 	<div>
 		<ul>
 			<li v-for="(post,index) in posts" :key="post._id">
-				<a class="li-title">{{post.title}}</a>
+				<div class="li-title">
+					<router-link :to="`posts/${post._id}`">{{ post.title }}</router-link>
+					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
+					<!-- <nuxt-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</nuxt-link> -->
+					<!-- <nuxt-link :to="{ name: '/users/', params: { id: index }}">
+						{{ user.name }}
+					</nuxt-link> -->
+				</div>
 				<p class="li-subtitle">
 					<span>{{"作者:"}}</span>
 					<span class="li-subtitle-author">
-										<strong>{{post.author.name}}</strong>
-										<div class="author-hover">
-											<img class="author-hover-img" :src="`img/${post.author.avatar}`"/>
-											<div class="author-hover-title">
-												<p class="author-hover-title-name">{{post.author.name}}</p>
-												<p class="author-hover-title-bio">{{post.author.bio}}</p>
+											<strong>{{post.author.name}}</strong>
+											<div class="author-hover">
+												<img class="author-hover-img" :src="`img/${post.author.avatar}`"/>
+												<div class="author-hover-title">
+													<p class="author-hover-title-name">{{post.author.name}}|{{post.author.gender=='m'?"男":"女"}}</p>
+													<p class="author-hover-title-bio">{{post.author.bio}}</p>
+												</div>
 											</div>
-										</div>
-						</span>
+							</span>
 					<span>{{" 创建日期:" + post.created_at + " 访问次数:" + post.pv + " 评论数:" + post.commentsCount}}</span>
 				</p>
 			</li>
@@ -43,11 +50,9 @@
 		padding: 1.2rem 1rem .5rem; // height: 0px;
 		box-shadow: 0 0 15px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, 0.15);
 	}
-	
 	li:hover {
 		background-color: @defaultBGColor;
 	}
-	
 	.li-title {
 		white-space: nowrap;
 		overflow: hidden;
@@ -57,11 +62,9 @@
 		color: #222222;
 		letter-spacing: 0;
 	}
-	
 	.li-title:hover {
 		text-decoration: underline;
 	}
-	
 	.li-subtitle {
 		position: relative;
 		margin-top: 1rem;
@@ -69,7 +72,6 @@
 		font-size: .7rem;
 		color: #999999;
 	}
-	
 	.li-subtitle-author {
 		&:hover {
 			font-size: .9rem;
