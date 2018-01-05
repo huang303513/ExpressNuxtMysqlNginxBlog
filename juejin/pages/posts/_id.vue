@@ -24,13 +24,13 @@
 		async asyncData({
 			params
 		}) {
-			console.log("params==================>", params);
+			// console.log("params==================>", params);
 			var url = "/api/posts/" + params.id;
-			console.log("url==========>", url);
+			// console.log("url==========>", url);
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);
 			});
-			console.log("post=========>", JSON.stringify(result.data));
+			// console.log("post=========>", JSON.stringify(result.data));
 			return {
 				post: result.data
 			};
@@ -41,4 +41,5 @@
 <style lang="less" scoped>
 	@import "~assets/less/post.less";
 </style>
+
 
