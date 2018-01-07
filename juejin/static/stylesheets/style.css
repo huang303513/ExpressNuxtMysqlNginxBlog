@@ -8,8 +8,9 @@ a {
 }
 
 .markdown-body {
-  margin-top: 100px;
-  background-color: white;
+  /* margin-top: 80px; */
+  /* position: relative; */
+  background-color: yellow;
     box-sizing: border-box;
     min-width: 200px;
     max-width: 1080px;

@@ -1,11 +1,12 @@
 <template>
-	<div class="bodyClass">
+	<div>
 		<!-- <header-comp></header-comp> -->
-		<div>
-			<div>asdfads</div>
+		<!-- <div> -->
+			<div class="test"></div>
 			<article v-html="post.content">
 			</article>
-		</div>
+			<div class="test"></div>
+		<!-- </div> -->
 	</div>
 </template>
 
@@ -39,7 +40,12 @@
 </script>
 
 <style lang="less" scoped>
-	@import "~assets/less/post.less";
+	// @import "~assets/less/post.less";
+	.test{
+		width: 100%;
+		height: 300px;
+		background-color: red;
+	}
 </style>
 
 

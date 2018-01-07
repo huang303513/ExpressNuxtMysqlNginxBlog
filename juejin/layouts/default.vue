@@ -1,5 +1,5 @@
 <template>
-  <div class="xx">
+  <div class="app">
     <header-comp></header-comp>
     <nuxt/>
     <footer-comp></footer-comp>
@@ -11,12 +11,14 @@ import Footer from "~/components/Footer.vue";
 export default {
   components: {
       "header-comp": Header,
-      "footer-comp": Footer,
+      "footer-comp": Footer
 		}
 }
 </script>
-
-
-<style>
-
+<style lang="less" scoped>
+.app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 </style>

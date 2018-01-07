@@ -25,6 +25,42 @@
 </script>
 
 <style lang="less" scoped>
-    @import '~assets/less/header.less';
+    @import '~assets/less/define.less';
+    .header {
+        background-color: white;
+        position: fixed;
+        z-index: 500;
+        top: 0px;
+        width: @defaultWidth;
+        height: @headerHeight;
+        margin-bottom: @headerHeight;
+        ;
+        line-height: @headerHeight;
+        .header-div {
+            justify-content: space-between;
+            display: flex;
+        }
+        .header-div-span {
+            align-items: center;
+            display: flex;
+        }
+        .header-img {
+            height: @headerHeight - 0.5;
+            width: @headerHeight - 1;
+            margin-left: 2rem;
+        }
+        .header-title {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            color: @defaultDarkColor;
+        }
+        button {
+            color: @defaultBlue;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            padding: 5px 0px;
+            cursor: pointer;
+        }
+    }
 </style>
 
