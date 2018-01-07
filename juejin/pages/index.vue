@@ -41,7 +41,7 @@
 <style lang="less" scoped>
 	.index {
 		position: relative;
-		background-color: brown;
+		// background-color: brown;
 	}
 </style>
 

@@ -12,15 +12,20 @@
         <div>
             <p>友情链接：</p>
             <div class="links">
-                <a target="_blank" href="http://www.huangchengdu.com">隔壁老黄的个人网站</a>
+                <a target="_blank" href="http://www.github.com/huang303513">隔壁老黄的github</a>
+                <a target="_blank" href="http://huang303513.github.io/">老博客地址</a>
+                <a target="_blank" href="https://github.com/huang303513/ExpressNuxtMysqlNginxBlog">网站源码地址</a>
             </div>
         </div>
     </footer>
 </template>white
 
-<style scoped>
+<style lang="less" scoped>
+    @import "~assets/less/define.less";
     footer {
         margin-top: 1rem;
+        padding-left: 20px;
+        margin-bottom: 1rem;
         background: white;
     }
     
@@ -38,6 +43,14 @@
     }
     
     a {
-        margin-right: 20px;
+        margin-left: 20px;
+        font-size: 1.2rem;
+        margin-left: 10px;
+        color: @defaultDarkColor;
+        &:hover{
+            font-size: 1.5rem;
+			color: #222222;
+			text-decoration: underline;
+        }
     }
 </style>
