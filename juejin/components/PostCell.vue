@@ -2,8 +2,9 @@
 	<div>
 		<ul>
 			<li v-for="(post,index) in posts" :key="post._id">
+				<router-link :to="`posts/${post._id}`">
 				<div class="li-title">
-					<router-link :to="`posts/${post._id}`">{{ post.title }}</router-link>
+					{{ post.title }}
 					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
 					<!-- <nuxt-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</nuxt-link> -->
 					<!-- <nuxt-link :to="{ name: '/users/', params: { id: index }}">
@@ -24,6 +25,7 @@
 							</span>
 					<span>{{" 创建日期:" + post.created_at + " 访问次数:" + post.pv + " 评论数:" + post.commentsCount}}</span>
 				</p>
+				</router-link>
 			</li>
 		</ul>
 	</div>

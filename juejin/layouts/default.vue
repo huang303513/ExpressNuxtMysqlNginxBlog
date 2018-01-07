@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="xx">
     <nuxt/>
   </div>
 </template>
@@ -14,6 +14,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+
+.xx{
+  	position: relative;
+	border: 1px solid red;
+    width: @defaultWidth;
+    // height: 100%;
+    // left: 0; top: 0; right: 0; bottom: 0;
+    margin: 100px auto 50px auto;
+	// background-color: @defaultBGColor;
+	background-color: red;
 }
 
 *, *:before, *:after {

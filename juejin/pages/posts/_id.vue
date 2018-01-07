@@ -1,7 +1,9 @@
 <template>
 	<div class="bodyClass">
-		<div class="rootDiv">
-			<article class="rootClass" v-html="post.content">
+		<header-comp></header-comp>
+		<div>
+			<div>asdfads</div>
+			<article v-html="post.content">
 			</article>
 		</div>
 	</div>
@@ -9,12 +11,10 @@
 
 <script>
 	import Header from "~/components/Header.vue";
-	import PostCell from "~/components/PostCell.vue";
 	import axios from "axios";
 	export default {
 		components: {
-			Header,
-			PostCell
+			"header-comp": Header,
 		},
 		// data() {
 		//   return {
