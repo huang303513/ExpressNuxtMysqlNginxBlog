@@ -1,6 +1,6 @@
 <template>
 	<div class="bodyClass">
-		<header-comp></header-comp>
+		<!-- <header-comp></header-comp> -->
 		<div class="rootDiv">
 			<div class="rootClass">
 				<post-cell :posts="posts"></post-cell>

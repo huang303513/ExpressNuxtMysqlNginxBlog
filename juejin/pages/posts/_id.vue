@@ -1,6 +1,6 @@
 <template>
 	<div class="bodyClass">
-		<header-comp></header-comp>
+		<!-- <header-comp></header-comp> -->
 		<div>
 			<div>asdfads</div>
 			<article v-html="post.content">
