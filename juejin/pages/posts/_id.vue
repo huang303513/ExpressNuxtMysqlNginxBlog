@@ -23,7 +23,7 @@
 			params
 		}) {
 			// console.log("params==================>", params);
-			var url = "https://127.0.0.1:3002/api/posts/" + params.id;
+			var url = "/api/posts/" + params.id;
 			// console.log("url==========>", url);
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);

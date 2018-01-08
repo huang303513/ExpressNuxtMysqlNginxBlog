@@ -397,6 +397,8 @@ function getConfig() {
 var proConfig = {
     devEnv: true,
     port: 3002,
+    apiPort: 3002,
+    apiHost: "http://127.0.0.1",
     sslModel: false
 };
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__default_js__["a" /* default */], proConfig);
@@ -1500,6 +1502,8 @@ var devConfig = {
 var proConfig = {
   devEnv: false,
   port: 3002, //如果package.json里面不一样，以这里为准
+  apiPort: 443,
+  apiHost: "https://www.huangchengdu.com",
   sslModel: false
 };
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__["a" /* default */], proConfig);

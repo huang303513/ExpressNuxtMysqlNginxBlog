@@ -1,25 +1,35 @@
 import * as axios from 'axios'
-import { getCookieInClient } from '../util/assist'
+import {
+    getCookieInClient
+} from '../util/assist'
+import getConfig from '../config';
+let config = getConfig(process.env.NODE_ENV);
+console.log("url=================>",config.apiHost + ":" + config.apiPort);
+axios.defaults.baseURL = config.apiHost + ":" + config.apiPort;
 
-// axios.defaults.baseURL = 'http://127.0.0.1:3002';
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(response => {
-console.log("=========response========", response.status);
-	if (response && response.status && (response.status == 200)) {
-		return Promise.resolve({
-			error:null,
-			data:response.data
-		});
-	}else{
-		// return Promise.resolve({
-		// 	error:null,
-		// 	data:response.data
-		// });
-		return Promise.reject({
-			error:{message:"出错了"},
-			data:response
-		});
-	}
+    //console.log("=========response========", response.status);
+    if (response && response.status && (response.status == 200)) {
+        return Promise.resolve({
+            error: null,
+            data: response.data
+        });
+    } else {
+        if (config.devEnv) {
+            return Promise.resolve({
+                error: null,
+                data: response.data
+            });
+        } else {
+            return Promise.reject({
+                error: {
+                    message: "出错了"
+                },
+                data: response
+            });
+        }
+    }
 });
 
 // export default ({ app, store, redirect }) => {
