@@ -8,14 +8,18 @@
 <script>
 import Header from "~/components/Header.vue";
 import Footer from "~/components/Footer.vue";
-import {baidutongji} from '../util/assist'
+import {baidutongji} from '../util/assist';
+import getConfig from '../config';
+let config = getConfig(process.env.NODE_ENV);
 export default {
   components: {
       "header-comp": Header,
       "footer-comp": Footer
     },
     mounted(){
-      baidutongji();
+      if (!config.devEnv) {
+          baidutongji();
+      }
     }
 }
 </script>
