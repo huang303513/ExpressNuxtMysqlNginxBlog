@@ -14,7 +14,7 @@
 		async asyncData() {
 			let pageIndex = 0;
 			let pageSize = 3;
-			var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+			var url = "http:127.0.0.1:3002/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);
 			});
@@ -28,7 +28,7 @@
 			async requestData() {
 				let pageIndex = 0;
 				let pageSize = 3;
-				var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+				var url = "http:127.0.0.1:3002/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});

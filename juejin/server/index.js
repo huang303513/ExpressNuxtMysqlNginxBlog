@@ -15,9 +15,10 @@ import getConfig from '../config';
 var path = require('path');
 var pkg = require('../package');
 let config = getConfig(process.env.NODE_ENV);
+var fs = require('fs');
 import axios from 'axios';
 
-process.env.DEBUG = 'nuxt:*'
+// process.env.DEBUG = 'nuxt:*'
 
 const app = express();
 const host = process.env.HOST || '127.0.0.1';
@@ -114,7 +115,7 @@ process.on('warning', (warning) => {
 
 
 let nuxt = new Nuxt(nuxtConfig);
-if (true) {
+if (config.devEnv) {
   const builder = new Builder(nuxt);
   builder.build();
 }

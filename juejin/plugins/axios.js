@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import { getCookieInClient } from '../util/assist'
 
-axios.defaults.baseURL = 'http://127.0.0.1:3002';
+// axios.defaults.baseURL = 'http://127.0.0.1:3002';
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(response => {
 console.log("=========response========", response.status);
@@ -11,14 +11,14 @@ console.log("=========response========", response.status);
 			data:response.data
 		});
 	}else{
-		return Promise.resolve({
-			error:null,
-			data:response.data
-		});
-		// return Promise.reject({
-		// 	error:{message:"出错了"},
-		// 	data:response
+		// return Promise.resolve({
+		// 	error:null,
+		// 	data:response.data
 		// });
+		return Promise.reject({
+			error:{message:"出错了"},
+			data:response
+		});
 	}
 });
 
