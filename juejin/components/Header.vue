@@ -32,6 +32,7 @@
         z-index: 500;
         top: 0px;
         width: 100%;
+        max-width: @defaultWidth;
         height: @headerHeight;
         margin-bottom: @headerHeight;
         ;
