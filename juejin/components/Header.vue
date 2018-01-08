@@ -31,7 +31,7 @@
         position: fixed;
         z-index: 500;
         top: 0px;
-        width: @defaultWidth;
+        width: 100%;
         height: @headerHeight;
         margin-bottom: @headerHeight;
         ;
@@ -47,17 +47,17 @@
         .header-img {
             height: @headerHeight - 0.5;
             width: @headerHeight - 1;
-            margin-left: 2rem;
+            margin-left: .7rem;
         }
         .header-title {
             font-size: 1.2rem;
-            margin-left: 10px;
+            margin-left: .7rem;
             color: @defaultDarkColor;
         }
         button {
             color: @defaultBlue;
             font-size: 1.2rem;
-            margin-right: 10px;
+            margin-right: .7rem;
             padding: 5px 0px;
             cursor: pointer;
         }

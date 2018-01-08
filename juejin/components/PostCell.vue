@@ -49,8 +49,8 @@
 		border-bottom: 1px solid @defaultBGColor;
 		background: #fff;
 		border-radius: 2px;
-		padding: 1.2rem 1rem .5rem; // height: 0px;
-		box-shadow: 0 0 15px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, 0.15);
+		padding: 1.2rem 1rem .5rem .7rem; // height: 0px;
+		box-shadow: 0 0 1rem rgba(50, 50, 93, .15), 0 5px 1rem rgba(0, 0, 0, 0.15);
 	}
 	li:hover {
 		background-color: @defaultBGColor;

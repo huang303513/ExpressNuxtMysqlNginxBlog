@@ -8,7 +8,7 @@
 <script>
 import Header from "~/components/Header.vue";
 import Footer from "~/components/Footer.vue";
-import {baidutongji} from '../util/assist';
+import {baidutongji,mobilePage} from '../util/assist';
 import getConfig from '../config';
 let config = getConfig(process.env.NODE_ENV);
 export default {
@@ -20,6 +20,7 @@ export default {
       if (!config.devEnv) {
           baidutongji();
       }
+      mobilePage();
     }
 }
 </script>

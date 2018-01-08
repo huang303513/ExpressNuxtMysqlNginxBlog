@@ -1523,6 +1523,7 @@ var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__[
 /* unused harmony export setCookieInClient */
 /* unused harmony export getCookieInClient */
 /* unused harmony export baidutongji */
+/* unused harmony export mobilePage */
 
 function formatDate(timestamp) {
   var date = new Date(timestamp);
@@ -1613,6 +1614,17 @@ function baidutongji() {
     s.parentNode.insertBefore(hm, s);
   })();
 }
+/**
+ * 适配移动端屏幕
+ */
+function mobilePage() {
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://www.huangchengdu.com/javascripts/screen.js";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+}
 
 /***/ }),
 /* 23 */
@@ -1656,20 +1668,21 @@ module.exports = {
 			charset: 'utf-8'
 		}, {
 			name: 'viewport',
-			content: 'width=device-width, initial-scale=1'
+			content: 'width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui'
 		}, {
 			hid: 'description',
 			name: 'description',
 			content: '黄成都的技术博客'
 		},
-		/*优先使用 IE 最新版本和 Chrome  */
-		{
-			name: 'renderer',
-			content: 'webkit'
-		}, {
-			'http-equiv': 'X-UA-Compatible',
-			content: 'IE=edge'
-		},
+		// /*优先使用 IE 最新版本和 Chrome  */
+		// {
+		// 	name: 'renderer',
+		// 	content: 'webkit'
+		// },
+		// {
+		// 	'http-equiv': 'X-UA-Compatible',
+		// 	content: 'IE=edge'
+		// },
 		/* iOS 设备 */
 		{
 			name: 'author',
@@ -1697,17 +1710,6 @@ module.exports = {
 		}, {
 			name: 'x5-fullscreen',
 			content: 'true'
-		}, {
-			name: 'browsermode',
-			content: 'application'
-		}, {
-			name: 'x5-page-mode',
-			content: 'app'
-		},
-		/*webkit*/
-		{
-			name: 'theme-color',
-			content: '#263238'
 		}],
 		link: [{
 			rel: 'icon',

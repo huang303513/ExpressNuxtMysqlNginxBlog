@@ -24,13 +24,13 @@
     @import "~assets/less/define.less";
     footer {
         margin-top: 1rem;
-        padding-left: 20px;
+        padding-left: .7rem;
         margin-bottom: 1rem;
         background: white;
     }
     
     div {
-        padding-bottom: 20px;
+        padding-bottom: 1rem;
     }
     
     footer div:last-child {
@@ -38,14 +38,13 @@
     }
     
     p {
-        font-size: 16px;
-        padding-bottom: 10px;
+        font-size: 1rem;
+        padding-bottom: .7rem;
     }
     
     a {
-        margin-left: 20px;
-        font-size: 1.2rem;
-        margin-left: 10px;
+        margin-left: 1.5rem;
+        font-size: 1rem;
         color: @defaultDarkColor;
         &:hover{
             font-size: 1.5rem;

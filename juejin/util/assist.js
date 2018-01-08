@@ -88,4 +88,17 @@ export function baidutongji() {
     var s = document.getElementsByTagName("script")[0]; 
     s.parentNode.insertBefore(hm, s);
   })();
+
+
+}
+/**
+ * 适配移动端屏幕
+ */
+export function mobilePage() {
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://www.huangchengdu.com/javascripts/screen.js";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
 }

@@ -9,22 +9,22 @@ module.exports = {
 		},
 		{
 			name: 'viewport',
-			content: 'width=device-width, initial-scale=1'
+			content: 'width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui'
 		},
 		  {
 		    hid: 'description',
 		    name: 'description',
 		    content: '黄成都的技术博客'
 		  },
-		/*优先使用 IE 最新版本和 Chrome  */
-		{
-			name: 'renderer',
-			content: 'webkit'
-		},
-		{
-			'http-equiv': 'X-UA-Compatible',
-			content: 'IE=edge'
-		},
+		// /*优先使用 IE 最新版本和 Chrome  */
+		// {
+		// 	name: 'renderer',
+		// 	content: 'webkit'
+		// },
+		// {
+		// 	'http-equiv': 'X-UA-Compatible',
+		// 	content: 'IE=edge'
+		// },
 		/* iOS 设备 */
 		{
 			name: 'author',
@@ -59,19 +59,19 @@ module.exports = {
 			name: 'x5-fullscreen',
 			content: 'true'
 		},
-		{
-			name: 'browsermode',
-			content: 'application'
-		},
-		{
-			name: 'x5-page-mode',
-			content: 'app'
-		},
-		/*webkit*/
-		{
-			name: 'theme-color',
-			content: '#263238'
-		}
+		// {
+		// 	name: 'browsermode',
+		// 	content: 'application'
+		// },
+		// {
+		// 	name: 'x5-page-mode',
+		// 	content: 'app'
+		// },
+		// /*webkit*/
+		// {
+		// 	name: 'theme-color',
+		// 	content: '#263238'
+		// }
 		],
 		link: [{
 			rel: 'icon',
