@@ -10,7 +10,7 @@
             if (clientWidth > 500) {
                 clientWidth = 500;
             }
-            var fontSize = 10 * (clientWidth / 375);
+            var fontSize = 8 * (clientWidth / 375);
             docEl.style.fontSize = fontSize + 'px';
 
             var dpi = window.devicePixelRatio;
