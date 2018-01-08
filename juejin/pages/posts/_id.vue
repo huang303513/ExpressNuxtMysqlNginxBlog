@@ -56,20 +56,20 @@
 		}
 	}
 	.author-hover {
-		padding-left: 20px;
+		padding-left: .7rem;
 		padding-top: 5px;
 		flex-direction: row;
 		.author-hover-img {
 			position: absolute;
-			width: 45px;
-			height: 45px;
-			border-radius: 22.5px;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 1.5rem;
 		}
 		.author-hover-title {
 			position: relative;
 			flex-direction: column;
 			overflow: hidden;
-			margin-left: 60px;
+			margin-left: 4rem;
 			.author-hover-title-name {
 				font-family: PingFangSC-Semibold;
 				font-size: 1rem;
