@@ -1522,9 +1522,7 @@ var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__[
 /* unused harmony export getCookiesInServer */
 /* unused harmony export setCookieInClient */
 /* unused harmony export getCookieInClient */
-/* unused harmony export seo */
-/* unused harmony export isLogin */
-/* unused harmony export setToken */
+/* unused harmony export baidutongji */
 
 function formatDate(timestamp) {
   var date = new Date(timestamp);
@@ -1604,29 +1602,16 @@ function getCookieInClient(name) {
 }
 
 /**
- * 加载八度统计的脚本
+ * 百度统计脚本
  */
-function seo() {
-  var bp = document.createElement('script');
-  var curProtocol = window.location.protocol.split(':')[0];
-  if (curProtocol === 'https') {
-    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-  } else {
-    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-  }
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(bp, s);
-}
-
-function isLogin() {
-  if (getCookieInClient('token')) {
-    return true;
-  }
-  return false;
-}
-
-function setToken(tokenValue) {
-  setCookieInClient('token', tokenValue, 60 * 24 * 7);
+function baidutongji() {
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?96b0d09e8d132a6e61f66ea86b479b70";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
 }
 
 /***/ }),

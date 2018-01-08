@@ -78,27 +78,14 @@ export function getCookieInClient(name) {
 }
 
 /**
- * 加载八度统计的脚本
+ * 百度统计脚本
  */
-export function seo() {
-  let bp = document.createElement('script');
-  let curProtocol = window.location.protocol.split(':')[0];
-  if (curProtocol === 'https') {
-    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-  } else {
-    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-  }
-  let s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(bp, s);
-}
-
-export function isLogin() {
-  if (getCookieInClient('token')) {
-    return true
-  }
-  return false
-}
-
-export function setToken(tokenValue) {
-  setCookieInClient('token', tokenValue, 60 * 24 * 7)
+export function baidutongji() {
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?96b0d09e8d132a6e61f66ea86b479b70";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
 }
