@@ -62,6 +62,12 @@
 				comments: (result.data && result.data.comments) || []
 			};
 		},
+		mounted(){
+
+		},
+		activated(){
+			alert("heh");
+		},
 		methods: {
 			trimSpacesAndUppercase(event, dev) {
 				//console.log("===============>",event.target.clientHeight,"   ",event.target.scrollHeight);
@@ -69,7 +75,9 @@
 				// this.$refs.commentDiv.style.height = event.target.scrollHeight;
 			},
 			submitComment(){
-				alert("提交评论");
+				//alert("提交评论");
+				//window.history.back();
+				location.href = "/posts";
 			}
 		}
 	};

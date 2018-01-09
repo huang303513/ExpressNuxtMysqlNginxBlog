@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<ul>
-			<li v-for="(post,index) in posts" :key="post._id">
-				<nuxt-link :to="`/posts/${post._id}`">
+			<li @click="gotoDetail(post)" v-for="(post,index) in posts" :key="post._id">
+				<!-- <nuxt-link :to="`/posts/${post._id}`"> -->
 				<div class="li-title">
 					{{ post.title }}
 					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
@@ -25,7 +25,7 @@
 							</span>
 					<span>{{" 创建日期:" + post.created_at + " 访问次数:" + post.pv + " 评论数:" + post.commentsCount}}</span>
 				</p>
-				</nuxt-link>
+				<!-- </nuxt-link> -->
 			</li>
 		</ul>
 	</div>
@@ -39,7 +39,11 @@
 				required: true
 			}
 		},
-		methods: {}
+		methods: {
+			gotoDetail(post){
+				window.location.href = "/posts/"  + post._id;
+			}
+		}
 	}
 </script>
 

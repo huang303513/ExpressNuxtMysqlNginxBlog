@@ -9,6 +9,7 @@ let express = require('express');
 let router = express.Router();
 // let PostModel = require('../models/posts');
 import PostModel from '../models/posts';
+var xss = require('xss');
 import {
 	postToSQLUpdate
 } from '../../util/assist';
@@ -83,8 +84,13 @@ router.get('/:postId', function (req, res, next) {
 		let post = result[0];
 		let comments = result[1];
 		//console.log("comments============",comments);
+		// post.content = xss(post.content);
+		post.content = post.content.replace("<script>","script");
+		post.content = post.content.replace("<iframe>","iframe");
 		res.render('index', {mdContent: post.content},function(err,result) {
+
 			// console.log("result====",result);
+			// post.content = xss(result);
 			post.content = result;
 			res.json({post,comments});
 			// console.log("===========result=============",result,err);

@@ -8,6 +8,9 @@ export function startRouter(app) {
         // app.get('/api', (req, res) => {
         //     res.json({ message: '欢迎使用黄成都的API服务！' });
         // })
+        app.get('/', function(req, res) {
+            res.redirect('/posts');
+        });
     
         // app.use('/api/user', require('./user'))
     

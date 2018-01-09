@@ -20,7 +20,10 @@ export default {
       if (!config.devEnv) {
           baidutongji();
       }
-      mobilePage();
+      // setTimeout(function () {
+        // mobilePage();
+      // },1000)
+      
     }
 }
 </script>

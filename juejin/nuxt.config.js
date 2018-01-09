@@ -3,6 +3,10 @@ module.exports = {
 	 ** Headers of the page
 	 */
 	head: {
+		cache: {
+			max: 100,
+			maxAge: 600000
+		},
 		title: '黄成都的技术博客',
 		meta: [{
 			charset: 'utf-8'
