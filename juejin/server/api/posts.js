@@ -12,14 +12,15 @@ import PostModel from '../models/posts';
 import {
 	postToSQLUpdate
 } from '../../util/assist';
-let CommentModel = require('../models/comments');
+// let CommentModel = require('../models/comments');
+import CommentModel from '../models/comments';
 let checkLogin = require('../middlewares/check').checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
 	let authorId = req.query && req.query.author;
-	console.log("queyr=========", req.query);
+	//console.log("queyr=========", req.query);
 	// return PostModel.getPosts(authorId);
 	//Promise.resolve("23423");
 	PostModel.getPosts(authorId).then(posts => {
@@ -74,15 +75,16 @@ router.get('/:postId', function (req, res, next) {
 	let postId = req.params.postId;
 	Promise.all([
 		PostModel.getPostById(postId), //获取文章
-		// CommentModel.getComments(postId), //获取评论
-		// PostModel.incPv(postId) //添加访问次数
+		CommentModel.getComments(postId), //获取评论
+		PostModel.incPv(postId) //添加访问次数
 	]).then(result => {
 		let post = result[0];
-		// console.log("post============",post);
+		let comments = result[1];
+		console.log("comments============",comments);
 		res.render('index', {mdContent: post.content},function(err,result) {
 			// console.log("result====",result);
 			post.content = result;
-			res.json(post);
+			res.json({post,comments});
 			// console.log("===========result=============",result,err);
 		});
 		// res.json(post);

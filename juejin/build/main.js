@@ -862,6 +862,7 @@ function startRouter(app) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_posts__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assist__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_comments__ = __webpack_require__(3);
 /*
  * @Author: huangchengdu
  * @Date:   2017-01-13 21:41:07
@@ -874,14 +875,15 @@ var router = express.Router();
 // let PostModel = require('../models/posts');
 
 
-var CommentModel = __webpack_require__(3);
+// let CommentModel = require('../models/comments');
+
 var checkLogin = __webpack_require__(23).checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
 	var authorId = req.query && req.query.author;
-	console.log("queyr=========", req.query);
+	//console.log("queyr=========", req.query);
 	// return PostModel.getPosts(authorId);
 	//Promise.resolve("23423");
 	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId).then(function (posts) {
@@ -933,16 +935,17 @@ router.post('/', checkLogin, function (req, res, next) {
 // GET /posts/:postId 单独一篇的文章页
 router.get('/:postId', function (req, res, next) {
 	var postId = req.params.postId;
-	Promise.all([__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPostById(postId)] //获取文章
-	// CommentModel.getComments(postId), //获取评论
-	// PostModel.incPv(postId) //添加访问次数
-	).then(function (result) {
+	Promise.all([__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPostById(postId), //获取文章
+	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId), //获取评论
+	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].incPv(postId) //添加访问次数
+	]).then(function (result) {
 		var post = result[0];
-		// console.log("post============",post);
+		var comments = result[1];
+		console.log("comments============", comments);
 		res.render('index', { mdContent: post.content }, function (err, result) {
 			// console.log("result====",result);
 			post.content = result;
-			res.json(post);
+			res.json({ post: post, comments: comments });
 			// console.log("===========result=============",result,err);
 		});
 		// res.json(post);
@@ -1016,7 +1019,7 @@ router.post('/:postId/comment', checkLogin, function (req, res, next) {
 		postId: postId, //文章id
 		content: content
 	};
-	CommentModel.create(comment).then(function (result) {
+	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].create(comment).then(function (result) {
 		req.flash('success', '留言成功');
 		// 留言成功后跳转到上一页
 		res.redirect('back');
@@ -1027,7 +1030,7 @@ router.post('/:postId/comment', checkLogin, function (req, res, next) {
 router.get('/:postId/comment/:commentId/remove', checkLogin, function (req, res, next) {
 	var commentId = req.params.commentId;
 	var postId = req.params.postId;
-	CommentModel.delCommentById(commentId, postId).then(function (result) {
+	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].delCommentById(commentId, postId).then(function (result) {
 		req.flash('success', '删除留言成功');
 		// 删除成功后跳转到上一页
 		res.redirect('back');
