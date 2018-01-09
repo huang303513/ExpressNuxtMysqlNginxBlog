@@ -6,9 +6,12 @@ import getConfig from '../config';
 let config = getConfig(process.env.NODE_ENV);
 console.log("url=================>",config.apiHost + ":" + config.apiPort);
 axios.defaults.baseURL = config.apiHost + ":" + config.apiPort;
+// axios.defaults.headers.common['if-None-Match'] = null;
 
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(response => {
+    // console.log("===========headers========",response.headers);
+    // delete response.headers.etag;
     //console.log("=========response========", response.status);
     if (response && response.status && (response.status == 200)) {
         return Promise.resolve({

@@ -24,15 +24,25 @@
 				pageSize: pageSize
 			};
 		},
+		data(){
+			return{
+				posts:[],
+				pageIndex:0,
+				pageSize:3
+			}
+		},
+		mounted(){
+			//this.requestData();
+		},
 		methods: {
 			async requestData() {
 				let pageIndex = 0;
 				let pageSize = 3;
-				var url = "http:127.0.0.1:3002/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+				var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});
-				return result;
+				this.posts = result && result.data || [];
 			}
 		}
 	};

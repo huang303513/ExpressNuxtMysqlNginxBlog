@@ -28,6 +28,8 @@ router.get('/', function (req, res, next) {
 		//     posts: posts
 		// });
 		//console.log("============posts====================",posts);
+		// res.header('ETag', null);
+		// delete res.header.ETag;
 		res.json(posts);
 		//return Promise.resolve(posts);
 	}).catch(error => {

@@ -396,8 +396,8 @@ function getConfig() {
 
 var proConfig = {
     devEnv: true,
-    port: 3002,
-    apiPort: 3002,
+    port: 5389,
+    apiPort: 5389,
     apiHost: "http://127.0.0.1",
     sslModel: false
 };
@@ -651,7 +651,7 @@ var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || config.port;
 
-console.log("===========dirname", __dirname);
+// console.log("===========dirname",__dirname);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -891,6 +891,8 @@ router.get('/', function (req, res, next) {
 		//     posts: posts
 		// });
 		//console.log("============posts====================",posts);
+		// res.header('ETag', null);
+		// delete res.header.ETag;
 		res.json(posts);
 		//return Promise.resolve(posts);
 	}).catch(function (error) {
@@ -1504,7 +1506,7 @@ var devConfig = {
 
 var proConfig = {
   devEnv: false,
-  port: 3002, //如果package.json里面不一样，以这里为准
+  port: 5389, //如果package.json里面不一样，以这里为准
   apiPort: 443,
   apiHost: "https://www.huangchengdu.com",
   sslModel: false

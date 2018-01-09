@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <header class="header">
         <div class="header-div">
             <div class="header-div-span">
                 <img class="header-img" src="/img/headIcon.png">
@@ -11,7 +11,7 @@
                 <button type="button">注册</button>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 
 <script>
