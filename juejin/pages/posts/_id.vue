@@ -15,9 +15,16 @@
 		<article v-html="post.content"></article>
 		<div class="comments">
 			<p class="comments-pl">评论</p>
+			<!-- <div class="comment-box">
+									<textarea></textarea>
+									<button>评论</button>
+								</div> -->
 			<div class="comment-box">
-				<textarea></textarea>
-				<button>评论</button>
+				<div class="textarea-wrapper">
+					<div class="content-editable" ref="commentDiv" contenteditable="true">{{deliveryLocation}}</div>
+					<textarea v-model="deliveryLocation" @change="trimSpacesAndUppercase($event, deliveryLocation)" class="field-textarea" placeholder="请输入您的评论，按回车换行"></textarea>
+				</div>
+				<button @click="submitComment" class="submitButton">评论</button>
 			</div>
 			<ul>
 				<li v-for="(comment,index) in comments">
@@ -35,6 +42,11 @@
 <script>
 	import axios from "axios";
 	export default {
+		data() {
+			return {
+				deliveryLocation: null
+			}
+		},
 		async asyncData({
 			params
 		}) {
@@ -49,6 +61,16 @@
 				post: result.data && result.data.post,
 				comments: (result.data && result.data.comments) || []
 			};
+		},
+		methods: {
+			trimSpacesAndUppercase(event, dev) {
+				//console.log("===============>",event.target.clientHeight,"   ",event.target.scrollHeight);
+				// event.target.clientHeight = event.target.scrollHeight;
+				// this.$refs.commentDiv.style.height = event.target.scrollHeight;
+			},
+			submitComment(){
+				alert("提交评论");
+			}
 		}
 	};
 </script>
@@ -110,33 +132,7 @@
 			font-size: 1.5rem;
 			text-align: center;
 			color: @darkTextColor;
-		}
-		.comment-box {
-			margin: .5rem 4.7rem .5rem .7rem; // min-height: 7rem;
-			background-color: #f6f7f9;
-			textarea {
-				margin: .7rem 2rem;
-				padding: .5px;
-				resize: none;
-				outline: none;
-				display: block;
-				box-shadow: none;
-				border: 1px solid #ddd;
-				border-radius: 2px;
-				transition: border .3s;
-				background-color: #fff;
-				box-sizing: border-box;
-			}
-			button {
-				display: -webkit-box;
-				display: -ms-flexbox;
-				display: flex;
-				-webkit-box-pack: end;
-				-ms-flex-pack: end;
-				justify-content: flex-end;
-				margin-top: 1rem
-			}
-		}
+		} 
 		ul {
 			li {
 				list-style: none;
@@ -166,6 +162,71 @@
 					}
 				}
 			}
+		}
+	}
+	.comment-box {
+		position: relative;
+		padding: .5rem 4.7rem 4rem .7rem; // min-height: 7rem;
+		// min-height: 7rem;
+		background-color: #f6f7f9;
+		.textarea-wrapper {
+			position: relative;
+			display: block; // width: 100%;
+			min-height: 4rem; // background-color: green;
+			padding: .1rem 0;
+			margin: 0 7.7rem 0 .7rem; // min-height: 7rem;
+			background-color: white;
+			.content-editable {
+				position: relative;
+				z-index: -1;
+				opacity: 0;
+				display: block;
+				width: 100%;
+				line-height: normal;
+				font-size: .5rem;
+				color: @darkTextColor;
+				white-space: pre;
+			}
+			.field-textarea {
+				position: absolute;
+				// background-color: red;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				padding: .1rem 0;
+				line-height: normal;
+				font-size: .5rem;
+				// color: #464545;
+				color: black;
+				text-align: left;
+				resize: none;
+				overflow: hidden;
+				background-color: transparent;
+				&::-webkit-input-placeholder {
+					text-align: left;
+					font-size: .5rem;
+					color: @darkTextColor;
+				}
+			}
+		}
+		.submitButton {
+			position: absolute;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: end;
+			-ms-flex-pack: end;
+			justify-content: flex-end;
+			color: white;
+			background-color: #0b65fe;
+			font-size: 1.3rem;
+			border: 1px solid white;
+			border-radius: 3px;
+			padding: .3rem .7rem;
+			bottom: .8rem;
+			right: 15rem;
 		}
 	}
 </style>

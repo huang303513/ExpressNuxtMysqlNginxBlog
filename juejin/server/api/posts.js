@@ -80,7 +80,7 @@ router.get('/:postId', function (req, res, next) {
 	]).then(result => {
 		let post = result[0];
 		let comments = result[1];
-		console.log("comments============",comments);
+		//console.log("comments============",comments);
 		res.render('index', {mdContent: post.content},function(err,result) {
 			// console.log("result====",result);
 			post.content = result;

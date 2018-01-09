@@ -941,7 +941,7 @@ router.get('/:postId', function (req, res, next) {
 	]).then(function (result) {
 		var post = result[0];
 		var comments = result[1];
-		console.log("comments============", comments);
+		//console.log("comments============",comments);
 		res.render('index', { mdContent: post.content }, function (err, result) {
 			// console.log("result====",result);
 			post.content = result;
