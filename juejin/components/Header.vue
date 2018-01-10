@@ -39,18 +39,18 @@ export default {
   methods: {
     async clickLoginBoxBG() {
       this.loginBoxState = "hiddenLoginBox";
-      // var url = "/api/login";
-      // var params = new URLSearchParams();
-      //   params.append('name', 'hello jdmc你好');
-      //   params.append('id', '2');
-      // let result = await axios({
-      //   method: "post",
-      //   url: url,
-      //   data: params
-      // }).catch(error => {
-      //   console.log("===============error==========", error);
-      // });
-      // console.log(JSON.stringify(result.data));
+      var url = "/api/login";
+      var params = new URLSearchParams();
+        params.append('name', '黄成都');
+        params.append('password', 'huang303513');
+      let result = await axios({
+        method: "post",
+        url: url,
+        data: params
+      }).catch(error => {
+        console.log("===============error==========", error);
+      });
+      console.log(JSON.stringify(result.data));
     },
     writeBlog() {},
     goLogin() {

@@ -17,12 +17,12 @@ let checkNotLogin = require('../middlewares/check').checkNotLogin;
 // });
 // POST /signin 用户登录
 router.post('/', function(req, res, next) {
-    console.log("======到了======",req.body);
+    // console.log("======到了======",req.body);
     let name = req.body.name;
     let password = req.body.password;
-    console.log("========用户名和密码====",name,password);
+    // console.log("========用户名和密码====",name,password);
     UserModel.getUserByName(name).then(user => {
-        console.log("========用户====",JSON.stringify(user));
+        // console.log("========用户====",JSON.stringify(user));
         // if (!user) {
         //     req.flash('error', '用户不存在');
         //     return res.redirect('back');
@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
         // req.session.user = user;
         // // 跳转到主页
         // res.redirect('/posts');
-        res.send(JSON.stringify(user));
+        res.json(user);
     }).catch(next);
 });
 
