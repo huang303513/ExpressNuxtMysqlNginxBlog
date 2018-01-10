@@ -4,7 +4,7 @@
 			<li @click="gotoDetail(post)" v-for="(post,index) in posts" :key="post._id">
 				<!-- <nuxt-link :to="`/posts/${post._id}`"> -->
 				<div class="li-title">
-					{{ post.title }}
+					<a :href="`/posts/${post._id}`">{{ post.title }}</a>
 					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
 					<!-- <nuxt-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</nuxt-link> -->
 					<!-- <nuxt-link :to="{ name: '/users/', params: { id: index }}">
@@ -41,7 +41,7 @@
 		},
 		methods: {
 			gotoDetail(post){
-				window.location.href = "/posts/"  + post._id;
+				// window.location.href = "/posts/"  + post._id;
 			}
 		}
 	}

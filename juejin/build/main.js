@@ -938,6 +938,14 @@ router.post('/', checkLogin, function (req, res, next) {
 	}).catch(next);
 });
 
+var excludeSpecial = function excludeSpecial(s) {
+	// 去掉转义字符  
+	s = s.replace(/[\'\"\\\/\b\f\n\r\t]/g, '');
+	// 去掉特殊字符  
+	s = s.replace(/[\@\#\$\%\^\&\*\{\}\:\"\L\<\>\?]/);
+	return s;
+};
+
 // GET /posts/:postId 单独一篇的文章页
 router.get('/:postId', function (req, res, next) {
 	var postId = req.params.postId;
@@ -951,6 +959,8 @@ router.get('/:postId', function (req, res, next) {
 		// post.content = xss(post.content);
 		post.content = post.content.replace("<script>", "script");
 		post.content = post.content.replace("<iframe>", "iframe");
+		// // post.content = post.content.replace("$-_.+!*'()","'$-_.+!*'()'");
+		// post.content = excludeSpecial(post.content);
 		res.render('index', { mdContent: post.content }, function (err, result) {
 
 			// console.log("result====",result);
