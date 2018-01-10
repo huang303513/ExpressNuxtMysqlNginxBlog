@@ -8,7 +8,7 @@
 let mysqlQuery = require('../lib/sql').mysqlQuery;
 let formatDate = require('../lib/util.date').formatDate;
 
-module.exports = {
+export default {
     // 注册一个用户
     async create(param) {
         let addSql = 'INSERT INTO users(name,password,gender,bio,avatar,created_at) VALUES(?,?,?,?,?,?)';

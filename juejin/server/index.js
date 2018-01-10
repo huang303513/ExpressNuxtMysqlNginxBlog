@@ -17,10 +17,18 @@ var pkg = require('../package');
 let config = getConfig(process.env.NODE_ENV);
 var fs = require('fs');
 import axios from 'axios';
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 // process.env.DEBUG = 'nuxt:*'
 
-const app = express();
+
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
 

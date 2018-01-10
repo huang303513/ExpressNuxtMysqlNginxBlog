@@ -1,4 +1,5 @@
 import PostModule from './posts.js';
+import SigninModule from './signin.js';
 
 export function startRouter(app) {
     
@@ -24,8 +25,16 @@ export function startRouter(app) {
         //     res.redirect('/posts');
         // });
         // app.use('/signup', require('./signup'));
-        // app.use('/signin', require('./signin'));
-        // app.use('/signout', require('./signout'));
+        // app.use('/api/login', function(req,res) {
+        //     console.log("======到了======",req.fields,req.params,req.body,req.query,req.cookies,req.headers);
+        //     console.log("======到了======",res.fields,res.params,res.body);
+        //     console.log("==================");
+        //     let name = req.params.name;
+        //     let password = req.params.password;
+        //     console.log("========用户名和密码====",name,password);
+        //     res.send({name:"hehe"});
+        // });
+        app.use('/api/login', SigninModule);
         app.use('/api/posts', PostModule);
 
         // 404 page

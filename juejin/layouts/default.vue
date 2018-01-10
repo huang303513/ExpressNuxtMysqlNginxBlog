@@ -21,7 +21,7 @@ export default {
           baidutongji();
       }
       // setTimeout(function () {
-        // mobilePage();
+      mobilePage();
       // },1000)
       
     }
