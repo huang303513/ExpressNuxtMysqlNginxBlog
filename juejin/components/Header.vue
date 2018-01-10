@@ -3,12 +3,13 @@
 		<div class="header-div">
 			<div class="header-div-span">
 				<img class="header-img" :src="imgsrc">
-				<p class="header-title">{{desc}}{{testname}}{{mixinName}}</p>
+				<p class="header-title">{{desc}}</p>
 			</div>
 			<div class="header-div-span">
 				<button @click="writeBlog" type="button">写文章</button>
 				<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
 				<button v-if="!hasLogined" @click="regist" type="button">注册</button>
+				<button v-if="hasLogined" @click="loginOut" type="button">退出</button>
 			</div>
 		</div>
 		<div :class="['login-Box',loginBoxState]" @click="clickLoginBoxBG">
@@ -27,7 +28,7 @@
 
 <script>
 	import axios from "axios";
-	import mixin from "~/util/mixin.js"; 
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		data() {
 			return {
@@ -39,19 +40,52 @@
 				password: null
 			};
 		},
-		props:{
-			testname:{
-				default:null
+		// async asyncData() {
+		// 	let imgsrc = "/img/headIcon.png";
+		// 	let	desc = "亲爱的，欢迎光临";
+		// 	let	hasLogined = false;
+		// 	let user = userLoginUtil.getLoginedUser();
+		// 	if (user) {
+		// 		imgsrc = "/img/" + user.avatar;
+		// 		desc = user.bio;
+		// 		// this.loginBoxState = "hiddenLoginBox";
+		// 		hasLogined = true;
+		// 	}else{
+		// 		hasLogined = false;
+		// 	}
+		// 	return {
+		// 		imgsrc:imgsrc,
+		// 		desc:desc,
+		// 		hasLogined:hasLogined
+		// 	};
+		// },
+		mounted() {
+			this.asyncLoginIofo();
+		},
+		props: {
+			testname: {
+				default: null
 			}
 		},
-		mixins:[mixin],
 		methods: {
 			clickLoginBoxBG() {
 				this.loginBoxState = "hiddenLoginBox";
 			},
+			asyncLoginIofo() {
+				let user = userLoginUtil.getLoginedUser();
+				if (user) {
+					this.imgsrc = "/img/" + user.avatar;
+					this.desc = user.bio;
+					// this.loginBoxState = "hiddenLoginBox";
+					this.hasLogined = true;
+				} else {
+					this.imgsrc = "/img/headIcon.png";
+					this.desc = "亲爱的，欢迎光临";
+					this.hasLogined = false;
+				}
+			},
 			writeBlog() {
 				if (this.hasLogined) {
-	
 				} else {
 					this.loginBoxState = "showLoginBox";
 				}
@@ -80,22 +114,27 @@
 					this.desc = user.bio;
 					this.loginBoxState = "hiddenLoginBox";
 					this.hasLogined = true;
+					userLoginUtil.setLoginedUser(user);
 					// this.$notify({
 					// 	group: 'foo',
 					// 	title: 'Important message',
 					// 	text: 'Hello user! This is a notification!'
 					// });
 				} else {
-	
 				}
 				console.log(JSON.stringify(user));
 			},
 			regist() {
-				console.log(this.$root);
-				this.testname = "详情页"
+				// console.log(this.$root);
+				// this.testname = "详情页";
+				userLoginUtil.checkLogined();
 				//this.$root.$loading.show = true;;
 				//alert("dd" + this.$root.testname);
 				// alert(this.$root.testname);
+			},
+			loginOut() {
+				userLoginUtil.setLogout();
+				this.asyncLoginIofo();
 			}
 		}
 	};
@@ -139,15 +178,12 @@
 			cursor: pointer;
 		}
 	}
-	
 	.showLoginBox {
 		display: block;
 	}
-	
 	.hiddenLoginBox {
 		display: none;
 	}
-	
 	.login-Box {
 		position: fixed;
 		top: 0px;
