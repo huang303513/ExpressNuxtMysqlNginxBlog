@@ -63,10 +63,11 @@
 			};
 		},
 		mounted(){
-
-		},
+			//this.$root.testname = "cheng";
+			//alert(this.$root.testname);
+		}, 
 		activated(){
-			alert("heh");
+			//alert("heh");
 		},
 		methods: {
 			trimSpacesAndUppercase(event, dev) {

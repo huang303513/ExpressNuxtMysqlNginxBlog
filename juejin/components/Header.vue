@@ -3,7 +3,7 @@
 		<div class="header-div">
 			<div class="header-div-span">
 				<img class="header-img" :src="imgsrc">
-				<p class="header-title">{{desc}}</p>
+				<p class="header-title">{{desc}}{{testname}}{{mixinName}}</p>
 			</div>
 			<div class="header-div-span">
 				<button @click="writeBlog" type="button">写文章</button>
@@ -12,39 +12,47 @@
 			</div>
 		</div>
 		<div :class="['login-Box',loginBoxState]" @click="clickLoginBoxBG">
-			<div class="box"  @click.stop="">
+			<div class="box" @click.stop="">
 				<div class="loginForm">
 					用户名:
 					<input type="text" v-model="name"> 密码:
 					<input type="text" v-model="password">
-					<input  @click.stop="doLogin" type="button" value="登陆">
+					<input @click.stop="doLogin" type="button" value="登陆">
 				</div>
 			</div>
 		</div>
+		<notifications group="foo" />
 	</header>
 </template>
 
 <script>
 	import axios from "axios";
+	import mixin from "~/util/mixin.js"; 
 	export default {
 		data() {
 			return {
-				imgsrc:"/img/headIcon.png",
+				imgsrc: "/img/headIcon.png",
 				desc: "亲爱的，欢迎光临",
-				hasLogined:false,
+				hasLogined: false,
 				loginBoxState: "hiddenLoginBox",
 				name: null,
 				password: null
 			};
 		},
+		props:{
+			testname:{
+				default:null
+			}
+		},
+		mixins:[mixin],
 		methods: {
 			clickLoginBoxBG() {
 				this.loginBoxState = "hiddenLoginBox";
 			},
 			writeBlog() {
 				if (this.hasLogined) {
-					
-				}else{
+	
+				} else {
 					this.loginBoxState = "showLoginBox";
 				}
 			},
@@ -68,16 +76,27 @@
 				var user;
 				if (result.data && !result.data.err && result.data.user) {
 					user = result.data.user;
-					this.imgsrc =  "/img/" + user.avatar;
+					this.imgsrc = "/img/" + user.avatar;
 					this.desc = user.bio;
 					this.loginBoxState = "hiddenLoginBox";
 					this.hasLogined = true;
-				}else{
-
+					// this.$notify({
+					// 	group: 'foo',
+					// 	title: 'Important message',
+					// 	text: 'Hello user! This is a notification!'
+					// });
+				} else {
+	
 				}
 				console.log(JSON.stringify(user));
 			},
-			regist() {}
+			regist() {
+				console.log(this.$root);
+				this.testname = "详情页"
+				//this.$root.$loading.show = true;;
+				//alert("dd" + this.$root.testname);
+				// alert(this.$root.testname);
+			}
 		}
 	};
 </script>
@@ -120,12 +139,15 @@
 			cursor: pointer;
 		}
 	}
+	
 	.showLoginBox {
 		display: block;
 	}
+	
 	.hiddenLoginBox {
 		display: none;
 	}
+	
 	.login-Box {
 		position: fixed;
 		top: 0px;

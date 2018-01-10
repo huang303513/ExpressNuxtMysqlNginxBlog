@@ -1736,23 +1736,26 @@ router.post('/', function (req, res, next) {
     var password = req.body.password;
     // console.log("========用户名和密码====",name,password);
     __WEBPACK_IMPORTED_MODULE_0__models_users__["a" /* default */].getUserByName(name).then(function (user) {
+        var err;
         // console.log("========用户====",JSON.stringify(user));
-        // if (!user) {
-        //     req.flash('error', '用户不存在');
-        //     return res.redirect('back');
-        // }
-        // // 检查密码是否匹配
-        // if (sha1(password) !== user.password) {
-        //     req.flash('error', '用户名或密码错误');
-        //     return res.redirect('back');
-        // }
+        if (!user) {
+            //req.flash('error', '用户不存在');
+            //return res.redirect('back');
+            err = {
+                message: "用户名或者密码错误"
+            };
+        } else if (sha1(password) !== user.password) {
+            err = {
+                message: "用户名或者密码错误"
+            };
+        }
         // req.flash('success', '登录成功');
         // // 用户信息写入 session
         // delete user.password;
-        // req.session.user = user;
+        req.session.user = user;
         // // 跳转到主页
         // res.redirect('/posts');
-        res.json({ err: null, user: user });
+        res.json({ err: err, user: user });
     }).catch(next);
 });
 

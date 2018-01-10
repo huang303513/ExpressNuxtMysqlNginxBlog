@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <header-comp></header-comp>
+    <header-comp :testname="testname"></header-comp>
     <nuxt/>
     <footer-comp></footer-comp>
   </div>
@@ -16,6 +16,11 @@ export default {
       "header-comp": Header,
       "footer-comp": Footer
     },
+    data(){
+      return{
+        testname:"测试"
+      }
+    },
     mounted(){
       if (!config.devEnv) {
           baidutongji();
@@ -23,7 +28,7 @@ export default {
       // setTimeout(function () {
       mobilePage();
       // },1000)
-      
+      // this.$root.testname = "huang";
     }
 }
 </script>
