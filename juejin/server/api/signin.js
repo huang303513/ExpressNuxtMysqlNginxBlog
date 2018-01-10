@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
         // req.session.user = user;
         // // 跳转到主页
         // res.redirect('/posts');
-        res.json(user);
+        res.json({err:null,user:user});
     }).catch(next);
 });
 

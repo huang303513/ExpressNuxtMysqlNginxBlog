@@ -6,7 +6,7 @@ import getConfig from '../config';
 let config = getConfig(process.env.NODE_ENV);
 console.log("url=================>",config.apiHost + ":" + config.apiPort);
 axios.defaults.baseURL = config.apiHost + ":" + config.apiPort;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.headers.common['if-None-Match'] = null;
 
 axios.defaults.withCredentials = true
