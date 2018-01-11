@@ -29,36 +29,56 @@ let express = require('express');
 let router = express.Router();
 // let UserModel = require('../models/users');
 import UserModel from '../models/users';
+import {
+    Buffer
+} from 'buffer';
 let checkNotLogin = require('../middlewares/check').checkNotLogin;
 let formatDate = require('../lib/util.date').formatDate;
-
+var multer = require('multer')
+// var upload = multer({ dest: 'static/img/test.png' });
+var upload = multer();
 // GET /signup 注册页
+import getConfig from '../../config';
+let config = getConfig(process.env.NODE_ENV);
 
 // POST /signup 用户注册
-router.post('/', checkNotLogin, function(req, res, next) {
-
-    console.log("+++++++++++++++++",req.body);
-    return;
-    let name = req.fields.name;
-    let gender = req.fields.gender;
-    let bio = req.fields.bio;
-    let avatar = req.files.avatar?req.files.avatar.path.split(path.sep).pop():"";
-    let password = req.fields.password;
-    let repassword = req.fields.repassword;
+router.post('/', upload.single('avatar'), function (req, res, next) {
+    // let avatar = req.file.originalname;
     // 校验参数
+    // console.log("isbuffer====",req.body,req.file);
+    let name;
+    let gender;
+    let bio;
+    let password;
+    let repassword;
     try {
-        // if (!(name.length >= 1 && name.length <= 10)) {
-        //     throw new Error('名字请限制在 1-10 个字符');
-        // }
+        var timestamp = Date.now();
+        if (!req.file) {
+            throw new Error('请添加图片');
+        }
+        var type = req.file.mimetype.split('/')[1];
+        var avatar = timestamp + "." + type;
+        var newPath = path.join(config.uploadPath, avatar);
+        //  console.log("path",newPath,poster);
+        // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
+        fs.writeFile(newPath, req.file.buffer, function (err) {
+            throw new Error('上传照片失败');
+        });
+
+        name = req.body.name;
+        gender = req.body.gender;
+        bio = req.body.bio;
+        password = req.body.password;
+        repassword = req.body.repassword;
+        if (!(name.length >= 1 && name.length <= 20)) {
+            throw new Error('名字请限制在 1-10 个字符');
+        }
         if (['m', 'f', 'x'].indexOf(gender) === -1) {
             throw new Error('性别只能是 m、f 或 x');
         }
         if (!(bio.length >= 1 && bio.length <= 30)) {
             throw new Error('个人简介请限制在 1-30 个字符');
         }
-        // if (!req.files.avatar.name) {
-        //     throw new Error('缺少头像');
-        // }
         if (password.length < 6) {
             throw new Error('密码至少 6 个字符');
         }
@@ -67,9 +87,9 @@ router.post('/', checkNotLogin, function(req, res, next) {
         }
     } catch (e) {
         // 注册失败，异步删除上传的头像
-        fs.unlink(req.files.avatar.path);
+        fs.unlink(newPath);
         // req.flash('error', e.message);
-        console.log("==========校验失败===========");
+        console.log("==========校验失败===========", e);
         return res.redirect('/posts');
     }
     // 明文密码加密
@@ -83,18 +103,19 @@ router.post('/', checkNotLogin, function(req, res, next) {
         password: password,
         gender: gender,
         bio: bio,
-        avatar: avatar||"",
+        avatar: avatar || "",
         created_at: date
     };
 
     UserModel.create(user).then(user => {
         req.session.user = user;
+        console.log("======user", user);
         // 写入 flash
         // req.flash('success', '注册成功');
         // 跳转到首页
         res.redirect('/posts');
     }).catch(err => {
-        fs.unlink(req.files.avatar.path);
+        fs.unlink(newPath);
         // 用户名被占用则跳回注册页，而不是错误页
         if (err.message.match('Duplicate entry')) {
             // req.flash('error', '用户名已被占用');

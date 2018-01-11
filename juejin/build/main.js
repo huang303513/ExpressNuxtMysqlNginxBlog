@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,83 +73,6 @@ module.exports = require("express");
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(19);
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["mysqlQuery"] = mysqlQuery;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
-var mysql = __webpack_require__(20);
-
-var config = Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])("development");
-
-var pool = mysql.createPool(config.dbConfig);
-/**
- * sql, SqlParams  参数只可能是一个或者两个
- * @return {[type]} [description]
- */
-// module.exports.mysqlQuery = function(...args) {
-//     return new Promise((resolve, reject) => {
-//         try {
-//             pool.getConnection(function(err, connection) {
-//                 if (err) {
-//                     reject({ err: err, result: "failure" });
-//                 } else {
-//                     connection.query(...args, function(err, result, fields) {
-//                         if (err) {
-//                             reject({ err, result });
-//                         } else {
-//                             resolve({ err, result });
-//                         }
-//                         connection.release();
-//                     });
-//                 }
-
-//             });
-//         } catch (e) {
-//             reject({ err: e, result: "failure" });
-//         } finally {
-
-//         }
-//     });
-// }
-
-function mysqlQuery() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-    }
-
-    return new Promise(function (resolve, reject) {
-        try {
-            pool.getConnection(function (err, connection) {
-                if (err) {
-                    reject({ err: err, result: "failure" });
-                } else {
-                    connection.query.apply(connection, args.concat([function (err, result, fields) {
-                        if (err) {
-                            reject({ err: err, result: result });
-                        } else {
-                            resolve({ err: err, result: result });
-                        }
-                        connection.release();
-                    }]));
-                }
-            });
-        } catch (e) {
-            reject({ err: e, result: "failure" });
-        } finally {}
-    });
-}
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 exports.formatDate = formatDate;
@@ -360,7 +283,7 @@ function formatDate(date, returnType, fixOffset) {
 }
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports) {
 
 /*
@@ -388,6 +311,83 @@ module.exports = {
 };
 
 /***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(23);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["mysqlQuery"] = mysqlQuery;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+var mysql = __webpack_require__(24);
+
+var config = Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])("development");
+
+var pool = mysql.createPool(config.dbConfig);
+/**
+ * sql, SqlParams  参数只可能是一个或者两个
+ * @return {[type]} [description]
+ */
+// module.exports.mysqlQuery = function(...args) {
+//     return new Promise((resolve, reject) => {
+//         try {
+//             pool.getConnection(function(err, connection) {
+//                 if (err) {
+//                     reject({ err: err, result: "failure" });
+//                 } else {
+//                     connection.query(...args, function(err, result, fields) {
+//                         if (err) {
+//                             reject({ err, result });
+//                         } else {
+//                             resolve({ err, result });
+//                         }
+//                         connection.release();
+//                     });
+//                 }
+
+//             });
+//         } catch (e) {
+//             reject({ err: e, result: "failure" });
+//         } finally {
+
+//         }
+//     });
+// }
+
+function mysqlQuery() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return new Promise(function (resolve, reject) {
+        try {
+            pool.getConnection(function (err, connection) {
+                if (err) {
+                    reject({ err: err, result: "failure" });
+                } else {
+                    connection.query.apply(connection, args.concat([function (err, result, fields) {
+                        if (err) {
+                            reject({ err: err, result: result });
+                        } else {
+                            resolve({ err: err, result: result });
+                        }
+                        connection.release();
+                    }]));
+                }
+            });
+        } catch (e) {
+            reject({ err: e, result: "failure" });
+        } finally {}
+    });
+}
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -399,7 +399,7 @@ module.exports = require("marked");
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
 
 
@@ -413,8 +413,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  */
 
 var marked = __webpack_require__(5);
-var mysqlQuery = __webpack_require__(2).mysqlQuery;
-var formatDate = __webpack_require__(3).formatDate;
+var mysqlQuery = __webpack_require__(4).mysqlQuery;
+var formatDate = __webpack_require__(1).formatDate;
 
 function contentToHtml(posts) {
     return posts.map(function (post) {
@@ -610,7 +610,7 @@ function contentToHtml(posts) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = getConfig;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__development_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__production_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__production_js__ = __webpack_require__(26);
 
 
 
@@ -629,7 +629,7 @@ function getConfig() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(21);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(25);
 // let devConfig = require('./default.js');
 
 
@@ -638,55 +638,204 @@ var proConfig = {
     port: 5389,
     apiPort: 5389,
     apiHost: "http://127.0.0.1",
-    sslModel: false
+    sslModel: false,
+    uploadPath: __dirname + '../static/img/'
 };
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__default_js__["a" /* default */], proConfig);
 
 /* harmony default export */ __webpack_exports__["a"] = (disConfig);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "config"))
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("sha1");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/*
+ * @Author: huangchengdu
+ * @Date:   2017-01-14 11:16:16
+ * @Last Modified by:   huangchengdu
+ * @Last Modified time: 2017-01-14 12:11:11
+ */
+
+var mysqlQuery = __webpack_require__(4).mysqlQuery;
+var formatDate = __webpack_require__(1).formatDate;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    // 注册一个用户
+    create: function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee(param) {
+            var addSql, addSqlParams, addRet, sql, _ref2, err, result;
+
+            return __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            addSql = 'INSERT INTO users(name,password,gender,bio,avatar,created_at) VALUES(?,?,?,?,?,?)';
+                            addSqlParams = [param.name, param.password, param.gender, param.bio, param.avatar, param.created_at];
+                            _context.next = 4;
+                            return mysqlQuery(addSql, addSqlParams);
+
+                        case 4:
+                            addRet = _context.sent;
+
+                            if (!(addRet.result && addRet.result.insertId)) {
+                                _context.next = 19;
+                                break;
+                            }
+
+                            sql = 'SELECT * FROM users where _id=' + addRet.result.insertId;
+                            _context.next = 9;
+                            return mysqlQuery(sql);
+
+                        case 9:
+                            _ref2 = _context.sent;
+                            err = _ref2.err;
+                            result = _ref2.result;
+
+                            if (!err) {
+                                _context.next = 16;
+                                break;
+                            }
+
+                            return _context.abrupt('return', Promise.reject(err));
+
+                        case 16:
+                            return _context.abrupt('return', Promise.resolve(result[0]));
+
+                        case 17:
+                            _context.next = 20;
+                            break;
+
+                        case 19:
+                            return _context.abrupt('return', Promise.reject(addRet.err));
+
+                        case 20:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, this);
+        }));
+
+        function create(_x) {
+            return _ref.apply(this, arguments);
+        }
+
+        return create;
+    }(),
+
+    // 通过用户名获取用户信息
+    getUserByName: function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee2(name) {
+            var sql, _ref4, err, result;
+
+            return __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            sql = 'SELECT * FROM users where name="' + name + '"';
+                            _context2.next = 3;
+                            return mysqlQuery(sql);
+
+                        case 3:
+                            _ref4 = _context2.sent;
+                            err = _ref4.err;
+                            result = _ref4.result;
+
+                            if (!err) {
+                                _context2.next = 10;
+                                break;
+                            }
+
+                            return _context2.abrupt('return', Promise.reject(err));
+
+                        case 10:
+                            return _context2.abrupt('return', Promise.resolve(result[0]));
+
+                        case 11:
+                        case 'end':
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, this);
+        }));
+
+        function getUserByName(_x2) {
+            return _ref3.apply(this, arguments);
+        }
+
+        return getUserByName;
+    }()
+});
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(__dirname, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(11);
+/* WEBPACK VAR INJECTION */(function(__dirname, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_index__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_index__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_body_parser__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_body_parser__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_body_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_body_parser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cookie_parser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cookie_parser__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cookie_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_cookie_parser__);
 
 
-var session = __webpack_require__(12);
-var MySQLStore = __webpack_require__(13)(session);
-var winston = __webpack_require__(14);
-var expressWinston = __webpack_require__(15);
+var session = __webpack_require__(16);
+var MySQLStore = __webpack_require__(17)(session);
+var winston = __webpack_require__(18);
+var expressWinston = __webpack_require__(19);
 
-var nuxtConfig = __webpack_require__(29);
+var nuxtConfig = __webpack_require__(33);
 
-var path = __webpack_require__(31);
-var pkg = __webpack_require__(32);
+var path = __webpack_require__(12);
+var pkg = __webpack_require__(35);
 var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
-var fs = __webpack_require__(33);
+var fs = __webpack_require__(11);
 
 
 
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 
-var uploadDir = "/usr/local/webserver/nginx/static/img";
-console.log("----dirname", __dirname);
-if (config.devEnv) {
+// let uploadDir = "/usr/local/webserver/nginx/static/img";
+// console.log("----dirname",__dirname);
+// if (config.devEnv) {
 
-  uploadDir = path.join(__dirname, 'static/img');
-}
+//   uploadDir = path.join(__dirname, 'static/img');
+// }
 
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({
@@ -694,7 +843,7 @@ if (config.devEnv) {
 //   // keepExtensions: true // 保留后缀
 // }));
 
-app.use(__WEBPACK_IMPORTED_MODULE_5_body_parser___default.a.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(__WEBPACK_IMPORTED_MODULE_5_body_parser___default.a.json());
 app.use(__WEBPACK_IMPORTED_MODULE_6_cookie_parser___default()());
 
@@ -801,10 +950,10 @@ if (module.parent) {
     console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
   });
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "server", __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "server", __webpack_require__(14)(module)))
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -834,45 +983,45 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-mysql-session");
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("winston");
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-winston");
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = startRouter;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__posts_js__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signin_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signout_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_js__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__posts_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__signin_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signout_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_js__ = __webpack_require__(31);
 
 
 
@@ -925,12 +1074,12 @@ function startRouter(app) {
 }
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_posts__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assist__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_posts__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assist__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_comments__ = __webpack_require__(6);
 /*
  * @Author: huangchengdu
@@ -943,11 +1092,11 @@ var express = __webpack_require__(0);
 var router = express.Router();
 // let PostModel = require('../models/posts');
 
-var xss = __webpack_require__(23);
+var xss = __webpack_require__(27);
 
 // let CommentModel = require('../models/comments');
 
-var checkLogin = __webpack_require__(4).checkLogin;
+var checkLogin = __webpack_require__(2).checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
@@ -1129,13 +1278,13 @@ router.get('/:postId/comment/:commentId/remove', checkLogin, function (req, res,
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_js__ = __webpack_require__(4);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1144,7 +1293,7 @@ var marked = __webpack_require__(5);
 var CommentModel = __webpack_require__(6);
 // let mysqlQuery = require('../lib/sql').mysqlQuery;
 
-var formatDate = __webpack_require__(3).formatDate;
+var formatDate = __webpack_require__(1).formatDate;
 
 function contentToHtml(posts) {
     return posts.map(function (post) {
@@ -1529,19 +1678,19 @@ function contentToHtml(posts) {
 });
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("regenerator-runtime");
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("mysql");
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1576,7 +1725,7 @@ var devConfig = {
 //这两个文件必须写成comment.js规范。引用他们的第三方库只支持这个规范。
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1592,24 +1741,25 @@ var devConfig = {
 
 
 var proConfig = {
-  devEnv: false,
-  port: 5389, //如果package.json里面不一样，以这里为准
-  apiPort: 443,
-  apiHost: "https://www.huangchengdu.com",
-  sslModel: false
+    devEnv: false,
+    port: 5389, //如果package.json里面不一样，以这里为准
+    apiPort: 443,
+    apiHost: "https://www.huangchengdu.com",
+    sslModel: false,
+    uploadPath: '/usr/local/webserver/nginx/static/img/'
 };
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__development_js__["a" /* default */], proConfig);
 
 /* harmony default export */ __webpack_exports__["a"] = (disConfig);
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("xss");
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1725,11 +1875,11 @@ function mobilePage() {
 }
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(10);
 /*
  * @Author: huangchengdu
  * @Date:   2017-01-13 21:54:40
@@ -1737,11 +1887,11 @@ function mobilePage() {
  * @Last Modified time: 2017-01-14 12:14:32
  */
 
-var sha1 = __webpack_require__(26);
+var sha1 = __webpack_require__(9);
 var express = __webpack_require__(0);
 var router = express.Router();
 
-var checkNotLogin = __webpack_require__(4).checkNotLogin;
+var checkNotLogin = __webpack_require__(2).checkNotLogin;
 
 // GET /signin 登录页
 // router.get('/', checkNotLogin, function(req, res, next) {
@@ -1785,142 +1935,7 @@ router.post('/', function (req, res, next) {
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("sha1");
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
-
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-/*
- * @Author: huangchengdu
- * @Date:   2017-01-14 11:16:16
- * @Last Modified by:   huangchengdu
- * @Last Modified time: 2017-01-14 12:11:11
- */
-
-var mysqlQuery = __webpack_require__(2).mysqlQuery;
-var formatDate = __webpack_require__(3).formatDate;
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    // 注册一个用户
-    create: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee(param) {
-            var addSql, addSqlParams, addRet, sql, _ref2, err, result;
-
-            return __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            addSql = 'INSERT INTO users(name,password,gender,bio,avatar,created_at) VALUES(?,?,?,?,?,?)';
-                            addSqlParams = [param.name, param.password, param.gender, param.bio, param.avatar, param.created_at];
-                            _context.next = 4;
-                            return mysqlQuery(addSql, addSqlParams);
-
-                        case 4:
-                            addRet = _context.sent;
-
-                            if (!(addRet.result && addRet.result.insertId)) {
-                                _context.next = 19;
-                                break;
-                            }
-
-                            sql = 'SELECT * FROM users where _id=' + addRet.result.insertId;
-                            _context.next = 9;
-                            return mysqlQuery(sql);
-
-                        case 9:
-                            _ref2 = _context.sent;
-                            err = _ref2.err;
-                            result = _ref2.result;
-
-                            if (!err) {
-                                _context.next = 16;
-                                break;
-                            }
-
-                            return _context.abrupt('return', Promise.reject(err));
-
-                        case 16:
-                            return _context.abrupt('return', Promise.resolve(result[0]));
-
-                        case 17:
-                            _context.next = 20;
-                            break;
-
-                        case 19:
-                            return _context.abrupt('return', Promise.reject(addRet.err));
-
-                        case 20:
-                        case 'end':
-                            return _context.stop();
-                    }
-                }
-            }, _callee, this);
-        }));
-
-        function create(_x) {
-            return _ref.apply(this, arguments);
-        }
-
-        return create;
-    }(),
-
-    // 通过用户名获取用户信息
-    getUserByName: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee2(name) {
-            var sql, _ref4, err, result;
-
-            return __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            sql = 'SELECT * FROM users where name="' + name + '"';
-                            _context2.next = 3;
-                            return mysqlQuery(sql);
-
-                        case 3:
-                            _ref4 = _context2.sent;
-                            err = _ref4.err;
-                            result = _ref4.result;
-
-                            if (!err) {
-                                _context2.next = 10;
-                                break;
-                            }
-
-                            return _context2.abrupt('return', Promise.reject(err));
-
-                        case 10:
-                            return _context2.abrupt('return', Promise.resolve(result[0]));
-
-                        case 11:
-                        case 'end':
-                            return _context2.stop();
-                    }
-                }
-            }, _callee2, this);
-        }));
-
-        function getUserByName(_x2) {
-            return _ref3.apply(this, arguments);
-        }
-
-        return getUserByName;
-    }()
-});
-
-/***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1933,7 +1948,7 @@ var formatDate = __webpack_require__(3).formatDate;
 
 var express = __webpack_require__(0);
 var router = express.Router();
-var checkLogin = __webpack_require__(4).checkLogin;
+var checkLogin = __webpack_require__(2).checkLogin;
 
 // GET /signout 登出
 router.get('/', checkLogin, function (req, res, next) {
@@ -1953,7 +1968,151 @@ router.get('/', checkLogin, function (req, res, next) {
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
-/* 29 */
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_buffer__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(7);
+/*
+ * @Author: huangchengdu
+ * @Date:   2017-01-13 21:55:28
+ * @Last Modified by:   huangchengdu
+ * @Last Modified time: 2017-01-14 11:22:20
+ */
+
+// let express = require('express');
+// let router = express.Router();
+
+// let checkNotLogin = require('../middlewares/check').checkNotLogin;
+
+// // GET /signup 注册页
+// router.get('/', checkNotLogin, function(req, res, next) {
+//   res.render('signup');
+// });
+
+// // POST /signup 用户注册
+// router.post('/', checkNotLogin, function(req, res, next) {
+//   res.send(req.flash());
+// });
+
+// module.exports = router;
+
+var fs = __webpack_require__(11);
+var path = __webpack_require__(12);
+var sha1 = __webpack_require__(9);
+var express = __webpack_require__(0);
+var router = express.Router();
+// let UserModel = require('../models/users');
+
+
+var checkNotLogin = __webpack_require__(2).checkNotLogin;
+var formatDate = __webpack_require__(1).formatDate;
+var multer = __webpack_require__(32);
+// var upload = multer({ dest: 'static/img/test.png' });
+var upload = multer();
+// GET /signup 注册页
+
+var config = Object(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */])("development");
+
+// POST /signup 用户注册
+router.post('/', upload.single('avatar'), function (req, res, next) {
+    // let avatar = req.file.originalname;
+    // 校验参数
+    // console.log("isbuffer====",req.body,req.file);
+    var name = void 0;
+    var gender = void 0;
+    var bio = void 0;
+    var password = void 0;
+    var repassword = void 0;
+    try {
+        var timestamp = Date.now();
+        if (!req.file) {
+            throw new Error('请添加图片');
+        }
+        var type = req.file.mimetype.split('/')[1];
+        var avatar = timestamp + "." + type;
+        var newPath = path.join(config.uploadPath, avatar);
+        //  console.log("path",newPath,poster);
+        // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
+        fs.writeFile(newPath, req.file.buffer, function (err) {
+            throw new Error('上传照片失败');
+        });
+
+        name = req.body.name;
+        gender = req.body.gender;
+        bio = req.body.bio;
+        password = req.body.password;
+        repassword = req.body.repassword;
+        if (!(name.length >= 1 && name.length <= 20)) {
+            throw new Error('名字请限制在 1-10 个字符');
+        }
+        if (['m', 'f', 'x'].indexOf(gender) === -1) {
+            throw new Error('性别只能是 m、f 或 x');
+        }
+        if (!(bio.length >= 1 && bio.length <= 30)) {
+            throw new Error('个人简介请限制在 1-30 个字符');
+        }
+        if (password.length < 6) {
+            throw new Error('密码至少 6 个字符');
+        }
+        if (password !== repassword) {
+            throw new Error('两次输入密码不一致');
+        }
+    } catch (e) {
+        // 注册失败，异步删除上传的头像
+        fs.unlink(newPath);
+        // req.flash('error', e.message);
+        console.log("==========校验失败===========", e);
+        return res.redirect('/posts');
+    }
+    // 明文密码加密
+    password = sha1(password);
+
+    var dateMap = formatDate(new Date(), 'typeDictionary');
+    var date = dateMap.yearMonthDay + " " + dateMap.time;
+    // 待写入数据库的用户信息
+    var user = {
+        name: name,
+        password: password,
+        gender: gender,
+        bio: bio,
+        avatar: avatar || "",
+        created_at: date
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0__models_users__["a" /* default */].create(user).then(function (user) {
+        req.session.user = user;
+        console.log("======user", user);
+        // 写入 flash
+        // req.flash('success', '注册成功');
+        // 跳转到首页
+        res.redirect('/posts');
+    }).catch(function (err) {
+        fs.unlink(newPath);
+        // 用户名被占用则跳回注册页，而不是错误页
+        if (err.message.match('Duplicate entry')) {
+            // req.flash('error', '用户名已被占用');
+            return res.redirect('/posts');
+        } else {
+            //console.log('err.message==================', err.message);
+            next(err);
+        }
+    });
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("multer");
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // var session = require('express-session');
@@ -2092,7 +2251,7 @@ module.exports = {
     ],
     render: {
         bundleRenderer: {
-            cache: __webpack_require__(30)({
+            cache: __webpack_require__(34)({
                 max: 1000,
                 maxAge: 1000 * 60 * 15
             })
@@ -2101,162 +2260,40 @@ module.exports = {
 };
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("lru-cache");
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-module.exports = require("path");
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-module.exports = {"name":"juejin","version":"1.0.0","description":"Nuxt.js project","author":"huangchengdu <394042583@qq.com>","private":true,"config":{"nuxt":{"port":"3002"}},"scripts":{"dev":"cross-env NODE_ENV=development backpack dev","build":"cross-env NODE_ENV=production nuxt build && backpack build","start":"cross-env NODE_ENV=production pm2 start build/main.js","generate":"cross-env NODE_ENV=production nuxt generate","nuxt":"cross-env NODE_ENV=development nuxt","nuxt-build":"cross-env NODE_ENV=production nuxt build","nuxt-start":"cross-env NODE_ENV=production nuxt start","lint":"cross-env NODE_ENV=development eslint --ext .js,.vue --ignore-path .gitignore .","precommit":"cross-env NODE_ENV=development npm run lint"},"dependencies":{"axios":"^0.17.1","backpack-core":"^0.4.3","body-parser":"^1.18.2","cookie-parser":"^1.4.3","cross-env":"^5.1.1","crypto-js":"^3.1.9-1","express":"^4.16.2","express-formidable":"^1.0.0","express-mysql-session":"^1.2.3","express-session":"^1.15.6","express-winston":"^2.4.0","jade":"^1.11.0","less":"^2.7.3","less-loader":"^4.0.5","marked":"^0.3.7","mysql":"^2.15.0","nuxt":"^1.0.0-rc11","sha1":"^1.1.1","vue-notification":"^1.3.4","winston":"^2.4.0"},"devDependencies":{"babel-eslint":"^7.2.3","eslint":"^4.3.0","eslint-config-standard":"^10.2.1","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1","lru-cache":"^4.1.1","xss":"^0.3.7"}}
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = require("body-parser");
+module.exports = {"name":"juejin","version":"1.0.0","description":"Nuxt.js project","author":"huangchengdu <394042583@qq.com>","private":true,"config":{"nuxt":{"port":"3002"}},"scripts":{"dev":"cross-env NODE_ENV=development backpack dev","build":"cross-env NODE_ENV=production nuxt build && backpack build","start":"cross-env NODE_ENV=production pm2 start build/main.js","generate":"cross-env NODE_ENV=production nuxt generate","nuxt":"cross-env NODE_ENV=development nuxt","nuxt-build":"cross-env NODE_ENV=production nuxt build","nuxt-start":"cross-env NODE_ENV=production nuxt start","lint":"cross-env NODE_ENV=development eslint --ext .js,.vue --ignore-path .gitignore .","precommit":"cross-env NODE_ENV=development npm run lint"},"dependencies":{"axios":"^0.17.1","backpack-core":"^0.4.3","body-parser":"^1.18.2","cookie-parser":"^1.4.3","cross-env":"^5.1.1","crypto-js":"^3.1.9-1","express":"^4.16.2","express-formidable":"^1.0.0","express-mysql-session":"^1.2.3","express-session":"^1.15.6","express-winston":"^2.4.0","jade":"^1.11.0","less":"^2.7.3","less-loader":"^4.0.5","marked":"^0.3.7","multer":"^1.3.0","mysql":"^2.15.0","nuxt":"^1.0.0-rc11","sha1":"^1.1.1","vue-notification":"^1.3.4","winston":"^2.4.0"},"devDependencies":{"babel-eslint":"^7.2.3","eslint":"^4.3.0","eslint-config-standard":"^10.2.1","eslint-loader":"^1.9.0","eslint-plugin-html":"^3.1.1","eslint-plugin-import":"^2.7.0","eslint-plugin-node":"^5.1.1","eslint-plugin-promise":"^3.5.0","eslint-plugin-standard":"^3.0.1","lru-cache":"^4.1.1","xss":"^0.3.7"}}
 
 /***/ }),
 /* 36 */
 /***/ (function(module, exports) {
 
-module.exports = require("cookie-parser");
+module.exports = require("axios");
 
 /***/ }),
 /* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(27);
-/*
- * @Author: huangchengdu
- * @Date:   2017-01-13 21:55:28
- * @Last Modified by:   huangchengdu
- * @Last Modified time: 2017-01-14 11:22:20
- */
+module.exports = require("body-parser");
 
-// let express = require('express');
-// let router = express.Router();
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
 
-// let checkNotLogin = require('../middlewares/check').checkNotLogin;
+module.exports = require("cookie-parser");
 
-// // GET /signup 注册页
-// router.get('/', checkNotLogin, function(req, res, next) {
-//   res.render('signup');
-// });
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
 
-// // POST /signup 用户注册
-// router.post('/', checkNotLogin, function(req, res, next) {
-//   res.send(req.flash());
-// });
-
-// module.exports = router;
-
-var fs = __webpack_require__(33);
-var path = __webpack_require__(31);
-var sha1 = __webpack_require__(26);
-var express = __webpack_require__(0);
-var router = express.Router();
-// let UserModel = require('../models/users');
-
-var checkNotLogin = __webpack_require__(4).checkNotLogin;
-var formatDate = __webpack_require__(3).formatDate;
-
-// GET /signup 注册页
-
-// POST /signup 用户注册
-router.post('/', checkNotLogin, function (req, res, next) {
-
-    console.log("+++++++++++++++++", req.body);
-    return;
-    var name = req.fields.name;
-    var gender = req.fields.gender;
-    var bio = req.fields.bio;
-    var avatar = req.files.avatar ? req.files.avatar.path.split(path.sep).pop() : "";
-    var password = req.fields.password;
-    var repassword = req.fields.repassword;
-    // 校验参数
-    try {
-        // if (!(name.length >= 1 && name.length <= 10)) {
-        //     throw new Error('名字请限制在 1-10 个字符');
-        // }
-        if (['m', 'f', 'x'].indexOf(gender) === -1) {
-            throw new Error('性别只能是 m、f 或 x');
-        }
-        if (!(bio.length >= 1 && bio.length <= 30)) {
-            throw new Error('个人简介请限制在 1-30 个字符');
-        }
-        // if (!req.files.avatar.name) {
-        //     throw new Error('缺少头像');
-        // }
-        if (password.length < 6) {
-            throw new Error('密码至少 6 个字符');
-        }
-        if (password !== repassword) {
-            throw new Error('两次输入密码不一致');
-        }
-    } catch (e) {
-        // 注册失败，异步删除上传的头像
-        fs.unlink(req.files.avatar.path);
-        // req.flash('error', e.message);
-        console.log("==========校验失败===========");
-        return res.redirect('/posts');
-    }
-    // 明文密码加密
-    password = sha1(password);
-
-    var dateMap = formatDate(new Date(), 'typeDictionary');
-    var date = dateMap.yearMonthDay + " " + dateMap.time;
-    // 待写入数据库的用户信息
-    var user = {
-        name: name,
-        password: password,
-        gender: gender,
-        bio: bio,
-        avatar: avatar || "",
-        created_at: date
-    };
-
-    __WEBPACK_IMPORTED_MODULE_0__models_users__["a" /* default */].create(user).then(function (user) {
-        req.session.user = user;
-        // 写入 flash
-        // req.flash('success', '注册成功');
-        // 跳转到首页
-        res.redirect('/posts');
-    }).catch(function (err) {
-        fs.unlink(req.files.avatar.path);
-        // 用户名被占用则跳回注册页，而不是错误页
-        if (err.message.match('Duplicate entry')) {
-            // req.flash('error', '用户名已被占用');
-            return res.redirect('/posts');
-        } else {
-            //console.log('err.message==================', err.message);
-            next(err);
-        }
-    });
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (router);
+module.exports = require("buffer");
 
 /***/ })
 /******/ ]);

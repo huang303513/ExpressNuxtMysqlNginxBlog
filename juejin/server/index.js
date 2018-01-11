@@ -22,12 +22,12 @@ import cookieParser from 'cookie-parser'
 
 const app = express();
 
-let uploadDir = "/usr/local/webserver/nginx/static/img";
-console.log("----dirname",__dirname);
-if (config.devEnv) {
+// let uploadDir = "/usr/local/webserver/nginx/static/img";
+// console.log("----dirname",__dirname);
+// if (config.devEnv) {
   
-  uploadDir = path.join(__dirname, 'static/img');
-}
+//   uploadDir = path.join(__dirname, 'static/img');
+// }
 
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({
@@ -35,7 +35,7 @@ if (config.devEnv) {
 //   // keepExtensions: true // 保留后缀
 // }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 

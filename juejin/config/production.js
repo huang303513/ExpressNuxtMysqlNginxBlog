@@ -13,7 +13,8 @@ let proConfig = {
     port: 5389,//如果package.json里面不一样，以这里为准
     apiPort:443,
     apiHost:"https://www.huangchengdu.com",
-    sslModel: false
+    sslModel: false,
+    uploadPath:'/usr/local/webserver/nginx/static/img/'
 }
 let disConfig = Object.assign({}, devConfig, proConfig);
 
