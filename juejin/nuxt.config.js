@@ -1,7 +1,6 @@
-
-var session = require('express-session');
-var MySQLStore = require('express-mysql-session')(session);
-import bodyParser from 'body-parser'
+// var session = require('express-session');
+// var MySQLStore = require('express-mysql-session')(session);
+// import bodyParser from 'body-parser'
 
 module.exports = {
     /*
@@ -131,21 +130,21 @@ module.exports = {
             src: '~plugins/vue-notification',
             ssr: false
         }
-	],
-	serverMiddleware: [
-		// body-parser middleware
-		// bodyParser.json(),
-		// session middleware
-		session({
-		  secret: 'super-secret-key',
-		  resave: false,
-		  saveUninitialized: false,
-		  cookie: { maxAge: 60000 }
-		}),
-		// Api middleware
-		// We add /api/login & /api/logout routes
-		// '~/api'
-	  ],
+    ],
+    serverMiddleware: [
+        // body-parser middleware
+        // bodyParser.json(),
+        // session middleware
+        // session({
+        //   secret: 'super-secret-key',
+        //   resave: false,
+        //   saveUninitialized: false,
+        //   cookie: { maxAge: 60000 }
+        // }),
+        // Api middleware
+        // We add /api/login & /api/logout routes
+        // '~/api'
+    ],
     render: {
         bundleRenderer: {
             cache: require('lru-cache')({
