@@ -11,7 +11,7 @@ let devConfig = {
     session: {
         secret: 'session',
         key: 'session',
-        maxAge: 2592000
+        maxAge: 600000
     },
     dbConfig: {
         connectionLimit: 30,

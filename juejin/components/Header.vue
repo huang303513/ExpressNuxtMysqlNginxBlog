@@ -125,10 +125,11 @@
 			regist() {
 				// console.log(this.$root);
 				// this.testname = "详情页";
-				userLoginUtil.checkLogined();
+				// userLoginUtil.checkLogined();
 				//this.$root.$loading.show = true;;
 				//alert("dd" + this.$root.testname);
 				// alert(this.$root.testname);
+				window.location.href = "/regist";
 			},
 			async loginOut() {
 				var url = "/api/signout";

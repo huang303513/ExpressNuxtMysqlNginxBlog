@@ -8,21 +8,21 @@
 					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
 					<!-- <nuxt-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</nuxt-link> -->
 					<!-- <nuxt-link :to="{ name: '/users/', params: { id: index }}">
-						{{ user.name }}
-					</nuxt-link> -->
+							{{ user.name }}
+						</nuxt-link> -->
 				</div>
 				<p class="li-subtitle">
 					<span>{{"作者:"}}</span>
 					<span class="li-subtitle-author">
-											<strong>{{post.author.name}}</strong>
-											<div class="author-hover">
-												<img class="author-hover-img" :src="`img/${post.author.avatar}`"/>
-												<div class="author-hover-title">
-													<p class="author-hover-title-name">{{post.author.name}}|{{post.author.gender=='m'?"男":"女"}}</p>
-													<p class="author-hover-title-bio">{{post.author.bio}}</p>
+												<strong>{{post.author.name}}</strong>
+												<div class="author-hover">
+													<img class="author-hover-img" :src="`img/${post.author.avatar}`"/>
+													<div class="author-hover-title">
+														<p class="author-hover-title-name">{{post.author.name}}|{{post.author.gender=='m'?"男":"女"}}</p>
+														<p class="author-hover-title-bio">{{post.author.bio}}</p>
+													</div>
 												</div>
-											</div>
-							</span>
+								</span>
 					<span>{{" 创建日期:" + post.created_at + " 访问次数:" + post.pv + " 评论数:" + post.commentsCount}}</span>
 				</p>
 				<!-- </nuxt-link> -->
@@ -40,7 +40,7 @@
 			}
 		},
 		methods: {
-			gotoDetail(post){
+			gotoDetail(post) {
 				// window.location.href = "/posts/"  + post._id;
 			}
 		}

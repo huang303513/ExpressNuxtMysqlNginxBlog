@@ -1,6 +1,5 @@
 const UA = window.navigator.userAgent
 
-const isTrainApp = !!(window.native && window.native.JsCallNative)
 const isIpad = /(iPad).*OS\s([\d_]+)/.test(UA)
 const isIpod = /(iPod)(.*OS\s([\d_]+))?/.test(UA)
 const isIphone = !isIpad && /(iPhone\sOS)\s([\d_]+)/.test(UA)
@@ -13,8 +12,7 @@ const isQQMBrowser = /MQQBrowser/i.test(UA) && !isWechat && !isQQ
 const isUCMBrowser = /UCBrowser/i.test(UA)
 const isBAIDUMBrowser = /mobile.*baidu/i.test(UA)
 const isApple = isIos;
-export {
-    isTrainApp,
+export default {
     isIpad,
     isIpod,
     isIphone,
