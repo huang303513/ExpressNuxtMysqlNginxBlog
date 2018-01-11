@@ -26,7 +26,7 @@ export default {
           baidutongji();
       }
       // setTimeout(function () {
-      mobilePage();
+      // mobilePage();
       // },1000)
       // this.$root.testname = "huang";
     }

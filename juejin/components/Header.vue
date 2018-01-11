@@ -85,8 +85,7 @@
 				}
 			},
 			writeBlog() {
-				if (this.hasLogined) {
-				} else {
+				if (this.hasLogined) {} else {
 					this.loginBoxState = "showLoginBox";
 				}
 			},
@@ -120,8 +119,7 @@
 					// 	title: 'Important message',
 					// 	text: 'Hello user! This is a notification!'
 					// });
-				} else {
-				}
+				} else {}
 				console.log(JSON.stringify(user));
 			},
 			regist() {
@@ -132,12 +130,18 @@
 				//alert("dd" + this.$root.testname);
 				// alert(this.$root.testname);
 			},
-			loginOut() {
-				userLoginUtil.setLogout();
-				this.asyncLoginIofo();
+			async loginOut() {
+				var url = "/api/signout";
+				let result = await axios.get(url).catch(error => {
+					console.log("===============error==========", error);
+				});
+				if (result.data && !result.data.err && (result.data.code == 200)) {
+					userLoginUtil.setLogout();
+					this.asyncLoginIofo();
+				}
 			}
 		}
-	};
+	}
 </script>
 
 <style lang="less" scoped>

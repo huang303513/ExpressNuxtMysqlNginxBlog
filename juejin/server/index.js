@@ -18,13 +18,13 @@ let config = getConfig(process.env.NODE_ENV);
 var fs = require('fs');
 import axios from 'axios';
 import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
+// import cookieParser from 'cookie-parser'
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // process.env.DEBUG = 'nuxt:*'
 
@@ -41,12 +41,13 @@ app.use(session({
   key: config.session.key,
   secret: config.session.secret,
   cookie: {
-    maxAge: config.session.maxAge
+    maxAge: config.session.maxAge,
+    secure:config.devEnv?false:true
   },
   store: new MySQLStore(config.dbConfig),
-  connectionLimit: 10,
+  connectionLimit: 100,
   expiration: 86400000,
-  resave: true,
+  resave: config.devEnv?false:true,
   saveUninitialized: true
 }));
 // 处理表单及文件上传的中间件

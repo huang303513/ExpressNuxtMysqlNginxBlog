@@ -11,9 +11,10 @@ axios.defaults.baseURL = config.apiHost + ":" + config.apiPort;
 
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(response => {
-    //console.log("===========headers========",response);
+    // console.log("===========");
+    // console.log("===========headers========",response.headers);
     // delete response.headers.etag;
-    console.log("=========response========", response.status);
+    // console.log("=========response========", response.status);
     if (response && response.status && (response.status == 200)) {
         return Promise.resolve({
             error: null,

@@ -6,3 +6,5 @@
 1032  cp -rf ./* /usr/local/webserver/nginx/static/_nuxt
 
  sudo rsync -av --exclude="node_modules" ./  root@47.96.6.227:/root/node/nuxtBlog
+
+  mysql -u huang303513 -p -h 47.96.6.227

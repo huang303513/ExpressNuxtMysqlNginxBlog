@@ -44,7 +44,10 @@
 	export default {
 		data() {
 			return {
-				deliveryLocation: null
+				deliveryLocation: null,
+				post:[],
+				comments:[],
+				postId:null
 			}
 		},
 		async asyncData({
@@ -61,6 +64,7 @@
 				post: result.data && result.data.post,
 				comments: (result.data && result.data.comments) || []
 			};
+			
 		},
 		mounted(){
 			//this.$root.testname = "cheng";
@@ -74,6 +78,9 @@
 				//console.log("===============>",event.target.clientHeight,"   ",event.target.scrollHeight);
 				// event.target.clientHeight = event.target.scrollHeight;
 				// this.$refs.commentDiv.style.height = event.target.scrollHeight;
+			},
+			requestData(){
+
 			},
 			submitComment(){
 				//alert("提交评论");

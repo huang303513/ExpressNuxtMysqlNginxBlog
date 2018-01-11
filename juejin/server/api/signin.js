@@ -38,7 +38,12 @@ router.post('/', function(req, res, next) {
         // req.flash('success', '登录成功');
         // // 用户信息写入 session
         // delete user.password;
-        req.session.user = user;
+        req.session.user = JSON.stringify(user);
+        // console.log("=====in======headers========",req.headers);
+        // res.session = req.session;
+        // res.cookie('user',JSON.stringify(user));
+        // console.log("========session====",req.session);
+        // console.log("===========cookie===",req.cookies);
         // // 跳转到主页
         // res.redirect('/posts');
         res.json({err:err,user:user});

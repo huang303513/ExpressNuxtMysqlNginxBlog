@@ -1,5 +1,6 @@
 import PostModule from './posts.js';
 import SigninModule from './signin.js';
+import SignoutModule from './signout.js';
 
 export function startRouter(app) {
     
@@ -34,8 +35,9 @@ export function startRouter(app) {
         //     console.log("========用户名和密码====",name,password);
         //     res.send({name:"hehe"});
         // });
-        app.use('/api/login', SigninModule);
         app.use('/api/posts', PostModule);
+        app.use('/api/login', SigninModule);
+        app.use('/api/signout', SignoutModule);
 
         // 404 page
         // app.use(function(req, res) {
