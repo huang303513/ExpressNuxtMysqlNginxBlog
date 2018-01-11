@@ -6,10 +6,15 @@
 				<p class="header-title">{{desc}}</p>
 			</div>
 			<div class="header-div-span">
-				<button @click="writeBlog" type="button">写文章</button>
+				<!-- <button @click="writeBlog" type="button">写文章</button>
 				<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
 				<button v-if="!hasLogined" @click="regist" type="button">注册</button>
-				<button v-if="hasLogined" @click="loginOut" type="button">退出</button>
+				<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
+
+                <a @click.prevent.stop="writeBlog">写文章</a>
+				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登陆</a>
+				<a v-if="!hasLogined" @click.prevent.stop="regist">注册</a>
+				<a v-if="hasLogined" @click.prevent.stop="loginOut">退出</a>
 			</div>
 		</div>
 		<div :class="['login-Box',loginBoxState]" @click="clickLoginBoxBG">
@@ -174,7 +179,7 @@
 			margin-left: 0.7rem;
 			color: @defaultDarkColor;
 		}
-		button {
+		button, a {
 			color: @defaultBlue;
 			font-size: 1.2rem;
 			margin-right: 0.7rem;
