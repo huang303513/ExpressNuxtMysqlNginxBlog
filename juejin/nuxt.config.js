@@ -110,9 +110,10 @@ module.exports = {
         // }
     },
     loading: {
-        color: '#04acf7',
-        height: '4px',
-        failedColor: 'red'
+        // color: '#04acf7',
+        // height: '4px',
+        // failedColor: 'red'
+        loading: '~/components/loading.vue'
     },
     //页面的过渡效果
     transition: {

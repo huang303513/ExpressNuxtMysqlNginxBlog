@@ -22,7 +22,20 @@ import cookieParser from 'cookie-parser'
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// let uploadDir = "/usr/local/webserver/nginx/static/img";
+// console.log("----dirname",__dirname);
+// if (config.devEnv) {
+  
+//   uploadDir = path.join(__dirname, 'static/img');
+// }
+
+// 处理表单及文件上传的中间件
+// app.use(require('express-formidable')({
+//   uploadDir: uploadDir,
+//   // keepExtensions: true // 保留后缀
+// }));
+
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -56,15 +69,12 @@ app.use(session({
 //   keepExtensions: true // 保留后缀
 // }));
 
-let uploadDir = "/usr/local/webserver/nginx/static/img";
-if (config.devEnv) {
-  uploadDir = path.join(__dirname, 'static/img');
-}
 
-// app.locals.blog = {
-//   title: pkg.name,
-//   description: pkg.description
-// };
+
+app.locals.blog = {
+  title: pkg.name,
+  description: pkg.description
+};
 
 // 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
 // app.use(function (req, res, next) {
