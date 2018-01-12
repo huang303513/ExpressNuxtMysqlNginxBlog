@@ -43,7 +43,9 @@
 
 <script>
 	import axios from "axios";
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
+		layout: 'regist',
 		components: {},
 		// async asyncData() {
 		// 	let pageIndex = 0;
@@ -111,6 +113,16 @@
 				let result = await axios.post(url, formData, config).catch(error => {
 					console.log("===============error==========", error);
 				});
+				var user;
+				if (result.data && !result.data.err && result.data.user) {
+					user = result.data.user;
+					userLoginUtil.setLoginedUser(user);
+					// this.$notify({
+					// 	group: 'foo',
+					// 	title: 'Important message',
+					// 	text: 'Hello user! This is a notification!'
+					// });
+				} else {}
 				console.log(result);
 			}
 		}

@@ -2052,7 +2052,9 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
         console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
-            throw new Error('上传照片失败');
+            if (err) {
+                throw new Error('上传照片失败');
+            }
         });
 
         name = req.body.name;
