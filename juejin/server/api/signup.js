@@ -51,6 +51,7 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
     let bio;
     let password;
     let repassword;
+    var newPath
     try {
         var timestamp = Date.now();
         if (!req.file) {
@@ -58,9 +59,10 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
         var type = req.file.mimetype.split('/')[1];
         var avatar = timestamp + "." + type;
-        var newPath = path.join(config.uploadPath, avatar);
+        newPath = path.join(__dirname,"../..", config.uploadPath, avatar);
         //  console.log("path",newPath,poster);
         // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
+        console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
             throw new Error('上传照片失败');
         });
@@ -87,10 +89,15 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
     } catch (e) {
         // 注册失败，异步删除上传的头像
+        // console.log("=====e======",JSON.stringify(e));
         fs.unlink(newPath);
+        res.json({
+            err: {message:e.message||"校验出错"},
+            user: null
+        });
         // req.flash('error', e.message);
-        console.log("==========校验失败===========", e);
-        return res.redirect('/posts');
+        // console.log("==========校验失败===========", e);
+        // return res.redirect('/posts');
     }
     // 明文密码加密
     password = sha1(password);
@@ -109,20 +116,41 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 
     UserModel.create(user).then(user => {
         req.session.user = user;
-        console.log("======user", user);
+        // console.log("======user", user);
         // 写入 flash
         // req.flash('success', '注册成功');
+        // req.session.user = user;
         // 跳转到首页
-        res.redirect('/posts');
+        res.json({
+            err: null,
+            user: user
+        });
+        // res.redirect('/posts');
     }).catch(err => {
         fs.unlink(newPath);
+        if (err.err) {
+            err = err.err;
+        }
+        if (err && err.sql) {
+            err.sql = "";
+        }
         // 用户名被占用则跳回注册页，而不是错误页
-        if (err.message.match('Duplicate entry')) {
+        if (err.sqlMessage && (err.sqlMessage.indexOf('Duplicate entry') >= 0)) {
             // req.flash('error', '用户名已被占用');
-            return res.redirect('/posts');
+            //return res.redirect('/posts');
+            res.json({
+                err: {
+                    message: "用户名被占用"
+                },
+                user: null
+            });
         } else {
+            res.json({
+                err: err,
+                user: null
+            });
             //console.log('err.message==================', err.message);
-            next(err);
+            // next(err);
         }
     });
 });

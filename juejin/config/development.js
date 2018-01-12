@@ -7,7 +7,7 @@ let proConfig = {
     apiPort:5389,
     apiHost:"http://127.0.0.1",
     sslModel: false,
-    uploadPath: __dirname + '../static/img/'
+    uploadPath:'../../static/img/'
 }
 let disConfig = Object.assign({}, devConfig, proConfig);
 
