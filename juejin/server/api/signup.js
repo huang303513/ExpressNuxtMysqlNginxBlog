@@ -41,6 +41,14 @@ var upload = multer();
 import getConfig from '../../config';
 let config = getConfig(process.env.NODE_ENV);
 
+function getUploadPath(avatar) {
+    if (config.devEnv) {
+        return path.join(__dirname,config.uploadPath,avatar);
+    } else {
+        return config.uploadPath + avatar;
+    }
+}
+
 // POST /signup 用户注册
 router.post('/', upload.single('avatar'), function (req, res, next) {
     // let avatar = req.file.originalname;
@@ -51,7 +59,7 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
     let bio;
     let password;
     let repassword;
-    var newPath
+    let newPath
     try {
         var timestamp = Date.now();
         if (!req.file) {
@@ -59,12 +67,14 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
         var type = req.file.mimetype.split('/')[1];
         var avatar = timestamp + "." + type;
-        newPath = path.join(__dirname,"../..", config.uploadPath, avatar);
+        newPath = getUploadPath(avatar);
         //  console.log("path",newPath,poster);
         // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
         console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
-            throw new Error('上传照片失败');
+            if (err) {
+                throw new Error('上传照片失败');
+            }
         });
 
         name = req.body.name;

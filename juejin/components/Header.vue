@@ -99,7 +99,9 @@
 				}
 			},
 			writeBlog() {
-				if (this.hasLogined) {} else {
+				if (this.hasLogined) {
+					
+				} else {
 					this.loginBoxState = "showLoginBox";
 				}
 			},
@@ -119,7 +121,7 @@
 				}).catch(error => {
 					console.log("===============error==========", error);
 				});
-				console.log(result);
+				//console.log(result);
 				var user;
 				if (result.data && !result.data.err && result.data.user) {
 					user = result.data.user;
