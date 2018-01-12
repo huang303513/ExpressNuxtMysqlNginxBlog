@@ -12,7 +12,7 @@
 				<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
 
                 <a @click.prevent.stop="writeBlog">写文章</a>
-				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登陆</a>
+				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登录</a>
 				<a v-if="!hasLogined" @click.prevent.stop="regist">注册</a>
 				<a v-if="hasLogined" @click.prevent.stop="loginOut">退出</a>
 			</div>
@@ -20,10 +20,19 @@
 		<div :class="['login-Box',loginBoxState]" @click="clickLoginBoxBG">
 			<div class="box" @click.stop="">
 				<div class="loginForm">
-					用户名:
-					<input type="text" v-model="name"> 密码:
-					<input type="text" v-model="password">
-					<input @click.stop="doLogin" type="button" value="登陆">
+                    <i class="iconfont icon-close"></i>
+                    <h1 class="title">登录</h1>
+                    <div class="from-control">
+                        <input type="text" v-model="name" placeholder="请输入用户名">
+                    </div>
+					<div class="from-control">
+                        <input type="text" v-model="password" placeholder="请输入密码">
+                    </div>
+					<a @click.stop="doLogin" class="button">登录</a>
+                    <div class="forget">
+                        <span>没有账号？ <b>前往注册</b></span>
+                        <span>忘记密码</span>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -150,7 +159,8 @@
 </script>
 
 <style lang="less" scoped>
-	@import "~assets/less/define.less";
+    @import "~assets/less/define.less";
+    @import "~assets/less/iconfont.less";
 	.header {
 		background-color: white;
 		position: fixed;
@@ -212,11 +222,61 @@
 			height: 30rem;
 			text-align: center;
 			border-radius: 6px;
-			background-color: rgba(255, 255, 255, 0.8);
+			background-color: rgba(255, 255, 255, 1);
 			color: black;
 			transform: translate3d(-50%, -50%, 0) scale(1);
 			.loginForm {
-				background-color: white;
+                background-color: white;
+                width: 80%;
+                margin: 0 auto;
+                .icon-close {
+                    float: right;
+                    opacity: 0.4;
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+                .title {
+                    font-size: 20px;
+                    text-align: left;
+                }
+                .from-control {
+                    margin-bottom: 5px;
+                    input {
+                        width: 100%;
+                        border: 1px solid #e9e9e9;
+                        padding: 10px;
+                        &:focus {
+                             border: 1px solid @defaultBlue;
+                        }
+                    }
+                }
+                .button {
+                    display: inline-block;
+                    height: 30px;
+                    width: 100%;
+                    line-height: 30px;
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: 200;
+                    color: #ffffff;
+                    background: @defaultBlue;
+                    box-sizing: content-box;
+                    margin: 0;
+                }
+                .forget {
+                    span:first-child {
+                        float: left;
+                        b {
+                            color: @defaultBlue;
+                            cursor: pointer;
+                        }
+                    }
+                    span:last-child {
+                        float: right;
+                        color: @defaultBlue;
+                        cursor: pointer;
+                    }
+                }
 			}
 		}
 	}
