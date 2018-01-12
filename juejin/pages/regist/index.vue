@@ -1,6 +1,6 @@
 <template>
 	<div class="index">
-		<form class="ui form segment" method="post" action="/api/signup"  enctype="multipart/form-data">
+		<form  id="signupForm" class="ui form segment" method="post" action="/api/signup" onsubmit="return formBack()"  enctype="multipart/form-data">
 			<div class="field required">
 				<label>用户名</label>
 				<input placeholder="用户名" type="text" v-model="user.name" name="name">
@@ -75,6 +75,9 @@
 			//this.requestData();
 			// alert("hehe");
 			//document.location.href = document.location.href + "/posts";
+			document.getElementById("signupForm").ajaxSubmit(function(message) { 
+					console.log("=====叶叶====",message);
+			});
 		},
 		methods: {
 			async requestData() {
@@ -85,6 +88,9 @@
 					console.log("===============error==========", error);
 				});
 				this.posts = result && result.data || [];
+			},
+			formBack(){
+				return false;
 			}
 		}
 	};

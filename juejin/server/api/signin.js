@@ -16,7 +16,7 @@ let checkNotLogin = require('../middlewares/check').checkNotLogin;
 //     res.render('signin');
 // });
 // POST /signin 用户登录
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
     // console.log("======到了======",req.body);
     let name = req.body.name;
     let password = req.body.password;
@@ -28,17 +28,17 @@ router.post('/', function(req, res, next) {
             //req.flash('error', '用户不存在');
             //return res.redirect('back');
             err = {
-                message:"用户名或者密码错误"
+                message: "用户名或者密码错误"
             }
-        }else if (sha1(password) !== user.password) {
+        } else if (sha1(password) !== user.password) {
             err = {
-                message:"用户名或者密码错误"
+                message: "用户名或者密码错误"
             }
         }
         // req.flash('success', '登录成功');
         // // 用户信息写入 session
         // delete user.password;
-        req.session.user = JSON.stringify(user);
+        req.session.user = user; //JSON.stringify(user);
         // console.log("=====in======headers========",req.headers);
         // res.session = req.session;
         // res.cookie('user',JSON.stringify(user));
@@ -46,7 +46,10 @@ router.post('/', function(req, res, next) {
         // console.log("===========cookie===",req.cookies);
         // // 跳转到主页
         // res.redirect('/posts');
-        res.json({err:err,user:user});
+        res.json({
+            err: err,
+            user: user
+        });
     }).catch(next);
 });
 

@@ -88,9 +88,10 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
     } catch (e) {
         // 注册失败，异步删除上传的头像
         fs.unlink(newPath);
+        res.json({err:e,user:null});
         // req.flash('error', e.message);
         console.log("==========校验失败===========", e);
-        return res.redirect('/posts');
+        // return res.redirect('/posts');
     }
     // 明文密码加密
     password = sha1(password);
@@ -109,20 +110,24 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 
     UserModel.create(user).then(user => {
         req.session.user = user;
-        console.log("======user", user);
+        // console.log("======user", user);
         // 写入 flash
         // req.flash('success', '注册成功');
+        // req.session.user = user;
         // 跳转到首页
-        res.redirect('/posts');
+        res.json({err:null,user:user});
+        // res.redirect('/posts');
     }).catch(err => {
         fs.unlink(newPath);
         // 用户名被占用则跳回注册页，而不是错误页
         if (err.message.match('Duplicate entry')) {
             // req.flash('error', '用户名已被占用');
-            return res.redirect('/posts');
+            //return res.redirect('/posts');
+            res.json({err:{message:"用户名被占用"},user:null});
         } else {
+            res.json({err:err,user:null});
             //console.log('err.message==================', err.message);
-            next(err);
+            // next(err);
         }
     });
 });
