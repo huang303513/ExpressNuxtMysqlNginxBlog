@@ -629,7 +629,7 @@ function contentToHtml(posts) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(25);
 // let devConfig = require('./default.js');
 
 
@@ -639,12 +639,11 @@ var proConfig = {
     apiPort: 5389,
     apiHost: "http://127.0.0.1",
     sslModel: false,
-    uploadPath: __dirname + '../static/img/'
+    uploadPath: '../../static/img/'
 };
 var disConfig = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__default_js__["a" /* default */], proConfig);
 
 /* harmony default export */ __webpack_exports__["a"] = (disConfig);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "config"))
 
 /***/ }),
 /* 9 */
@@ -829,6 +828,8 @@ var fs = __webpack_require__(11);
 
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
+
+app.use(__WEBPACK_IMPORTED_MODULE_1_express___default.a.static(path.join(__dirname, 'static/img')));
 
 // let uploadDir = "/usr/local/webserver/nginx/static/img";
 // console.log("----dirname",__dirname);
@@ -1975,7 +1976,7 @@ router.get('/', checkLogin, function (req, res, next) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(10);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_buffer__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(5);
@@ -2030,6 +2031,7 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
     var bio = void 0;
     var password = void 0;
     var repassword = void 0;
+    var newPath;
     try {
         var timestamp = Date.now();
         if (!req.file) {
@@ -2037,9 +2039,10 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
         var type = req.file.mimetype.split('/')[1];
         var avatar = timestamp + "." + type;
-        var newPath = path.join(config.uploadPath, avatar);
+        newPath = path.join(__dirname, "../..", config.uploadPath, avatar);
         //  console.log("path",newPath,poster);
         // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
+        console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
             throw new Error('上传照片失败');
         });
@@ -2066,10 +2069,14 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
     } catch (e) {
         // 注册失败，异步删除上传的头像
+        // console.log("=====e======",JSON.stringify(e));
         fs.unlink(newPath);
-        res.json({ err: e, user: null });
+        res.json({
+            err: { message: e.message || "校验出错" },
+            user: null
+        });
         // req.flash('error', e.message);
-        console.log("==========校验失败===========", e);
+        // console.log("==========校验失败===========", e);
         // return res.redirect('/posts');
     }
     // 明文密码加密
@@ -2094,17 +2101,34 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         // req.flash('success', '注册成功');
         // req.session.user = user;
         // 跳转到首页
-        res.json({ err: null, user: user });
+        res.json({
+            err: null,
+            user: user
+        });
         // res.redirect('/posts');
     }).catch(function (err) {
         fs.unlink(newPath);
+        if (err.err) {
+            err = err.err;
+        }
+        if (err && err.sql) {
+            err.sql = "";
+        }
         // 用户名被占用则跳回注册页，而不是错误页
-        if (err.message.match('Duplicate entry')) {
+        if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') >= 0) {
             // req.flash('error', '用户名已被占用');
             //return res.redirect('/posts');
-            res.json({ err: { message: "用户名被占用" }, user: null });
+            res.json({
+                err: {
+                    message: "用户名被占用"
+                },
+                user: null
+            });
         } else {
-            res.json({ err: err, user: null });
+            res.json({
+                err: err,
+                user: null
+            });
             //console.log('err.message==================', err.message);
             // next(err);
         }
@@ -2112,6 +2136,7 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "server/api"))
 
 /***/ }),
 /* 32 */
