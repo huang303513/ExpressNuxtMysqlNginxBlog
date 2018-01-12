@@ -829,7 +829,7 @@ var fs = __webpack_require__(11);
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 
-app.use(__WEBPACK_IMPORTED_MODULE_1_express___default.a.static(path.join(__dirname, 'static/img')));
+// app.use(express.static(path.join(__dirname, 'static/img')));
 
 // let uploadDir = "/usr/local/webserver/nginx/static/img";
 // console.log("----dirname",__dirname);

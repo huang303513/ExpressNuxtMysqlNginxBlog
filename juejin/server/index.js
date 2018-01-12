@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'static/img')));
+// app.use(express.static(path.join(__dirname, 'static/img')));
 
 // let uploadDir = "/usr/local/webserver/nginx/static/img";
 // console.log("----dirname",__dirname);
