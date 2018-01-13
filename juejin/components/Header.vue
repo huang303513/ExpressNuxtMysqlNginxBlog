@@ -7,11 +7,11 @@
 			</div>
 			<div class="header-div-span">
 				<!-- <button @click="writeBlog" type="button">写文章</button>
-				<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
-				<button v-if="!hasLogined" @click="regist" type="button">注册</button>
-				<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
-
-                <a @click.prevent.stop="writeBlog">写文章</a>
+					<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
+					<button v-if="!hasLogined" @click="regist" type="button">注册</button>
+					<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
+	
+				<a @click.prevent.stop="writeBlog">写文章</a>
 				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登录</a>
 				<a v-if="!hasLogined" @click.prevent.stop="regist">注册</a>
 				<a v-if="hasLogined" @click.prevent.stop="loginOut">退出</a>
@@ -20,19 +20,19 @@
 		<div :class="['login-Box',loginBoxState]" @click="clickLoginBoxBG">
 			<div class="box" @click.stop="">
 				<div class="loginForm">
-                    <i class="iconfont icon-close"></i>
-                    <h1 class="title">登录</h1>
-                    <div class="from-control">
-                        <input type="text" v-model="name" placeholder="请输入用户名">
-                    </div>
+					<i @click="clickLoginBoxBG" class="iconfont icon-close"></i>
+					<h1 class="title">登录</h1>
 					<div class="from-control">
-                        <input type="text" v-model="password" placeholder="请输入密码">
-                    </div>
+						<input type="text" v-model="name" placeholder="请输入用户名">
+					</div>
+					<div class="from-control">
+						<input type="text" v-model="password" placeholder="请输入密码">
+					</div>
 					<a @click.stop="doLogin" class="button">登录</a>
-                    <div class="forget">
-                        <span>没有账号？ <b>前往注册</b></span>
-                        <span>忘记密码</span>
-                    </div>
+					<div class="forget">
+						<span>没有账号？ <b @click="regist">前往注册</b></span>
+						<span>忘记密码</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -50,8 +50,8 @@
 				desc: "亲爱的，欢迎光临",
 				hasLogined: false,
 				loginBoxState: "hiddenLoginBox",
-				name: null,
-				password: null
+				name: "",
+				password: ""
 			};
 		},
 		// async asyncData() {
@@ -100,7 +100,7 @@
 			},
 			writeBlog() {
 				if (this.hasLogined) {
-					
+	
 				} else {
 					this.loginBoxState = "showLoginBox";
 				}
@@ -111,14 +111,23 @@
 			},
 			async doLogin() {
 				var url = "/api/login";
+				if (!(this.name.length >= 1 && this.name.length <= 20)) {
+					alert('名字请限制在 1-10 个字符');
+					return;
+				}
+				if (this.password.length < 6) {
+					alert('密码至少 6 个字符');
+					return;
+				}
 				let result = await axios({
 					method: "post",
 					url: url,
 					data: {
-						name: "黄成都",
-						password: "huang303513"
+						name: this.name,
+						password: this.password
 					}
 				}).catch(error => {
+					alert(error&&error.message||"登陆出错");
 					console.log("===============error==========", error);
 				});
 				//console.log(result);
@@ -135,8 +144,10 @@
 					// 	title: 'Important message',
 					// 	text: 'Hello user! This is a notification!'
 					// });
-				} else {}
-				console.log(JSON.stringify(user));
+				} else {
+					alert(result.data.errr.message);
+				}
+				//console.log(JSON.stringify(user));
 			},
 			regist() {
 				// console.log(this.$root);
@@ -162,8 +173,8 @@
 </script>
 
 <style lang="less" scoped>
-    @import "~assets/less/define.less";
-    @import "~assets/less/iconfont.less";
+	@import "~assets/less/define.less";
+	@import "~assets/less/iconfont.less";
 	.header {
 		background-color: white;
 		position: fixed;
@@ -192,7 +203,8 @@
 			margin-left: 0.7rem;
 			color: @defaultDarkColor;
 		}
-		button, a {
+		button,
+		a {
 			color: @defaultBlue;
 			font-size: 1.2rem;
 			margin-right: 0.7rem;
@@ -200,12 +212,15 @@
 			cursor: pointer;
 		}
 	}
+	
 	.showLoginBox {
 		display: block;
 	}
+	
 	.hiddenLoginBox {
 		display: none;
 	}
+	
 	.login-Box {
 		position: fixed;
 		top: 0px;
@@ -229,57 +244,57 @@
 			color: black;
 			transform: translate3d(-50%, -50%, 0) scale(1);
 			.loginForm {
-                background-color: white;
-                width: 80%;
-                margin: 0 auto;
-                .icon-close {
-                    float: right;
-                    opacity: 0.4;
-                    font-size: 20px;
-                    cursor: pointer;
-                }
-                .title {
-                    font-size: 20px;
-                    text-align: left;
-                }
-                .from-control {
-                    margin-bottom: 5px;
-                    input {
-                        width: 100%;
-                        border: 1px solid #e9e9e9;
-                        padding: 10px;
-                        &:focus {
-                             border: 1px solid @defaultBlue;
-                        }
-                    }
-                }
-                .button {
-                    display: inline-block;
-                    height: 30px;
-                    width: 100%;
-                    line-height: 30px;
-                    text-align: center;
-                    font-size: 15px;
-                    font-weight: 200;
-                    color: #ffffff;
-                    background: @defaultBlue;
-                    box-sizing: content-box;
-                    margin: 0;
-                }
-                .forget {
-                    span:first-child {
-                        float: left;
-                        b {
-                            color: @defaultBlue;
-                            cursor: pointer;
-                        }
-                    }
-                    span:last-child {
-                        float: right;
-                        color: @defaultBlue;
-                        cursor: pointer;
-                    }
-                }
+				background-color: white;
+				width: 80%;
+				margin: 0 auto;
+				.icon-close {
+					float: right;
+					opacity: 0.4;
+					font-size: 20px;
+					cursor: pointer;
+				}
+				.title {
+					font-size: 20px;
+					text-align: left;
+				}
+				.from-control {
+					margin-bottom: 5px;
+					input {
+						width: 100%;
+						border: 1px solid #e9e9e9;
+						padding: 10px;
+						&:focus {
+							border: 1px solid @defaultBlue;
+						}
+					}
+				}
+				.button {
+					display: inline-block;
+					height: 30px;
+					width: 100%;
+					line-height: 30px;
+					text-align: center;
+					font-size: 15px;
+					font-weight: 200;
+					color: #ffffff;
+					background: @defaultBlue;
+					box-sizing: content-box;
+					margin: 0;
+				}
+				.forget {
+					span:first-child {
+						float: left;
+						b {
+							color: @defaultBlue;
+							cursor: pointer;
+						}
+					}
+					span:last-child {
+						float: right;
+						color: @defaultBlue;
+						cursor: pointer;
+					}
+				}
 			}
 		}
 	}

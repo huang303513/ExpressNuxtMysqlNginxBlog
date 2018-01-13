@@ -122,7 +122,10 @@
 					// 	title: 'Important message',
 					// 	text: 'Hello user! This is a notification!'
 					// });
-				} else {}
+					history.go(-1);
+				} else {
+					alert(result.data.err && result.data.err.message ||"注册失败");
+				}
 				console.log(result);
 			}
 		}
