@@ -295,17 +295,17 @@ function formatDate(date, returnType, fixOffset) {
 
 module.exports = {
 	checkLogin: function checkLogin(req, res, next) {
-		if (!req.session.user) {
-			//req.flash('error','未登录');
-			return res.redirect('/signin');
-		}
+		// if (!req.session.user) {
+		// 	//req.flash('error','未登录');
+		// 	return res.redirect('/signin');
+		// }
 		next();
 	},
 	checkNotLogin: function checkNotLogin(req, res, next) {
-		if (req.session.user) {
-			//req.flash('error','已登录');
-			return res.redirect('back'); //返回之前的页面
-		}
+		// if (req.session.user) {
+		// 	//req.flash('error','已登录');
+		// 	return res.redirect('back');//返回之前的页面
+		// }
 		next();
 	}
 };
@@ -1952,10 +1952,10 @@ router.post('/', function (req, res, next) {
 
 var express = __webpack_require__(0);
 var router = express.Router();
-var checkLogin = __webpack_require__(2).checkLogin;
+// let checkLogin = require('../middlewares/check').checkLogin;
 
 // GET /signout 登出
-router.get('/', checkLogin, function (req, res, next) {
+router.get('/', function (req, res, next) {
    // 清空 session 中用户信息
    //  console.log("========request session====",req.session);
    req.session.user = null;

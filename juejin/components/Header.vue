@@ -100,7 +100,7 @@
 			},
 			writeBlog() {
 				if (this.hasLogined) {
-	
+					window.location.href = "/posts/add";
 				} else {
 					this.loginBoxState = "showLoginBox";
 				}
@@ -250,11 +250,11 @@
 				.icon-close {
 					float: right;
 					opacity: 0.4;
-					font-size: 20px;
+					font-size: 1.3rem;
 					cursor: pointer;
 				}
 				.title {
-					font-size: 20px;
+					font-size: 1.3rem;
 					text-align: left;
 				}
 				.from-control {
@@ -262,7 +262,7 @@
 					input {
 						width: 100%;
 						border: 1px solid #e9e9e9;
-						padding: 10px;
+						padding: .7rem;
 						&:focus {
 							border: 1px solid @defaultBlue;
 						}
@@ -270,11 +270,11 @@
 				}
 				.button {
 					display: inline-block;
-					height: 30px;
+					height: 2rem;
 					width: 100%;
-					line-height: 30px;
+					line-height: 2rem;
 					text-align: center;
-					font-size: 15px;
+					font-size: 1rem;
 					font-weight: 200;
 					color: #ffffff;
 					background: @defaultBlue;
@@ -282,6 +282,7 @@
 					margin: 0;
 				}
 				.forget {
+					font-size: .7rem;
 					span:first-child {
 						float: left;
 						b {

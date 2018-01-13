@@ -7,10 +7,10 @@
 
 let express = require('express');
 let router = express.Router();
-let checkLogin = require('../middlewares/check').checkLogin;
+// let checkLogin = require('../middlewares/check').checkLogin;
 
 // GET /signout 登出
-router.get('/', checkLogin, function(req, res, next) {
+router.get('/', function(req, res, next) {
    // 清空 session 中用户信息
   //  console.log("========request session====",req.session);
   req.session.user = null;
