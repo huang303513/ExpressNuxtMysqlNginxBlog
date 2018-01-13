@@ -7,6 +7,7 @@
 
 module.exports = {
 	checkLogin:function(req,res,next) {
+		// console.log("=======耶耶耶=======",req.session.user);
 		// if (!req.session.user) {
 		// 	//req.flash('error','未登录');
 		// 	return res.redirect('/signin');

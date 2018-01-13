@@ -295,6 +295,7 @@ function formatDate(date, returnType, fixOffset) {
 
 module.exports = {
 	checkLogin: function checkLogin(req, res, next) {
+		// console.log("=======耶耶耶=======",req.session.user);
 		// if (!req.session.user) {
 		// 	//req.flash('error','未登录');
 		// 	return res.redirect('/signin');
@@ -569,7 +570,7 @@ function contentToHtml(posts) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
-                            sql = 'SELECT * FROM comments where postId=' + postId;
+                            sql = 'SELECT * FROM comments where postId=' + postId + " ORDER BY _id desc";
                             _context3.next = 3;
                             return mysqlQuery(sql);
 
@@ -1173,7 +1174,7 @@ router.get('/:postId', function (req, res, next) {
 	]).then(function (result) {
 		var post = result[0];
 		var comments = result[1];
-		//console.log("comments============",comments);
+		// console.log("comments============",comments);
 		// post.content = xss(post.content);
 		post.content = post.content.replace("<script>", "script");
 		post.content = post.content.replace("<iframe>", "iframe");
@@ -1252,17 +1253,26 @@ router.get('/:postId/remove', checkLogin, function (req, res, next) {
 router.post('/:postId/comment', checkLogin, function (req, res, next) {
 	var author = req.session.user;
 	var postId = req.params.postId;
-	var content = req.fields.content;
+	var content = req.body.content;
 	var comment = {
 		author: author,
 		postId: postId, //文章id
 		content: content
 	};
+	// console.log("==============comment=============",comment);
+	// return res.json(comment);
 	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].create(comment).then(function (result) {
-		req.flash('success', '留言成功');
+		// req.flash('success', '留言成功');
 		// 留言成功后跳转到上一页
-		res.redirect('back');
-	}).catch(next);
+		// res.redirect('back');
+		__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId).then(function (result) {
+			res.json({ err: null, comments: result });
+		}).catch(function (err) {
+			res.json({ err: { message: "获取评论失败" }, comments: null });
+		});
+	}).catch(function (err) {
+		res.json({ err: { message: "添加评论失败" }, comments: null });
+	});
 });
 
 // GET /posts/:postId/comment/:commentId/remove 删除一条留言

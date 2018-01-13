@@ -92,7 +92,7 @@ router.get('/:postId', function (req, res, next) {
 	]).then(result => {
 		let post = result[0];
 		let comments = result[1];
-		//console.log("comments============",comments);
+		// console.log("comments============",comments);
 		// post.content = xss(post.content);
 		post.content = post.content.replace("<script>","script");
 		post.content = post.content.replace("<iframe>","iframe");
@@ -175,18 +175,27 @@ router.get('/:postId/remove', checkLogin, function (req, res, next) {
 router.post('/:postId/comment', checkLogin, function (req, res, next) {
 	let author = req.session.user;
 	let postId = req.params.postId;
-	let content = req.fields.content;
+	let content = req.body.content;
 	let comment = {
 		author: author,
 		postId: postId, //文章id
 		content: content
 	};
+	// console.log("==============comment=============",comment);
+	// return res.json(comment);
 	CommentModel.create(comment)
 		.then(result => {
-			req.flash('success', '留言成功');
+			// req.flash('success', '留言成功');
 			// 留言成功后跳转到上一页
-			res.redirect('back');
-		}).catch(next);
+			// res.redirect('back');
+			CommentModel.getComments(postId).then(result =>{
+				res.json({err:null,comments:result});
+			}).catch(err =>{
+				res.json({err:{message:"获取评论失败"},comments:null});
+			});
+		}).catch(err => {
+			res.json({err:{message:"添加评论失败"},comments:null});
+		});
 });
 
 // GET /posts/:postId/comment/:commentId/remove 删除一条留言

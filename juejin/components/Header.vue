@@ -74,6 +74,10 @@
 		// 	};
 		// },
 		mounted() {
+			this.$eventHub.$on("SHOWLOGIN", params => {
+					this.loginBoxState = "showLoginBox";
+					// alert(JSON.stringify(yourData));
+			});
 			this.asyncLoginIofo();
 		},
 		props: {

@@ -54,7 +54,7 @@ export default  {
     },
     // 通过文章 id 获取该文章下所有留言，按留言创建时间升序
     async getComments(postId, cb) {
-        let sql = 'SELECT * FROM comments where postId=' + postId;
+        let sql = 'SELECT * FROM comments where postId=' + postId + " ORDER BY _id desc";
         let { err, result } = await mysqlQuery(sql);
         try {
             result = contentToHtml(result);

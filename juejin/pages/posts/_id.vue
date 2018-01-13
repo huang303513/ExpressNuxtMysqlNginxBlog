@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="postHeader">
-			<div class="author-hover">
+			<div v-if="post.author" class="author-hover">
 				<!-- <strong>{{post.author}}</strong> -->
 				<img class="author-hover-img" :src="`/img/${post.author.avatar}`" />
 				<div class="author-hover-title">
@@ -16,9 +16,9 @@
 		<div class="comments">
 			<p class="comments-pl">评论</p>
 			<!-- <div class="comment-box">
-									<textarea></textarea>
-									<button>评论</button>
-								</div> -->
+																<textarea></textarea>
+																<button>评论</button>
+															</div> -->
 			<div class="comment-box">
 				<div class="textarea-wrapper">
 					<div class="content-editable" ref="commentDiv" contenteditable="true">{{deliveryLocation}}</div>
@@ -41,14 +41,16 @@
 
 <script>
 	import axios from "axios";
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		data() {
 			return {
 				deliveryLocation: null,
-				post:[],
-				comments:[],
-				postId:null
-			}
+				params: null,
+				post: [],
+				comments: [],
+				postId: null
+			};
 		},
 		async asyncData({
 			params
@@ -61,16 +63,17 @@
 			});
 			//console.log("post=========>", JSON.stringify(result.data));
 			return {
+				params: params,
 				post: result.data && result.data.post,
 				comments: (result.data && result.data.comments) || []
 			};
-			
 		},
-		mounted(){
+		mounted() {
+	
 			//this.$root.testname = "cheng";
 			//alert(this.$root.testname);
-		}, 
-		activated(){
+		},
+		activated() {
 			//alert("heh");
 		},
 		methods: {
@@ -79,13 +82,38 @@
 				// event.target.clientHeight = event.target.scrollHeight;
 				// this.$refs.commentDiv.style.height = event.target.scrollHeight;
 			},
-			requestData(){
-
-			},
-			submitComment(){
+			requestData() {},
+			async submitComment() {
+				// console.log("========ddd===",this.$eventHub);
+				// return;
 				//alert("提交评论");
 				//window.history.back();
-				location.href = "/posts";
+				// location.href = "/posts";
+				if (!userLoginUtil.checkLogined()) {
+					this.$eventHub.$emit("SHOWLOGIN", {
+						name: "参数"
+					});
+					return;
+				}
+				var url = "/api/posts/" + this.params.id + "/comment";
+				// console.log("url==========>", url);
+				let result = await axios({
+					method: "post",
+					url: url,
+					data: {
+						content: this.deliveryLocation
+					}
+				}).catch(error => {
+					console.log("===============error==========", error);
+				});
+				console.log(result);
+				if (result.data && !result.data.err && result.data.comments) {
+					this.comments = result.data.comments;
+				} else {
+					alert((result.data && result.data.err && result.data.err.message) ||
+						"添加评论出错");
+				}
+				// console.log("评论结果=======", result);
 			}
 		}
 	};
@@ -99,7 +127,7 @@
 		border-bottom: 1px solid @defaultBGColor;
 		background-color: white;
 		.author-hover {
-			padding-left: .7rem;
+			padding-left: 0.7rem;
 			padding-top: 5px;
 			flex-direction: row;
 			.author-hover-img {
@@ -120,7 +148,7 @@
 				}
 				.author-hover-title-big {
 					font-family: PingFangSC-Regular;
-					font-size: .7rem;
+					font-size: 0.7rem;
 					color: darkTextColor;
 				}
 			}
@@ -137,6 +165,7 @@
 			color: @darkTextColor;
 		}
 	}
+	
 	.comments {
 		margin-top: 1rem;
 		padding-bottom: 2rem;
@@ -144,17 +173,17 @@
 		background-color: white;
 		.comments-pl {
 			// background-color: green;
-			padding-top: .5rem;
+			padding-top: 0.5rem;
 			font-size: 1.5rem;
 			text-align: center;
 			color: @darkTextColor;
-		} 
+		}
 		ul {
 			li {
 				list-style: none;
 				border-bottom: 4px solid @defaultBGColor;
 				border-block-start: 1.5rem;
-				margin: 1.5rem 4.7rem 1.5rem .7rem;
+				margin: 1.5rem 4.7rem 1.5rem 0.7rem;
 				.comment-img {
 					position: absolute;
 					width: 2rem;
@@ -172,25 +201,26 @@
 						}
 					}
 					.comment-content {
-						margin-top: .7rem;
-						margin-bottom: .7rem;
+						margin-top: 0.7rem;
+						margin-bottom: 0.7rem;
 						color: black;
 					}
 				}
 			}
 		}
 	}
+	
 	.comment-box {
 		position: relative;
-		padding: .5rem 4.7rem 4rem .7rem; // min-height: 7rem;
+		padding: 0.5rem 4.7rem 4rem 0.7rem; // min-height: 7rem;
 		// min-height: 7rem;
 		background-color: #f6f7f9;
 		.textarea-wrapper {
 			position: relative;
 			display: block; // width: 100%;
 			min-height: 4rem; // background-color: green;
-			padding: .1rem 0;
-			margin: 0 7.7rem 0 .7rem; // min-height: 7rem;
+			padding: 0.1rem 0;
+			margin: 0 7.7rem 0 0.7rem; // min-height: 7rem;
 			background-color: white;
 			.content-editable {
 				position: relative;
@@ -199,7 +229,7 @@
 				display: block;
 				width: 100%;
 				line-height: normal;
-				font-size: .5rem;
+				font-size: 0.5rem;
 				color: @darkTextColor;
 				white-space: pre;
 			}
@@ -211,9 +241,9 @@
 				width: 100%;
 				height: 100%;
 				box-sizing: border-box;
-				padding: .1rem 0;
+				padding: 0.1rem 0;
 				line-height: normal;
-				font-size: .5rem;
+				font-size: 0.5rem;
 				// color: #464545;
 				color: black;
 				text-align: left;
@@ -222,7 +252,7 @@
 				background-color: transparent;
 				&::-webkit-input-placeholder {
 					text-align: left;
-					font-size: .5rem;
+					font-size: 0.5rem;
 					color: @darkTextColor;
 				}
 			}
@@ -240,8 +270,8 @@
 			font-size: 1.3rem;
 			border: 1px solid white;
 			border-radius: 3px;
-			padding: .3rem .7rem;
-			bottom: .8rem;
+			padding: 0.3rem 0.7rem;
+			bottom: 0.8rem;
 			right: 15rem;
 		}
 	}
