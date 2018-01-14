@@ -40,15 +40,18 @@ router.get('/', function (req, res, next) {
 });
 
 // GET /posts/create 发表文章页
-router.get('/create', checkLogin, function (req, res, next) {
-	res.render('create');
-});
+// router.get('/create', checkLogin, function (req, res, next) {
+// 	res.render('create');
+// });
 
 // POST /posts 发表一篇文章
-router.post('/', checkLogin, function (req, res, next) {
+router.post('/create', checkLogin, function (req, res, next) {
 	let author = req.session.user;
-	let title = req.fields.title;
-	let content = req.fields.content;
+	// console.log("================",req.body);
+	let title = req.body.title;
+	let content = req.body.content;
+	// console.log("================",req.body);
+	// return;
 	try {
 		if (!title.length) {
 			throw new Error('请填写标题');
@@ -57,8 +60,8 @@ router.post('/', checkLogin, function (req, res, next) {
 			throw new Error('请填写内容');
 		}
 	} catch (e) {
-		req.flash('error', e.message);
-		return res.redirect('back');
+		// req.flash('error', e.message);
+	   res.json({err:{message:e.message||"发布失败"},post:null});
 	}
 	let post = {
 		author: author,
@@ -66,11 +69,16 @@ router.post('/', checkLogin, function (req, res, next) {
 		content: content,
 		pv: 0
 	};
+	// console.log("+++++++++++++++++++++---------",post);
 	PostModel.create(post).then(post => {
-		req.flash('success', '发表成功');
+		// req.flash('success', '发表成功');
+		// console.log("+++++++++++++++++++++",post);
 		// 发表成功后跳转到该文章页
-		res.redirect(`/posts/${post._id}`);
-	}).catch(next);
+		// res.redirect(`/posts/${post._id}`);
+		res.json({err:null,post:post});
+	}).catch(e =>{
+		res.json({err:{message:e.message||"添加出错"},post:null});
+	});
 });
 
 var excludeSpecial = function(s) {  

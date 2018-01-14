@@ -284,48 +284,19 @@ function formatDate(date, returnType, fixOffset) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-/*
-* @Author: huangchengdu
-* @Date:   2017-01-13 17:10:07
-* @Last Modified by:   huangchengdu
-* @Last Modified time: 2017-01-13 21:40:28
-*/
-
-module.exports = {
-	checkLogin: function checkLogin(req, res, next) {
-		// console.log("=======耶耶耶=======",req.session.user);
-		// if (!req.session.user) {
-		// 	//req.flash('error','未登录');
-		// 	return res.redirect('/signin');
-		// }
-		next();
-	},
-	checkNotLogin: function checkNotLogin(req, res, next) {
-		// if (req.session.user) {
-		// 	//req.flash('error','已登录');
-		// 	return res.redirect('back');//返回之前的页面
-		// }
-		next();
-	}
-};
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(23);
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["mysqlQuery"] = mysqlQuery;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(4);
 var mysql = __webpack_require__(24);
 
 var config = Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])("development");
@@ -389,7 +360,7 @@ function mysqlQuery() {
 }
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -410,6 +381,35 @@ function getConfig() {
 }
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+/*
+* @Author: huangchengdu
+* @Date:   2017-01-13 17:10:07
+* @Last Modified by:   huangchengdu
+* @Last Modified time: 2017-01-13 21:40:28
+*/
+
+module.exports = {
+	checkLogin: function checkLogin(req, res, next) {
+		// console.log("=======耶耶耶=======",req.session.user);
+		// if (!req.session.user) {
+		// 	//req.flash('error','未登录');
+		// 	return res.redirect('/signin');
+		// }
+		next();
+	},
+	checkNotLogin: function checkNotLogin(req, res, next) {
+		// if (req.session.user) {
+		// 	//req.flash('error','已登录');
+		// 	return res.redirect('back');//返回之前的页面
+		// }
+		next();
+	}
+};
+
+/***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
@@ -421,7 +421,7 @@ module.exports = require("marked");
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
 
 
@@ -435,7 +435,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  */
 
 var marked = __webpack_require__(6);
-var mysqlQuery = __webpack_require__(4).mysqlQuery;
+var mysqlQuery = __webpack_require__(3).mysqlQuery;
 var formatDate = __webpack_require__(1).formatDate;
 
 function contentToHtml(posts) {
@@ -657,7 +657,7 @@ module.exports = require("sha1");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
 
 
@@ -670,7 +670,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  * @Last Modified time: 2017-01-14 12:11:11
  */
 
-var mysqlQuery = __webpack_require__(4).mysqlQuery;
+var mysqlQuery = __webpack_require__(3).mysqlQuery;
 var formatDate = __webpack_require__(1).formatDate;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -804,7 +804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_index__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_body_parser__ = __webpack_require__(38);
@@ -1098,7 +1098,7 @@ var xss = __webpack_require__(27);
 
 // let CommentModel = require('../models/comments');
 
-var checkLogin = __webpack_require__(2).checkLogin;
+var checkLogin = __webpack_require__(5).checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
@@ -1123,15 +1123,18 @@ router.get('/', function (req, res, next) {
 });
 
 // GET /posts/create 发表文章页
-router.get('/create', checkLogin, function (req, res, next) {
-	res.render('create');
-});
+// router.get('/create', checkLogin, function (req, res, next) {
+// 	res.render('create');
+// });
 
 // POST /posts 发表一篇文章
-router.post('/', checkLogin, function (req, res, next) {
+router.post('/create', checkLogin, function (req, res, next) {
 	var author = req.session.user;
-	var title = req.fields.title;
-	var content = req.fields.content;
+	// console.log("================",req.body);
+	var title = req.body.title;
+	var content = req.body.content;
+	// console.log("================",req.body);
+	// return;
 	try {
 		if (!title.length) {
 			throw new Error('请填写标题');
@@ -1140,8 +1143,8 @@ router.post('/', checkLogin, function (req, res, next) {
 			throw new Error('请填写内容');
 		}
 	} catch (e) {
-		req.flash('error', e.message);
-		return res.redirect('back');
+		// req.flash('error', e.message);
+		res.json({ err: { message: e.message || "发布失败" }, post: null });
 	}
 	var post = {
 		author: author,
@@ -1149,11 +1152,16 @@ router.post('/', checkLogin, function (req, res, next) {
 		content: content,
 		pv: 0
 	};
+	// console.log("+++++++++++++++++++++---------",post);
 	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].create(post).then(function (post) {
-		req.flash('success', '发表成功');
+		// req.flash('success', '发表成功');
+		// console.log("+++++++++++++++++++++",post);
 		// 发表成功后跳转到该文章页
-		res.redirect('/posts/' + post._id);
-	}).catch(next);
+		// res.redirect(`/posts/${post._id}`);
+		res.json({ err: null, post: post });
+	}).catch(function (e) {
+		res.json({ err: { message: e.message || "添加出错" }, post: null });
+	});
 });
 
 var excludeSpecial = function excludeSpecial(s) {
@@ -1293,9 +1301,9 @@ router.get('/:postId/comment/:commentId/remove', checkLogin, function (req, res,
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_js__ = __webpack_require__(3);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1902,7 +1910,7 @@ var sha1 = __webpack_require__(9);
 var express = __webpack_require__(0);
 var router = express.Router();
 
-var checkNotLogin = __webpack_require__(2).checkNotLogin;
+var checkNotLogin = __webpack_require__(5).checkNotLogin;
 
 // GET /signin 登录页
 // router.get('/', checkNotLogin, function(req, res, next) {
@@ -1989,7 +1997,7 @@ router.get('/', function (req, res, next) {
 /* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_users__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_buffer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_buffer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(4);
 /*
  * @Author: huangchengdu
  * @Date:   2017-01-13 21:55:28
@@ -2022,7 +2030,7 @@ var router = express.Router();
 // let UserModel = require('../models/users');
 
 
-var checkNotLogin = __webpack_require__(2).checkNotLogin;
+var checkNotLogin = __webpack_require__(5).checkNotLogin;
 var formatDate = __webpack_require__(1).formatDate;
 var multer = __webpack_require__(33);
 // var upload = multer({ dest: 'static/img/test.png' });
