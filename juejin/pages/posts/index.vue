@@ -34,7 +34,14 @@
 		mounted(){
             //this.requestData();
             // alert("hehe");
-            //document.location.href = document.location.href + "/posts";
+			//document.location.href = document.location.href + "/posts";
+			this.$eventHub.$on("REFRESHPOSTS", params => {
+				alert("meme");
+					// this.loginBoxState = "showLoginBox";
+					// alert(JSON.stringify(params));
+					// self.requestData();
+			});
+
 		},
 		methods: {
 			async requestData() {

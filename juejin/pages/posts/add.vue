@@ -45,7 +45,14 @@
                 console.log("=======result===========", result);
                 // var user;
                 if (result.data && !result.data.err && result.data.post) {
-                    window.location.href = "/posts/" + result.data.post._id;
+                    // window.location
+                    this.$eventHub.$emit("REFRESHPOSTS", {
+						name: "参数"
+                    });
+                    setTimeout(function() {
+                         window.location.replace("/posts/" + result.data.post._id);
+                    },1000);
+                    
                 }else{
                     alert(result.data.err && result.data.err.message || "发布出错");
                 }
