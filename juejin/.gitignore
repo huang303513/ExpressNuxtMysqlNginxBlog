@@ -9,5 +9,5 @@ npm-debug.log
 
 # Nuxt generate
 dist
-build
+build/
 .nuxt
