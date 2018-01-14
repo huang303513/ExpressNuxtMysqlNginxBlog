@@ -108,6 +108,7 @@
 				});
 				console.log(result);
 				if (result.data && !result.data.err && result.data.comments) {
+					this.deliveryLocation = null;
 					this.comments = result.data.comments;
 				} else {
 					alert((result.data && result.data.err && result.data.err.message) ||
