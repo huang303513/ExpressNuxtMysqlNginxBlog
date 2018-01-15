@@ -44,7 +44,7 @@ app.use(cookieParser());
 // process.env.DEBUG = 'nuxt:*'
 
 
-const host = process.env.HOST || '127.0.0.1';
+const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || config.port;
 
 // console.log("===========dirname",__dirname);

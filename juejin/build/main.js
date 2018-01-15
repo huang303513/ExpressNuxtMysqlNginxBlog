@@ -638,7 +638,7 @@ var proConfig = {
     devEnv: true,
     port: 5389,
     apiPort: 5389,
-    apiHost: "http://127.0.0.1",
+    apiHost: "http://localhost",
     sslModel: false,
     uploadPath: '/../../static/img/'
 };
@@ -852,7 +852,7 @@ app.use(__WEBPACK_IMPORTED_MODULE_6_cookie_parser___default()());
 // process.env.DEBUG = 'nuxt:*'
 
 
-var host = process.env.HOST || '127.0.0.1';
+var host = process.env.HOST || 'localhost';
 var port = process.env.PORT || config.port;
 
 // console.log("===========dirname",__dirname);
