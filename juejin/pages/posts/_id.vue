@@ -2,7 +2,6 @@
 	<div>
 		<div class="postHeader">
 			<div v-if="post.author" class="author-hover">
-				<!-- <strong>{{post.author}}</strong> -->
 				<img class="author-hover-img" :src="`/img/${post.author.avatar}`" />
 				<div class="author-hover-title">
 					<p class="author-hover-title-name">{{post.author.name}}|{{post.author.gender=='m'?"男":"女"}}</p>
@@ -15,10 +14,6 @@
 		<article v-html="post.content"></article>
 		<div class="comments">
 			<p class="comments-pl">评论</p>
-			<!-- <div class="comment-box">
-																	<textarea></textarea>
-																	<button>评论</button>
-																</div> -->
 			<div class="comment-box">
 				<div class="textarea-wrapper">
 					<div class="content-editable" ref="commentDiv" contenteditable="true">{{deliveryLocation}}</div>
@@ -57,27 +52,18 @@
 		async asyncData({
 			params
 		}) {
-			// console.log("params==================>", params);
 			var url = "/api/posts/" + params.id;
-			// console.log("url==========>", url);
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);
 			});
-			//console.log("post=========>", JSON.stringify(result.data));
 			return {
 				params: params,
 				post: result.data && result.data.post,
 				comments: (result.data && result.data.comments) || []
 			};
 		},
-		mounted() {
-	
-			//this.$root.testname = "cheng";
-			//alert(this.$root.testname);
-		},
-		activated() {
-			//alert("heh");
-		},
+		mounted() {},
+		activated() {},
 		methods: {
 			trimSpacesAndUppercase(event, dev) {
 				//console.log("===============>",event.target.clientHeight,"   ",event.target.scrollHeight);
@@ -86,11 +72,6 @@
 			},
 			requestData() {},
 			async submitComment() {
-				// console.log("========ddd===",this.$eventHub);
-				// return;
-				//alert("提交评论");
-				//window.history.back();
-				// location.href = "/posts";
 				if (!userLoginUtil.checkLogined()) {
 					this.$eventHub.$emit("SHOWLOGIN", {
 						name: "参数"
@@ -99,7 +80,6 @@
 				}
 				this.$showLoading();
 				var url = "/api/posts/" + this.params.id + "/comment";
-				// console.log("url==========>", url);
 				let result = await axios({
 					method: "post",
 					url: url,
@@ -118,7 +98,6 @@
 					alert((result.data && result.data.err && result.data.err.message) ||
 						"添加评论出错");
 				}
-				// console.log("评论结果=======", result);
 			}
 		}
 	};

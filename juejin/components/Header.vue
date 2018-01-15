@@ -7,11 +7,6 @@
 				<p class="header-title">{{desc}}</p>
 			</div>
 			<div v-if="!hiddenRight" class="header-div-span">
-				<!-- <button @click="writeBlog" type="button">写文章</button>
-						<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
-						<button v-if="!hasLogined" @click="regist" type="button">注册</button>
-						<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
-	
 				<a @click.prevent.stop="writeBlog">写文章</a>
 				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登录</a>
 				<a v-if="!hasLogined" @click.prevent.stop="regist">注册</a>
@@ -62,33 +57,11 @@
 				}
 			};
 		},
-		// async asyncData() {
-		// 	let imgsrc = "/img/headIcon.png";
-		// 	let	desc = "亲爱的，欢迎光临";
-		// 	let	hasLogined = false;
-		// 	let user = userLoginUtil.getLoginedUser();
-		// 	if (user) {
-		// 		imgsrc = "/img/" + user.avatar;
-		// 		desc = user.bio;
-		// 		// this.loginBoxState = "hiddenLoginBox";
-		// 		hasLogined = true;
-		// 	}else{
-		// 		hasLogined = false;
-		// 	}
-		// 	return {
-		// 		imgsrc:imgsrc,
-		// 		desc:desc,
-		// 		hasLogined:hasLogined
-		// 	};
-		// },
 		mounted() {
 			this.$eventHub.$on("SHOWLOGIN", params => {
 				this.loginBoxState = "showLoginBox";
-				// alert(JSON.stringify(yourData));
 			});
 			this.$eventHub.$on("SHOWLOADING", params => {
-				// this.loginBoxState = "showLoginBox";
-				//  alert("11");
 				this.loadingOptions.loading = params.loading;
 			});
 			this.asyncLoginIofo();
@@ -107,7 +80,6 @@
 				if (user) {
 					this.imgsrc = "/img/" + user.avatar;
 					this.desc = user.bio;
-					// this.loginBoxState = "hiddenLoginBox";
 					this.hasLogined = true;
 				} else {
 					this.imgsrc = "/img/headIcon.png";
@@ -158,23 +130,11 @@
 					this.loginBoxState = "hiddenLoginBox";
 					this.hasLogined = true;
 					userLoginUtil.setLoginedUser(user);
-					// this.$notify({
-					// 	group: 'foo',
-					// 	title: 'Important message',
-					// 	text: 'Hello user! This is a notification!'
-					// });
 				} else {
 					alert(result.data.errr.message);
 				}
-				//console.log(JSON.stringify(user));
 			},
 			regist() {
-				// console.log(this.$root);
-				// this.testname = "详情页";
-				// userLoginUtil.checkLogined();
-				//this.$root.$loading.show = true;;
-				//alert("dd" + this.$root.testname);
-				// alert(this.$root.testname);
 				window.location.href = "/regist";
 			},
 			async loginOut() {

@@ -18,22 +18,15 @@
 				<label>性别：</label>
 				<div class="ui compact selection dropdown" tabindex="0">
 					<select v-model="user.gender" name="gender">
-			          <option value="m">男</option>
-			          <option value="f">女</option>
-			          <option value="x">保密</option>
-			        </select>
-					<!-- <i class="dropdown icon"></i> -->
-					<!-- <div class="text">男</div>
-					<div class="menu transition hidden" tabindex="-1">
-						<div class="item active selected" data-value="m">男</div>
-						<div class="item" data-value="f">女</div>
-						<div class="item" data-value="x">保密</div>
-					</div> -->
+				          <option value="m">男</option>
+				          <option value="f">女</option>
+				          <option value="x">保密</option>
+				        </select>
 				</div>
 			</div>
 			<div class="field required">
 				<label>头像：</label>
-				<input type="file" @change="getFile($event)" name="avatar" accept="image/*">			
+				<input type="file" @change="getFile($event)" name="avatar" accept="image/*">
 			</div>
 			<div class="field required">
 				<label>个人简介：</label>
@@ -52,23 +45,10 @@
 	export default {
 		layout: 'regist',
 		components: {},
-		// async asyncData() {
-		// 	let pageIndex = 0;
-		// 	let pageSize = 3;
-		// 	var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
-		// 	let result = await axios.get(url).catch(error => {
-		// 		console.log("===============error==========", error);
-		// 	});
-		// 	return {
-		// 		posts: result && result.data || [],
-		// 		pageIndex: pageIndex,
-		// 		pageSize: pageSize
-		// 	};
-		// },
 		data() {
 			return {
 				user: {
-					name:null,
+					name: null,
 					password: null,
 					repassword: null,
 					gender: null,
@@ -77,14 +57,7 @@
 				}
 			}
 		},
-		mounted() {
-			//this.requestData();
-			// alert("hehe");
-			//document.location.href = document.location.href + "/posts";
-			// document.getElementById("signupForm").ajaxSubmit(function(message) { 
-			// 		console.log("=====叶叶====",message);
-			// });
-		},
+		mounted() {},
 		methods: {
 			async requestData() {
 				let pageIndex = 0;
@@ -123,14 +96,9 @@
 				if (result.data && !result.data.err && result.data.user) {
 					user = result.data.user;
 					userLoginUtil.setLoginedUser(user);
-					// this.$notify({
-					// 	group: 'foo',
-					// 	title: 'Important message',
-					// 	text: 'Hello user! This is a notification!'
-					// });
 					history.go(-1);
 				} else {
-					alert(result.data.err && result.data.err.message ||"注册失败");
+					alert(result.data.err && result.data.err.message || "注册失败");
 				}
 				console.log(result);
 			}
@@ -146,7 +114,7 @@
 		max-width: 60rem;
 		margin: 0 auto;
 		background: #ffffff;
-		box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 		font-size: 1rem;
 		form {
 			padding: 2rem 5rem 5rem;
@@ -167,7 +135,8 @@
 					display: inline-block;
 					width: 6rem;
 				}
-				input, textarea {
+				input,
+				textarea {
 					flex: 1
 				}
 				textarea {
@@ -204,7 +173,6 @@
 					border-radius: .2rem;
 				}
 			}
-			
 		}
 	}
 </style>

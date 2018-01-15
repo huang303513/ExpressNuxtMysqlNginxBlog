@@ -306,31 +306,6 @@ var pool = mysql.createPool(config.dbConfig);
  * sql, SqlParams  参数只可能是一个或者两个
  * @return {[type]} [description]
  */
-// module.exports.mysqlQuery = function(...args) {
-//     return new Promise((resolve, reject) => {
-//         try {
-//             pool.getConnection(function(err, connection) {
-//                 if (err) {
-//                     reject({ err: err, result: "failure" });
-//                 } else {
-//                     connection.query(...args, function(err, result, fields) {
-//                         if (err) {
-//                             reject({ err, result });
-//                         } else {
-//                             resolve({ err, result });
-//                         }
-//                         connection.release();
-//                     });
-//                 }
-
-//             });
-//         } catch (e) {
-//             reject({ err: e, result: "failure" });
-//         } finally {
-
-//         }
-//     });
-// }
 
 function mysqlQuery() {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -383,13 +358,6 @@ function getConfig() {
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
-
-/*
-* @Author: huangchengdu
-* @Date:   2017-01-13 17:10:07
-* @Last Modified by:   huangchengdu
-* @Last Modified time: 2017-01-13 21:40:28
-*/
 
 module.exports = {
 	checkLogin: function checkLogin(req, res, next) {
@@ -830,22 +798,6 @@ var fs = __webpack_require__(11);
 
 var app = __WEBPACK_IMPORTED_MODULE_1_express___default()();
 
-// app.use(express.static(path.join(__dirname, 'static/img')));
-
-// let uploadDir = "/usr/local/webserver/nginx/static/img";
-// console.log("----dirname",__dirname);
-// if (config.devEnv) {
-
-//   uploadDir = path.join(__dirname, 'static/img');
-// }
-
-// 处理表单及文件上传的中间件
-// app.use(require('express-formidable')({
-//   uploadDir: uploadDir,
-//   // keepExtensions: true // 保留后缀
-// }));
-
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(__WEBPACK_IMPORTED_MODULE_5_body_parser___default.a.json());
 app.use(__WEBPACK_IMPORTED_MODULE_6_cookie_parser___default()());
 
@@ -861,28 +813,22 @@ app.set('view engine', 'jade');
 
 // session 中间件
 app.use(session({
-  key: config.session.key,
-  secret: config.session.secret,
-  cookie: {
-    maxAge: config.session.maxAge,
-    secure: config.devEnv ? false : true
-  },
-  store: new MySQLStore(config.dbConfig),
-  connectionLimit: 100,
-  expiration: 86400000,
-  resave: config.devEnv ? false : true,
-  saveUninitialized: true
+    key: config.session.key,
+    secret: config.session.secret,
+    cookie: {
+        maxAge: config.session.maxAge,
+        secure: config.devEnv ? false : true
+    },
+    store: new MySQLStore(config.dbConfig),
+    connectionLimit: 100,
+    expiration: 86400000,
+    resave: config.devEnv ? false : true,
+    saveUninitialized: true
 }));
-// 处理表单及文件上传的中间件
-// app.use(require('express-formidable')({
-//   uploadDir: uploadDir,
-//   keepExtensions: true // 保留后缀
-// }));
-
 
 app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
+    title: pkg.name,
+    description: pkg.description
 };
 
 // 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
@@ -894,25 +840,25 @@ app.locals.blog = {
 // });
 
 app.use(expressWinston.logger({
-  transports: [
-  // new(winston.transports.Console)({
-  //   json: true,
-  //   colorize: true
-  // }),
-  new winston.transports.File({
-    filename: 'server/logs/success.log'
-  })]
+    transports: [
+    // new(winston.transports.Console)({
+    //   json: true,
+    //   colorize: true
+    // }),
+    new winston.transports.File({
+        filename: 'server/logs/success.log'
+    })]
 }));
 
 Object(__WEBPACK_IMPORTED_MODULE_2__api_index__["a" /* startRouter */])(app);
 
 app.use(expressWinston.errorLogger({
-  transports: [new winston.transports.Console({
-    json: true,
-    colorize: true
-  }), new winston.transports.File({
-    filename: 'server/logs/error.log'
-  })]
+    transports: [new winston.transports.Console({
+        json: true,
+        colorize: true
+    }), new winston.transports.File({
+        filename: 'server/logs/error.log'
+    })]
 }));
 
 // error page
@@ -923,34 +869,34 @@ app.use(expressWinston.errorLogger({
 // });
 
 process.on('uncaughtException', function (err) {
-  fs.writeSync(1, 'Caught exception: ' + err + '\n');
+    fs.writeSync(1, 'Caught exception: ' + err + '\n');
 });
 //promise错误未处理
 process.on('unhandledRejection', function (reason, p) {
-  console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
+    console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
 });
 //系统警告
 process.on('warning', function (warning) {
-  console.warn(warning.name); // Print the warning name
-  console.warn(warning.message); // Print the warning message
-  console.warn(warning.stack); // Print the stack trace
+    console.warn(warning.name); // Print the warning name
+    console.warn(warning.message); // Print the warning message
+    console.warn(warning.stack); // Print the stack trace
 });
 
 var nuxt = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Nuxt"](nuxtConfig);
 if (config.devEnv) {
-  var builder = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Builder"](nuxt);
-  builder.build();
+    var builder = new __WEBPACK_IMPORTED_MODULE_0_nuxt__["Builder"](nuxt);
+    builder.build();
 }
 // Add nuxt.js middleware
 app.use(nuxt.render);
 
 if (module.parent) {
-  module.exports = app;
+    module.exports = app;
 } else {
-  // Listen the server
-  app.listen(port, host, function () {
-    console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
-  });
+    // Listen the server
+    app.listen(port, host, function () {
+        console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
+    });
 }
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "server", __webpack_require__(14)(module)))
 
@@ -1030,49 +976,13 @@ module.exports = require("express-winston");
 
 
 function startRouter(app) {
-
-    //实现登陆拦截
-    // app.use('/api', jwtAuth)
-
-    // app.get('/api', (req, res) => {
-    //     res.json({ message: '欢迎使用黄成都的API服务！' });
-    // })
     app.get('/', function (req, res) {
         res.redirect('/posts');
     });
-
-    // app.use('/api/user', require('./user'))
-
-    // app.use('/api/post', require('./post'))
-
-    // app.use('/api/tag', require('./tag'))
-
-    // app.use('/api/post/tag', require('./postTag'))
-
-    // app.get('/', function(req, res) {
-    //     res.redirect('/posts');
-    // });
-    // app.use('/signup', require('./signup'));
-    // app.use('/api/login', function(req,res) {
-    //     console.log("======到了======",req.fields,req.params,req.body,req.query,req.cookies,req.headers);
-    //     console.log("======到了======",res.fields,res.params,res.body);
-    //     console.log("==================");
-    //     let name = req.params.name;
-    //     let password = req.params.password;
-    //     console.log("========用户名和密码====",name,password);
-    //     res.send({name:"hehe"});
-    // });
     app.use('/api/posts', __WEBPACK_IMPORTED_MODULE_0__posts_js__["a" /* default */]);
     app.use('/api/login', __WEBPACK_IMPORTED_MODULE_1__signin_js__["a" /* default */]);
     app.use('/api/signup', __WEBPACK_IMPORTED_MODULE_3__signup_js__["a" /* default */]);
     app.use('/api/signout', __WEBPACK_IMPORTED_MODULE_2__signout_js__["a" /* default */]);
-
-    // 404 page
-    // app.use(function(req, res) {
-    //     if (!res.headersSent) {
-    //         res.status(404).render('404');
-    //     }
-    // });
 }
 
 /***/ }),
@@ -1083,216 +993,181 @@ function startRouter(app) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_posts__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_assist__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_comments__ = __webpack_require__(7);
-/*
- * @Author: huangchengdu
- * @Date:   2017-01-13 21:41:07
- * @Last Modified by:   huangchengdu
- * @Last Modified time: 2017-01-14 14:53:01
- */
-
 var express = __webpack_require__(0);
 var router = express.Router();
-// let PostModel = require('../models/posts');
 
 var xss = __webpack_require__(27);
 
-// let CommentModel = require('../models/comments');
 
 var checkLogin = __webpack_require__(5).checkLogin;
 
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
-	console.log("=====posts===request session====", req.query);
-	var authorId = req.query && req.query.author;
-	var pageIndex = req.query && req.query.pageIndex;
-	//console.log("queyr=========", req.query);
-	// return PostModel.getPosts(authorId);
-	//Promise.resolve("23423");
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId, pageIndex).then(function (posts) {
-		// res.render('posts', {
-		//     posts: posts
-		// });
-		//console.log("============posts====================",posts);
-		// res.header('ETag', null);
-		// delete res.header.ETag;
-		res.json(posts);
-		//return Promise.resolve(posts);
-	}).catch(function (error) {
-		res.json(error);
-	});
+    var authorId = req.query && req.query.author;
+    var pageIndex = req.query && req.query.pageIndex;
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId, pageIndex).then(function (posts) {
+        res.json(posts);
+    }).catch(function (error) {
+        res.json(error);
+    });
 });
-
-// GET /posts/create 发表文章页
-// router.get('/create', checkLogin, function (req, res, next) {
-// 	res.render('create');
-// });
-
 // POST /posts 发表一篇文章
 router.post('/create', checkLogin, function (req, res, next) {
-	var author = req.session.user;
-	// console.log("================",req.body);
-	var title = req.body.title;
-	var content = req.body.content;
-	// console.log("================",req.body);
-	// return;
-	try {
-		if (!title.length) {
-			throw new Error('请填写标题');
-		}
-		if (!content.length) {
-			throw new Error('请填写内容');
-		}
-	} catch (e) {
-		// req.flash('error', e.message);
-		res.json({ err: { message: e.message || "发布失败" }, post: null });
-	}
-	var post = {
-		author: author,
-		title: title,
-		content: content,
-		pv: 0
-	};
-	// console.log("+++++++++++++++++++++---------",post);
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].create(post).then(function (post) {
-		// req.flash('success', '发表成功');
-		// console.log("+++++++++++++++++++++",post);
-		// 发表成功后跳转到该文章页
-		// res.redirect(`/posts/${post._id}`);
-		res.json({ err: null, post: post });
-	}).catch(function (e) {
-		res.json({ err: { message: e.message || "添加出错" }, post: null });
-	});
+    var author = req.session.user;
+    var title = req.body.title;
+    var content = req.body.content;
+    try {
+        if (!title.length) {
+            throw new Error('请填写标题');
+        }
+        if (!content.length) {
+            throw new Error('请填写内容');
+        }
+    } catch (e) {
+        res.json({
+            err: {
+                message: e.message || "发布失败"
+            },
+            post: null
+        });
+    }
+    var post = {
+        author: author,
+        title: title,
+        content: content,
+        pv: 0
+    };
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].create(post).then(function (post) {
+        res.json({
+            err: null,
+            post: post
+        });
+    }).catch(function (e) {
+        res.json({
+            err: {
+                message: e.message || "添加出错"
+            },
+            post: null
+        });
+    });
 });
-
-var excludeSpecial = function excludeSpecial(s) {
-	// 去掉转义字符  
-	s = s.replace(/[\'\"\\\/\b\f\n\r\t]/g, '');
-	// 去掉特殊字符  
-	s = s.replace(/[\@\#\$\%\^\&\*\{\}\:\"\L\<\>\?]/);
-	return s;
-};
 
 // GET /posts/:postId 单独一篇的文章页
 router.get('/:postId', function (req, res, next) {
-	// console.log("=====postsid===request session====",req.session.user);
-	var postId = req.params.postId;
-	Promise.all([__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPostById(postId), //获取文章
-	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId), //获取评论
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].incPv(postId) //添加访问次数
-	]).then(function (result) {
-		var post = result[0];
-		var comments = result[1];
-		// console.log("comments============",comments);
-		// post.content = xss(post.content);
-		post.content = post.content.replace("<script>", "script");
-		post.content = post.content.replace("<iframe>", "iframe");
-		// // post.content = post.content.replace("$-_.+!*'()","'$-_.+!*'()'");
-		// post.content = excludeSpecial(post.content);
-		res.render('index', { mdContent: post.content }, function (err, result) {
-
-			// console.log("result====",result);
-			// post.content = xss(result);
-			post.content = result;
-			res.json({ post: post, comments: comments });
-			// console.log("===========result=============",result,err);
-		});
-		// res.json(post);
-		// let comments = result[1];
-		// if (!post) {
-		//     throw new Error('该文章不存在');
-		// }
-		// res.render('post', {
-		//     post: post,
-		//     comments: comments
-		// });
-	}).catch(function (error) {
-		res.json(error);
-	});
+    var postId = req.params.postId;
+    Promise.all([__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPostById(postId), //获取文章
+    __WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId), //获取评论
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].incPv(postId) //添加访问次数
+    ]).then(function (result) {
+        var post = result[0];
+        var comments = result[1];
+        post.content = post.content.replace("<script>", "script");
+        post.content = post.content.replace("<iframe>", "iframe");
+        res.render('index', {
+            mdContent: post.content
+        }, function (err, result) {
+            post.content = result;
+            res.json({
+                post: post,
+                comments: comments
+            });
+        });
+    }).catch(function (error) {
+        res.json(error);
+    });
 });
 
 // GET /posts/:postId/edit 更新文章页
 router.get('/:postId/edit', checkLogin, function (req, res, next) {
-	var postId = req.params.postId;
-	var author = req.session.user._id;
+    var postId = req.params.postId;
+    var author = req.session.user._id;
 
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getRawPostById(postId).then(function (post) {
-		if (!post) {
-			throw new Error('该文章不存在');
-		}
-		if (author.toString() !== post.author._id.toString()) {
-			throw new Error('权限不足');
-		}
-		res.render('edit', {
-			post: post
-		});
-	}).catch(next);
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getRawPostById(postId).then(function (post) {
+        if (!post) {
+            throw new Error('该文章不存在');
+        }
+        if (author.toString() !== post.author._id.toString()) {
+            throw new Error('权限不足');
+        }
+        res.render('edit', {
+            post: post
+        });
+    }).catch(next);
 });
 
 // POST /posts/:postId/edit 更新一篇文章
 router.post('/:postId/edit', checkLogin, function (req, res, next) {
-	var postId = req.params.postId;
-	var author = req.session.user;
-	var title = req.fields.title;
-	var content = req.fields.content;
+    var postId = req.params.postId;
+    var author = req.session.user;
+    var title = req.fields.title;
+    var content = req.fields.content;
 
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].updatePostById({
-		title: title,
-		content: content,
-		author: JSON.stringify(author),
-		postId: postId
-	}).then(function (result) {
-		req.flash('success', '编辑文章成功');
-		// 编辑成功后跳转到上一页
-		res.redirect('/posts/' + postId);
-	}).catch(next);
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].updatePostById({
+        title: title,
+        content: content,
+        author: JSON.stringify(author),
+        postId: postId
+    }).then(function (result) {
+        req.flash('success', '编辑文章成功');
+        // 编辑成功后跳转到上一页
+        res.redirect('/posts/' + postId);
+    }).catch(next);
 });
 
 // GET /posts/:postId/remove 删除一篇文章
 router.get('/:postId/remove', checkLogin, function (req, res, next) {
-	var postId = req.params.postId;
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].delPostById(postId).then(function () {
-		req.flash('success', '删除文章成功');
-		// 删除成功后跳转到主页
-		res.redirect('/posts');
-	}).catch(next);
+    var postId = req.params.postId;
+    __WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].delPostById(postId).then(function () {
+        req.flash('success', '删除文章成功');
+        // 删除成功后跳转到主页
+        res.redirect('/posts');
+    }).catch(next);
 });
 
 // POST /posts/:postId/comment 创建一条留言
 router.post('/:postId/comment', checkLogin, function (req, res, next) {
-	var author = req.session.user;
-	var postId = req.params.postId;
-	var content = req.body.content;
-	var comment = {
-		author: author,
-		postId: postId, //文章id
-		content: content
-	};
-	// console.log("==============comment=============",comment);
-	// return res.json(comment);
-	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].create(comment).then(function (result) {
-		// req.flash('success', '留言成功');
-		// 留言成功后跳转到上一页
-		// res.redirect('back');
-		__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId).then(function (result) {
-			res.json({ err: null, comments: result });
-		}).catch(function (err) {
-			res.json({ err: { message: "获取评论失败" }, comments: null });
-		});
-	}).catch(function (err) {
-		res.json({ err: { message: "添加评论失败" }, comments: null });
-	});
+    var author = req.session.user;
+    var postId = req.params.postId;
+    var content = req.body.content;
+    var comment = {
+        author: author,
+        postId: postId, //文章id
+        content: content
+    };
+    __WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].create(comment).then(function (result) {
+        __WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].getComments(postId).then(function (result) {
+            res.json({
+                err: null,
+                comments: result
+            });
+        }).catch(function (err) {
+            res.json({
+                err: {
+                    message: "获取评论失败"
+                },
+                comments: null
+            });
+        });
+    }).catch(function (err) {
+        res.json({
+            err: {
+                message: "添加评论失败"
+            },
+            comments: null
+        });
+    });
 });
 
 // GET /posts/:postId/comment/:commentId/remove 删除一条留言
 router.get('/:postId/comment/:commentId/remove', checkLogin, function (req, res, next) {
-	var commentId = req.params.commentId;
-	var postId = req.params.postId;
-	__WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].delCommentById(commentId, postId).then(function (result) {
-		req.flash('success', '删除留言成功');
-		// 删除成功后跳转到上一页
-		res.redirect('back');
-	}).catch(next);
+    var commentId = req.params.commentId;
+    var postId = req.params.postId;
+    __WEBPACK_IMPORTED_MODULE_2__models_comments__["default"].delCommentById(commentId, postId).then(function (result) {
+        req.flash('success', '删除留言成功');
+        // 删除成功后跳转到上一页
+        res.redirect('back');
+    }).catch(next);
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -1916,22 +1791,13 @@ var router = express.Router();
 
 var checkNotLogin = __webpack_require__(5).checkNotLogin;
 
-// GET /signin 登录页
-// router.get('/', checkNotLogin, function(req, res, next) {
-//     res.render('signin');
-// });
 // POST /signin 用户登录
 router.post('/', function (req, res, next) {
-    // console.log("======到了======",req.body);
     var name = req.body.name;
     var password = req.body.password;
-    // console.log("========用户名和密码====",name,password);
     __WEBPACK_IMPORTED_MODULE_0__models_users__["a" /* default */].getUserByName(name).then(function (user) {
         var err;
-        // console.log("========用户====",JSON.stringify(user));
         if (!user) {
-            //req.flash('error', '用户不存在');
-            //return res.redirect('back');
             err = {
                 message: "用户名或者密码错误"
             };
@@ -1940,17 +1806,7 @@ router.post('/', function (req, res, next) {
                 message: "用户名或者密码错误"
             };
         }
-        // req.flash('success', '登录成功');
-        // // 用户信息写入 session
-        // delete user.password;
-        req.session.user = user; //JSON.stringify(user);
-        // console.log("=====in======headers========",req.headers);
-        // res.session = req.session;
-        // res.cookie('user',JSON.stringify(user));
-        // console.log("========session====",req.session);
-        // console.log("===========cookie===",req.cookies);
-        // // 跳转到主页
-        // res.redirect('/posts');
+        req.session.user = user;
         res.json({
             err: err,
             user: user
@@ -1974,21 +1830,11 @@ router.post('/', function (req, res, next) {
 
 var express = __webpack_require__(0);
 var router = express.Router();
-// let checkLogin = require('../middlewares/check').checkLogin;
 
 // GET /signout 登出
 router.get('/', function (req, res, next) {
-   // 清空 session 中用户信息
-   //  console.log("========request session====",req.session);
-   req.session.user = null;
-   // res.session = req.session;
-   // console.log("====out=======headers========",req.headers);
-   // console.log("========response session====",req.session);
-   // res.cookie('user',null);
-   res.json({ err: null, code: 200 });
-   //req.flash('success', '登出成功');
-   // 登出成功后跳转到主页
-   // res.redirect('/posts');
+  req.session.user = null;
+  res.json({ err: null, code: 200 });
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -2031,15 +1877,12 @@ var path = __webpack_require__(12);
 var sha1 = __webpack_require__(9);
 var express = __webpack_require__(0);
 var router = express.Router();
-// let UserModel = require('../models/users');
 
 
 var checkNotLogin = __webpack_require__(5).checkNotLogin;
 var formatDate = __webpack_require__(1).formatDate;
 var multer = __webpack_require__(33);
-// var upload = multer({ dest: 'static/img/test.png' });
 var upload = multer();
-// GET /signup 注册页
 
 var config = Object(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */])("development");
 
@@ -2053,9 +1896,6 @@ function getUploadPath(avatar) {
 
 // POST /signup 用户注册
 router.post('/', upload.single('avatar'), function (req, res, next) {
-    // let avatar = req.file.originalname;
-    // 校验参数
-    // console.log("isbuffer====",req.body,req.file);
     var name = void 0;
     var gender = void 0;
     var bio = void 0;
@@ -2070,8 +1910,6 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         var type = req.file.mimetype.split('/')[1];
         var avatar = timestamp + "." + type;
         newPath = getUploadPath(avatar);
-        //  console.log("path",newPath,poster);
-        // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
         console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
             if (err) {
@@ -2101,15 +1939,11 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
     } catch (e) {
         // 注册失败，异步删除上传的头像
-        // console.log("=====e======",JSON.stringify(e));
         fs.unlink(newPath);
         res.json({
             err: { message: e.message || "校验出错" },
             user: null
         });
-        // req.flash('error', e.message);
-        // console.log("==========校验失败===========", e);
-        // return res.redirect('/posts');
     }
     // 明文密码加密
     password = sha1(password);
@@ -2128,16 +1962,10 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 
     __WEBPACK_IMPORTED_MODULE_0__models_users__["a" /* default */].create(user).then(function (user) {
         req.session.user = user;
-        // console.log("======user", user);
-        // 写入 flash
-        // req.flash('success', '注册成功');
-        // req.session.user = user;
-        // 跳转到首页
         res.json({
             err: null,
             user: user
         });
-        // res.redirect('/posts');
     }).catch(function (err) {
         fs.unlink(newPath);
         if (err.err) {
@@ -2148,21 +1976,12 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
         // 用户名被占用则跳回注册页，而不是错误页
         if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') >= 0) {
-            // req.flash('error', '用户名已被占用');
-            //return res.redirect('/posts');
             res.json({
-                err: {
-                    message: "用户名被占用"
-                },
+                err: { message: "用户名被占用" },
                 user: null
             });
         } else {
-            res.json({
-                err: err,
-                user: null
-            });
-            //console.log('err.message==================', err.message);
-            // next(err);
+            res.json({ err: err, user: null });
         }
     });
 });

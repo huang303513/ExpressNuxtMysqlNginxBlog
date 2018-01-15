@@ -11,8 +11,9 @@
 		components: {
 			PostCell
 		},
-		async asyncData({params}) {
-            // console.log(JSON.stringify(params) + "----------");
+		async asyncData({
+			params
+		}) {
 			var url = "/api/posts?author=" + params.id;
 			let result = await axios.get(url).catch(error => {
 				// console.log("===============error==========", error);
@@ -21,26 +22,19 @@
 				posts: result && result.data || []
 			};
 		},
-		data(){
-			return{
-				posts:[]
+		data() {
+			return {
+				posts: []
 			}
 		},
-		mounted(){
-            //this.requestData();
-            // alert("hehe");
-			//document.location.href = document.location.href + "/posts";
+		mounted() {
 			this.$eventHub.$on("REFRESHPOSTS", params => {
 				alert("meme");
-					// this.loginBoxState = "showLoginBox";
-					// alert(JSON.stringify(params));
-					// self.requestData();
 			});
-
 		},
 		methods: {
 			async requestData() {
-                var url = "/api/posts";
+				var url = "/api/posts";
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});

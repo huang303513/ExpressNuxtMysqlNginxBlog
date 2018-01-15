@@ -1,10 +1,3 @@
-/*
-* @Author: huangchengdu
-* @Date:   2017-01-13 17:10:07
-* @Last Modified by:   huangchengdu
-* @Last Modified time: 2017-01-13 21:40:28
-*/
-
 module.exports = {
 	checkLogin:function(req,res,next) {
 		// console.log("=======耶耶耶=======",req.session.user);

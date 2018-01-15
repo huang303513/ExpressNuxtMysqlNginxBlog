@@ -32,14 +32,8 @@
 			}
 		},
 		mounted() {
-			//this.requestData();
-			// alert("hehe");
-			//document.location.href = document.location.href + "/posts";
 			this.$eventHub.$on("REFRESHPOSTS", params => {
 				alert("meme");
-				// this.loginBoxState = "showLoginBox";
-				// alert(JSON.stringify(params));
-				// self.requestData();
 			});
 	
 		},
@@ -51,9 +45,6 @@
 				if (!this.hasMore) {
 					return;
 				}
-				// this.$eventHub.$emit("SHOWLOADING", {
-				// 	name: "参数"
-				// });
 				this.$showLoading();
 				var url = "/api/posts?" + "pageIndex=" + this.pageIndex;
 				let result = await axios.get(url).catch(error => {

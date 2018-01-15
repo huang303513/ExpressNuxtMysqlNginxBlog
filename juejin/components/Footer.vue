@@ -46,10 +46,10 @@
         margin-left: 1.5rem;
         font-size: 1rem;
         color: @defaultDarkColor;
-        &:hover{
+        &:hover {
             font-size: 1.5rem;
-			color: #222222;
-			text-decoration: underline;
+            color: #222222;
+            text-decoration: underline;
         }
     }
 </style>

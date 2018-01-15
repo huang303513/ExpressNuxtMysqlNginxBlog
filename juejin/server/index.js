@@ -1,6 +1,6 @@
 import {
-  Nuxt,
-  Builder
+    Nuxt,
+    Builder
 } from 'nuxt'
 import express from 'express'
 var session = require('express-session');
@@ -8,7 +8,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var winston = require('winston');
 var expressWinston = require('express-winston');
 import {
-  startRouter
+    startRouter
 } from './api/index'
 let nuxtConfig = require('../nuxt.config.js');
 import getConfig from '../config';
@@ -23,22 +23,6 @@ import cookieParser from 'cookie-parser'
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, 'static/img')));
-
-// let uploadDir = "/usr/local/webserver/nginx/static/img";
-// console.log("----dirname",__dirname);
-// if (config.devEnv) {
-  
-//   uploadDir = path.join(__dirname, 'static/img');
-// }
-
-// 处理表单及文件上传的中间件
-// app.use(require('express-formidable')({
-//   uploadDir: uploadDir,
-//   // keepExtensions: true // 保留后缀
-// }));
-
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -54,29 +38,22 @@ app.set('view engine', 'jade');
 
 // session 中间件
 app.use(session({
-  key: config.session.key,
-  secret: config.session.secret,
-  cookie: {
-    maxAge: config.session.maxAge,
-    secure:config.devEnv?false:true
-  },
-  store: new MySQLStore(config.dbConfig),
-  connectionLimit: 100,
-  expiration: 86400000,
-  resave: config.devEnv?false:true,
-  saveUninitialized: true
+    key: config.session.key,
+    secret: config.session.secret,
+    cookie: {
+        maxAge: config.session.maxAge,
+        secure: config.devEnv ? false : true
+    },
+    store: new MySQLStore(config.dbConfig),
+    connectionLimit: 100,
+    expiration: 86400000,
+    resave: config.devEnv ? false : true,
+    saveUninitialized: true
 }));
-// 处理表单及文件上传的中间件
-// app.use(require('express-formidable')({
-//   uploadDir: uploadDir,
-//   keepExtensions: true // 保留后缀
-// }));
-
-
 
 app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
+    title: pkg.name,
+    description: pkg.description
 };
 
 // 使用上的区别在于：app.locals 上通常挂载常量信息（如博客名、描述、作者信息），res.locals 上通常挂载变量信息，即每次请求可能的值都不一样（如请求者信息，res.locals.user = req.session.user）。
@@ -88,29 +65,29 @@ app.locals.blog = {
 // });
 
 app.use(expressWinston.logger({
-  transports: [
-    // new(winston.transports.Console)({
-    //   json: true,
-    //   colorize: true
-    // }),
-    new winston.transports.File({
-      filename: 'server/logs/success.log'
-    })
-  ]
+    transports: [
+        // new(winston.transports.Console)({
+        //   json: true,
+        //   colorize: true
+        // }),
+        new winston.transports.File({
+            filename: 'server/logs/success.log'
+        })
+    ]
 }));
 
 startRouter(app);
 
 app.use(expressWinston.errorLogger({
-  transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    }),
-    new winston.transports.File({
-      filename: 'server/logs/error.log'
-    })
-  ]
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'server/logs/error.log'
+        })
+    ]
 }));
 
 // error page
@@ -121,36 +98,32 @@ app.use(expressWinston.errorLogger({
 // });
 
 process.on('uncaughtException', (err) => {
-  fs.writeSync(1, `Caught exception: ${err}\n`);
+    fs.writeSync(1, `Caught exception: ${err}\n`);
 });
 //promise错误未处理
 process.on('unhandledRejection', (reason, p) => {
-  console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
+    console.log('未处理的==========================Rejection at:', p, 'reason:', reason);
 });
 //系统警告
 process.on('warning', (warning) => {
-  console.warn(warning.name); // Print the warning name
-  console.warn(warning.message); // Print the warning message
-  console.warn(warning.stack); // Print the stack trace
+    console.warn(warning.name); // Print the warning name
+    console.warn(warning.message); // Print the warning message
+    console.warn(warning.stack); // Print the stack trace
 });
-
-
 
 let nuxt = new Nuxt(nuxtConfig);
 if (config.devEnv) {
-  const builder = new Builder(nuxt);
-  builder.build();
+    const builder = new Builder(nuxt);
+    builder.build();
 }
 // Add nuxt.js middleware
 app.use(nuxt.render);
 
-
-
 if (module.parent) {
-  module.exports = app;
+    module.exports = app;
 } else {
-  // Listen the server
-  app.listen(port, host, function () {
-    console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
-  });
+    // Listen the server
+    app.listen(port, host, function () {
+        console.log('Server listening on http://' + host + ':' + port); // eslint-disable-line no-console
+    });
 }

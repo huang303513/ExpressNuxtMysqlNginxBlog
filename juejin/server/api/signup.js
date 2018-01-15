@@ -27,17 +27,12 @@ let path = require('path');
 let sha1 = require('sha1');
 let express = require('express');
 let router = express.Router();
-// let UserModel = require('../models/users');
 import UserModel from '../models/users';
-import {
-    Buffer
-} from 'buffer';
+import {Buffer} from 'buffer';
 let checkNotLogin = require('../middlewares/check').checkNotLogin;
 let formatDate = require('../lib/util.date').formatDate;
 var multer = require('multer')
-// var upload = multer({ dest: 'static/img/test.png' });
 var upload = multer();
-// GET /signup 注册页
 import getConfig from '../../config';
 let config = getConfig(process.env.NODE_ENV);
 
@@ -51,15 +46,12 @@ function getUploadPath(avatar) {
 
 // POST /signup 用户注册
 router.post('/', upload.single('avatar'), function (req, res, next) {
-    // let avatar = req.file.originalname;
-    // 校验参数
-    // console.log("isbuffer====",req.body,req.file);
     let name;
     let gender;
     let bio;
     let password;
     let repassword;
-    let newPath
+    let newPath;
     try {
         var timestamp = Date.now();
         if (!req.file) {
@@ -68,8 +60,6 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         var type = req.file.mimetype.split('/')[1];
         var avatar = timestamp + "." + type;
         newPath = getUploadPath(avatar);
-        //  console.log("path",newPath,poster);
-        // console.log("isbuffer====",Buffer.isBuffer(req.file.buffer));
         console.log(newPath);
         fs.writeFile(newPath, req.file.buffer, function (err) {
             if (err) {
@@ -99,15 +89,11 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
     } catch (e) {
         // 注册失败，异步删除上传的头像
-        // console.log("=====e======",JSON.stringify(e));
         fs.unlink(newPath);
         res.json({
             err: {message:e.message||"校验出错"},
             user: null
         });
-        // req.flash('error', e.message);
-        // console.log("==========校验失败===========", e);
-        // return res.redirect('/posts');
     }
     // 明文密码加密
     password = sha1(password);
@@ -126,16 +112,10 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 
     UserModel.create(user).then(user => {
         req.session.user = user;
-        // console.log("======user", user);
-        // 写入 flash
-        // req.flash('success', '注册成功');
-        // req.session.user = user;
-        // 跳转到首页
         res.json({
             err: null,
             user: user
         });
-        // res.redirect('/posts');
     }).catch(err => {
         fs.unlink(newPath);
         if (err.err) {
@@ -146,21 +126,12 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
         }
         // 用户名被占用则跳回注册页，而不是错误页
         if (err.sqlMessage && (err.sqlMessage.indexOf('Duplicate entry') >= 0)) {
-            // req.flash('error', '用户名已被占用');
-            //return res.redirect('/posts');
             res.json({
-                err: {
-                    message: "用户名被占用"
-                },
+                err: {message: "用户名被占用"},
                 user: null
             });
         } else {
-            res.json({
-                err: err,
-                user: null
-            });
-            //console.log('err.message==================', err.message);
-            // next(err);
+            res.json({err: err,user: null});
         }
     });
 });
