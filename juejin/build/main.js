@@ -1103,7 +1103,7 @@ var checkLogin = __webpack_require__(5).checkLogin;
 //GET /posts 所有用户或者特定用户的文章页
 // eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
-	// console.log("=====posts===request session====",req.session.user);
+	console.log("=====posts===request session====", req.query);
 	var authorId = req.query && req.query.author;
 	//console.log("queyr=========", req.query);
 	// return PostModel.getPosts(authorId);

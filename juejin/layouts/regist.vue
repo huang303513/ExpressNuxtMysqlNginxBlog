@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <header-comp :hiddenRight="hiddenRight"></header-comp>
     <nuxt/>
     <footer-comp></footer-comp>
   </div>
@@ -12,10 +13,12 @@ import getConfig from '../config';
 let config = getConfig(process.env.NODE_ENV);
 export default {
   components: {
-      "footer-comp": Footer
+      "footer-comp": Footer,
+      "header-comp": Header
     },
     data(){
       return{
+        hiddenRight:true
       }
     },
     mounted(){

@@ -5,7 +5,7 @@
 				<img class="header-img" :src="imgsrc">
 				<p class="header-title">{{desc}}</p>
 			</div>
-			<div class="header-div-span">
+			<div v-if="!hiddenRight" class="header-div-span">
 				<!-- <button @click="writeBlog" type="button">写文章</button>
 					<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
 					<button v-if="!hasLogined" @click="regist" type="button">注册</button>
@@ -81,8 +81,8 @@
 			this.asyncLoginIofo();
 		},
 		props: {
-			testname: {
-				default: null
+			hiddenRight:{
+				default:false
 			}
 		},
 		methods: {

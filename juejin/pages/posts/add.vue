@@ -14,6 +14,7 @@
 <script>
     import axios from "axios";
     export default {
+        layout: 'regist',
         data() {
             return {
                 title: "",
