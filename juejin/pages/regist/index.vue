@@ -1,39 +1,51 @@
 <template>
 	<div class="index">
-		<form class="ui form segment" method="post" @submit.prevent="submit">
+		<form method="post" @submit.prevent="submit">
 			<h1 class="title">注册</h1>
-			<div class="field required">
+			<div class="field">
 				<label>用户名：</label>
 				<input placeholder="用户名" type="text" v-model="user.name" name="name">
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>密码：</label>
 				<input placeholder="密码" type="password" v-model="user.password" name="password">
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>重复密码：</label>
 				<input placeholder="重复密码" type="password" v-model="user.repassword" name="repassword">
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>性别：</label>
-				<div class="ui compact selection dropdown" tabindex="0">
+				<div class="selection" tabindex="0">
 					<select v-model="user.gender" name="gender">
 				          <option value="m">男</option>
 				          <option value="f">女</option>
 				          <option value="x">保密</option>
-				        </select>
+				    </select>
 				</div>
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>头像：</label>
-				<input type="file" @change="getFile($event)" name="avatar" accept="image/*">
+				<div class="upload-box">
+					<input type="file" @change="getFile($event)" name="avatar" accept="image/*" class="upload">
+					<div class="img">
+						<img src="../../assets/img/demo.jpeg" alt="">
+					</div>
+					<div class="action-box">
+						<span class="title">
+	                            支持jpg、png等的图片
+	                        </span>
+						<button class="button" type="button">点击上传</button>
+					</div>
+				</div>
+	
 			</div>
-			<div class="field required">
+			<div class="field">
 				<label>个人简介：</label>
 				<textarea name="bio" rows="2" v-model="user.bio"></textarea>
 			</div>
 			<div class="footer">
-				<input type="submit" class="ui button fluid" value="注册">
+				<input type="submit" class="button" value="注册">
 			</div>
 		</form>
 	</div>
@@ -53,22 +65,14 @@
 					repassword: null,
 					gender: null,
 					avatar: null,
-					bio: ""
+					bio: null
 				}
 			}
 		},
 		mounted() {},
 		methods: {
-			async requestData() {
-				let pageIndex = 0;
-				let pageSize = 3;
-				var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
-				let result = await axios.get(url).catch(error => {
-					console.log("===============error==========", error);
-				});
-				this.posts = result && result.data || [];
-			},
 			getFile(event) {
+				console.log("");
 				this.user.avatar = event.target.files[0];
 			},
 			async submit() {
@@ -87,7 +91,6 @@
 						'Content-Type': 'multipart/form-data'
 					}
 				}
-				// console.log("url==========>", url);
 				let result = await axios.post(url, formData, config).catch(error => {
 					console.log("===============error==========", error);
 				});
@@ -126,10 +129,13 @@
 			.field {
 				display: flex;
 				padding: 2rem 0;
+				align-items: center;
 				border-bottom: 1px solid #f1f1f1;
-				border-top: 1px solid #f1f1f1;
 				&:first-of-type {
 					border-top: 1px solid #f1f1f1;
+				}
+				&:nth-last-of-type(3) {
+					padding: 1rem 0;
 				}
 				label {
 					display: inline-block;
@@ -146,12 +152,51 @@
 						border: 1px solid @defaultBlue;
 					}
 				}
-				.upload {
+				.upload-box {
 					display: flex;
-					.header {
-						flex: 1;
+					position: relative;
+					.upload {
+						position: absolute;
+						z-index: 1;
+						filter: opacity(0);
+						height: 2rem;
+						width: 8rem;
+						bottom: 0;
+						left: 6rem;
+						cursor: pointer;
+					}
+					.img {
+						flex: 0 0 5rem;
 						width: 5rem;
 						height: 5rem;
+						img {
+							width: 100%;
+							height: 100%;
+						}
+					}
+					.action-box {
+						margin-left: 1rem;
+						.title {
+							display: block;
+							color: #909090;
+							font-size: 1rem;
+							margin-bottom: 1.5rem;
+						}
+						.button {
+							display: inline-block;
+							height: 2rem;
+							width: 8rem;
+							line-height: 2rem;
+							text-align: center;
+							font-size: 1rem;
+							font-weight: 200;
+							color: #ffffff;
+							background: @defaultBlue;
+							box-sizing: content-box;
+							margin: 0;
+							border-radius: .2rem;
+							cursor: pointer;
+						}
 					}
 				}
 			}
