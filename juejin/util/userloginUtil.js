@@ -4,18 +4,18 @@ import {
     delCookie
 } from "~/util/cookieSessionStorate.js";
 
-let hasLoginedCookKey = Symbol('hasLoginedCookKey');
-let userSessionKey = Symbol('userSessionKey');
+let hasLoginedCookKey = 'hasLoginedCookKey';
+let userSessionKey = 'userSessionKey';
 
 
 export default {
     checkLogined() {
-        var cookValue = getCookie(hasLoginedCookKey.toString());
+        var cookValue = getCookie(hasLoginedCookKey);
         return cookValue?true:false;
     },
     setLoginedUser(user) {
-        setCookie(hasLoginedCookKey.toString(), true, 0.05);
-        sessionStorage.setItem(userSessionKey.toString(), JSON.stringify(user));
+        setCookie(hasLoginedCookKey, true, 0.05);
+        sessionStorage.setItem(userSessionKey, JSON.stringify(user));
     },
     getLoginedUser() {
         let user;
@@ -23,7 +23,7 @@ export default {
             return null;
         }
         try {
-            user = sessionStorage.getItem(userSessionKey.toString());
+            user = sessionStorage.getItem(userSessionKey);
             if (user) {
                 user = JSON.parse(user);
             }
@@ -34,7 +34,7 @@ export default {
         return user;
     },
     setLogout() {
-        delCookie(hasLoginedCookKey.toString());
-        sessionStorage.removeItem(userSessionKey.toString());
+        delCookie(hasLoginedCookKey);
+        sessionStorage.removeItem(userSessionKey);
     }
 }

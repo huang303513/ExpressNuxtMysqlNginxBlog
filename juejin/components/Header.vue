@@ -1,5 +1,6 @@
 <template>
 	<header class="header">
+		<loading :loading-options="loadingOptions"></loading>
 		<div class="header-div">
 			<div class="header-div-span">
 				<img class="header-img" :src="imgsrc">
@@ -7,9 +8,9 @@
 			</div>
 			<div v-if="!hiddenRight" class="header-div-span">
 				<!-- <button @click="writeBlog" type="button">写文章</button>
-					<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
-					<button v-if="!hasLogined" @click="regist" type="button">注册</button>
-					<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
+						<button v-if="!hasLogined" @click="goLogin" type="button">登陆</button>
+						<button v-if="!hasLogined" @click="regist" type="button">注册</button>
+						<button v-if="hasLogined" @click="loginOut" type="button">退出</button> -->
 	
 				<a @click.prevent.stop="writeBlog">写文章</a>
 				<a v-if="!hasLogined" @click.prevent.stop="goLogin">登录</a>
@@ -36,14 +37,18 @@
 				</div>
 			</div>
 		</div>
-		<notifications group="foo" />
+		<!-- <notifications group="foo" /> -->
 	</header>
 </template>
 
 <script>
 	import axios from "axios";
 	import userLoginUtil from "~/util/userLoginUtil.js";
+	import loading from "~/components/loading.vue";
 	export default {
+		components: {
+			"loading": loading
+		},
 		data() {
 			return {
 				imgsrc: "/img/headIcon.png",
@@ -51,7 +56,10 @@
 				hasLogined: false,
 				loginBoxState: "hiddenLoginBox",
 				name: "",
-				password: ""
+				password: "",
+				loadingOptions: {
+					loading:false
+				}
 			};
 		},
 		// async asyncData() {
@@ -75,14 +83,19 @@
 		// },
 		mounted() {
 			this.$eventHub.$on("SHOWLOGIN", params => {
-					this.loginBoxState = "showLoginBox";
-					// alert(JSON.stringify(yourData));
+				this.loginBoxState = "showLoginBox";
+				// alert(JSON.stringify(yourData));
+			});
+			this.$eventHub.$on("SHOWLOADING", params => {
+				// this.loginBoxState = "showLoginBox";
+				//  alert("11");
+				this.loadingOptions.loading = params.loading;
 			});
 			this.asyncLoginIofo();
 		},
 		props: {
-			hiddenRight:{
-				default:false
+			hiddenRight: {
+				default: false
 			}
 		},
 		methods: {
@@ -114,6 +127,7 @@
 				this.loginBoxState = "showLoginBox";
 			},
 			async doLogin() {
+				this.$showLoading();
 				var url = "/api/login";
 				if (!(this.name.length >= 1 && this.name.length <= 20)) {
 					alert('名字请限制在 1-10 个字符');
@@ -131,9 +145,10 @@
 						password: this.password
 					}
 				}).catch(error => {
-					alert(error&&error.message||"登陆出错");
+					alert(error && error.message || "登陆出错");
 					console.log("===============error==========", error);
 				});
+				this.$hiddenLoading();
 				//console.log(result);
 				var user;
 				if (result.data && !result.data.err && result.data.user) {
@@ -163,10 +178,12 @@
 				window.location.href = "/regist";
 			},
 			async loginOut() {
+				this.$showLoading();
 				var url = "/api/signout";
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});
+				this.$hiddenLoading();
 				if (result.data && !result.data.err && (result.data.code == 200)) {
 					userLoginUtil.setLogout();
 					this.asyncLoginIofo();

@@ -40,7 +40,7 @@
 		},
 		methods: {
 			async requestData() {
-				var url = "/api/posts";
+                var url = "/api/posts";
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});

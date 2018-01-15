@@ -24,7 +24,7 @@ export function setCookie(cname, cvalue, exdays = 1) {
 
 export function delCookie(name) {
     var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
+    exp.setTime(exp.getTime() - 100000);
     var cval = getCookie(name);
     if (cval != null)
         document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();

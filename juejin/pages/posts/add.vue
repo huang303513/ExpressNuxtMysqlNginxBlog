@@ -23,6 +23,7 @@
         },
         methods: {
             async submitArticle() {
+                this.$showLoading();
                 var url = "/api/posts/create";
                 if (!(this.title.length >= 1)) {
                     alert('名字请限制在 1-10 个字符');
@@ -43,6 +44,7 @@
                     alert(error && error.message || "发布出错");
                     console.log("===============error==========", error);
                 });
+                this.$hiddenLoading();
                 console.log("=======result===========", result);
                 // var user;
                 if (result.data && !result.data.err && result.data.post) {

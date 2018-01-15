@@ -16,9 +16,9 @@
 		<div class="comments">
 			<p class="comments-pl">评论</p>
 			<!-- <div class="comment-box">
-																<textarea></textarea>
-																<button>评论</button>
-															</div> -->
+																	<textarea></textarea>
+																	<button>评论</button>
+																</div> -->
 			<div class="comment-box">
 				<div class="textarea-wrapper">
 					<div class="content-editable" ref="commentDiv" contenteditable="true">{{deliveryLocation}}</div>
@@ -28,10 +28,12 @@
 			</div>
 			<ul>
 				<li v-for="(comment,index) in comments">
-					<img class="comment-img" :src="`/img/${comment.author.avatar}`">
-					<div class="comment-info">
-						<p class="comment-user">{{comment.author.name}}<span>  @{{comment.author.bio}}</span></p>
-						<article class="comment-content" v-html="comment.content"></article>
+					<div v-if="comment && comment.author">
+						<img class="comment-img" :src="`/img/${comment.author.avatar}`">
+						<div class="comment-info">
+							<p class="comment-user">{{comment.author.name}}<span>  @{{comment.author.bio}}</span></p>
+							<article class="comment-content" v-html="comment.content"></article>
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -95,6 +97,7 @@
 					});
 					return;
 				}
+				this.$showLoading();
 				var url = "/api/posts/" + this.params.id + "/comment";
 				// console.log("url==========>", url);
 				let result = await axios({
@@ -106,6 +109,7 @@
 				}).catch(error => {
 					console.log("===============error==========", error);
 				});
+				this.$hiddenLoading();
 				console.log(result);
 				if (result.data && !result.data.err && result.data.comments) {
 					this.deliveryLocation = null;

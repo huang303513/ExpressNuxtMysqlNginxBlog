@@ -96,7 +96,7 @@
 			async submit() {
 				event.preventDefault();
 				var url = "/api/signup";
-	
+				this.$showLoading();
 				let formData = new FormData();
 				formData.append('name', this.user.name);
 				formData.append('password', this.user.password);
@@ -113,6 +113,7 @@
 				let result = await axios.post(url, formData, config).catch(error => {
 					console.log("===============error==========", error);
 				});
+				this.$hiddenLoading();
 				var user;
 				if (result.data && !result.data.err && result.data.user) {
 					user = result.data.user;
