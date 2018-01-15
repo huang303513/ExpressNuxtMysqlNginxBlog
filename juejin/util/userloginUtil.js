@@ -6,6 +6,7 @@ import {
 
 let hasLoginedCookKey = 'hasLoginedCookKey';
 let userSessionKey = 'userSessionKey';
+let homeSessionListKey = "homeSessionListKey";
 
 
 export default {
@@ -36,5 +37,12 @@ export default {
     setLogout() {
         delCookie(hasLoginedCookKey);
         sessionStorage.removeItem(userSessionKey);
+    },
+    setSessionData(value){
+        sessionStorage.setItem(homeSessionListKey,JSON.stringify(value));
+    },
+    getSessionData(cb){
+        let data = sessionStorage.getItem(homeSessionListKey) || {};
+        cb &&cb(data);
     }
 }

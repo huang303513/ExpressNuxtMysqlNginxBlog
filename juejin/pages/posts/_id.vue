@@ -22,8 +22,8 @@
 				<button @click="submitComment" class="submitButton">评论</button>
 			</div>
 			<ul>
-				<li v-for="(comment,index) in comments">
-					<div v-if="comment && comment.author">
+				<li v-for="(comment,index) in comments" v-if="comment && comment.author">
+					<div>
 						<img class="comment-img" :src="`/img/${comment.author.avatar}`">
 						<div class="comment-info">
 							<p class="comment-user">{{comment.author.name}}<span>  @{{comment.author.bio}}</span></p>

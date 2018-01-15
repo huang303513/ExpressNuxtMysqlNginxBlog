@@ -10,32 +10,48 @@
 <script>
 	import PostCell from "~/components/PostCell.vue";
 	import axios from "axios";
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		components: {
 			PostCell
 		},
-		async asyncData() {
-			var url = "/api/posts?pageIndex=0";
-			let result = await axios.get(url).catch(error => {
-				console.log("===============error==========", error);
-			});
-			return {
-				posts: result && result.data || [],
-				hasMore: (result && (result.data.length == 10)) ? true : false
-			};
-		},
+		// async asyncData() {
+		// 	var url = "/api/posts?pageIndex=0";
+		// 	let result = await axios.get(url).catch(error => {
+		// 		console.log("===============error==========", error);
+		// 	});
+		// 	return {
+		// 		posts: result && result.data || [],
+		// 		hasMore: (result && (result.data.length == 10)) ? true : false
+		// 	};
+		// },
 		data() {
 			return {
 				posts: [],
-				hasMore: false,
-				pageIndex: 1
+				hasMore: true,
+				pageIndex: 0
 			}
 		},
 		mounted() {
 			this.$eventHub.$on("REFRESHPOSTS", params => {
 				alert("meme");
 			});
+			var self = this;
+			var data = userLoginUtil.getSessionData(function(data) {
+				try {
+					data = JSON.parse(data);
+					// console.log(data)
+					if (data && data.posts) {
+						console.log("========sessionData===========", data);
+						self.posts = data.posts;
+						self.hasMore = data.hasMore;
+						self.pageIndex = data.pageIndex;
+					}
+				} catch (error) {
+					self.requestData();
+				}
 	
+			});
 		},
 		methods: {
 			loadMorePosts() {
@@ -60,6 +76,11 @@
 				} else {
 					this.hasMore = false;
 				}
+				userLoginUtil.setSessionData({
+					posts: this.posts,
+					hasMore: this.hasMore,
+					pageIndex: this.pageIndex
+				});
 			}
 		}
 	};
