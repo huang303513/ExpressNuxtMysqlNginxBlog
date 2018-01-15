@@ -1105,10 +1105,11 @@ var checkLogin = __webpack_require__(5).checkLogin;
 router.get('/', function (req, res, next) {
 	console.log("=====posts===request session====", req.query);
 	var authorId = req.query && req.query.author;
+	var pageIndex = req.query && req.query.pageIndex;
 	//console.log("queyr=========", req.query);
 	// return PostModel.getPosts(authorId);
 	//Promise.resolve("23423");
-	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId).then(function (posts) {
+	__WEBPACK_IMPORTED_MODULE_0__models_posts__["a" /* default */].getPosts(authorId, pageIndex).then(function (posts) {
 		// res.render('posts', {
 		//     posts: posts
 		// });
@@ -1470,26 +1471,29 @@ function contentToHtml(posts) {
 
     // 按创建时间降序获取所有用户文章或者某个特定用户的所有文章
     getPosts: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee3(authorId) {
-            var sql, _ref6, err, result;
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee3(authorId, pageIndex) {
+            var pageSize, sql, _ref6, err, result;
 
             return __WEBPACK_IMPORTED_MODULE_0__Users_huangchengdu_Desktop_github_ExpressNuxtMysqlNginxBlog_juejin_node_modules_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
-                            sql = 'SELECT * FROM posts';
+                            pageSize = 10;
+                            sql = 'SELECT author,_id,pv,title,authorId,created_at,commentsCount FROM posts';
 
                             if (authorId) {
                                 sql = sql + " where authorId=" + authorId;
+                            } else {
+                                sql = sql + (' LIMIT ' + pageIndex * pageSize + ',' + pageSize);
                             }
-                            _context3.next = 4;
+                            _context3.next = 5;
                             return Object(__WEBPACK_IMPORTED_MODULE_1__lib_sql_js__["mysqlQuery"])(sql);
 
-                        case 4:
+                        case 5:
                             _ref6 = _context3.sent;
                             err = _ref6.err;
                             result = _ref6.result;
-                            _context3.prev = 7;
+                            _context3.prev = 8;
 
                             //result = contentToHtml(result);
                             //var resResult = [];
@@ -1505,40 +1509,40 @@ function contentToHtml(posts) {
                                     commentsCount: item.commentsCount
                                 };
                             });
-                            _context3.next = 14;
+                            _context3.next = 15;
                             break;
 
-                        case 11:
-                            _context3.prev = 11;
-                            _context3.t0 = _context3['catch'](7);
+                        case 12:
+                            _context3.prev = 12;
+                            _context3.t0 = _context3['catch'](8);
 
                             err = _context3.t0;
 
-                        case 14:
-                            _context3.prev = 14;
+                        case 15:
+                            _context3.prev = 15;
 
                             if (!err) {
-                                _context3.next = 19;
+                                _context3.next = 20;
                                 break;
                             }
 
                             return _context3.abrupt('return', Promise.reject(err));
 
-                        case 19:
+                        case 20:
                             return _context3.abrupt('return', Promise.resolve(result));
 
-                        case 20:
-                            return _context3.finish(14);
-
                         case 21:
+                            return _context3.finish(15);
+
+                        case 22:
                         case 'end':
                             return _context3.stop();
                     }
                 }
-            }, _callee3, this, [[7, 11, 14, 21]]);
+            }, _callee3, this, [[8, 12, 15, 22]]);
         }));
 
-        function getPosts(_x3) {
+        function getPosts(_x3, _x4) {
             return _ref5.apply(this, arguments);
         }
 
@@ -1581,7 +1585,7 @@ function contentToHtml(posts) {
             }, _callee4, this);
         }));
 
-        function incPv(_x4) {
+        function incPv(_x5) {
             return _ref7.apply(this, arguments);
         }
 
@@ -1630,7 +1634,7 @@ function contentToHtml(posts) {
             }, _callee5, this);
         }));
 
-        function updatePostById(_x5) {
+        function updatePostById(_x6) {
             return _ref9.apply(this, arguments);
         }
 
@@ -1688,7 +1692,7 @@ function contentToHtml(posts) {
             }, _callee6, this);
         }));
 
-        function delPostById(_x6) {
+        function delPostById(_x7) {
             return _ref11.apply(this, arguments);
         }
 

@@ -13,8 +13,6 @@
 		},
 		async asyncData({params}) {
             // console.log(JSON.stringify(params) + "----------");
-			let pageIndex = 0;
-			let pageSize = 3;
 			var url = "/api/posts?author=" + params.id;
 			let result = await axios.get(url).catch(error => {
 				// console.log("===============error==========", error);
@@ -42,9 +40,7 @@
 		},
 		methods: {
 			async requestData() {
-				let pageIndex = 0;
-				let pageSize = 3;
-				var url = "/api/posts?" + "pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+				var url = "/api/posts";
 				let result = await axios.get(url).catch(error => {
 					console.log("===============error==========", error);
 				});

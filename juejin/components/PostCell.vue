@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<!-- <div> -->
 		<ul>
 			<li @click="gotoDetail(post)" v-for="(post,index) in posts" :key="post._id">
 				<!-- <nuxt-link :to="`/posts/${post._id}`"> -->
-				<img class="li-hover-img" @click="userPosts(post)" :src="`/img/${post.author.avatar}`" />
+				<img v-if="post.author" class="li-hover-img" @click="userPosts(post)" :src="`/img/${post.author.avatar}`" />
 				<div class="li-title">
 					<a :href="`/posts/${post._id}`">{{ post.title }}</a>
 					<!-- <router-link :to="{name:`posts/${post._id}`,params:{id:`${post._id}`}}">{{ post.title }}</router-link> -->
@@ -12,12 +12,12 @@
 								{{ user.name }}
 							</nuxt-link> -->
 				</div>
-				<p class="li-subtitle">
+				<p v-if="post.author" class="li-subtitle">
 					<span>{{"作者:"}}</span>
 					<span class="li-subtitle-author">
 													<strong>{{post.author.name}}</strong>
 													<div class="author-hover">
-														<img class="author-hover-img" :src="`img/${post.author.avatar}`"/>
+														<img class="author-hover-img" :src="`/img/${post.author.avatar}`"/>
 														<div class="author-hover-title">
 															<p class="author-hover-title-name">{{post.author.name}}|{{post.author.gender=='m'?"男":"女"}}</p>
 															<p class="author-hover-title-bio">{{post.author.bio}}</p>
@@ -29,7 +29,7 @@
 				<!-- </nuxt-link> -->
 			</li>
 		</ul>
-	</div>
+	<!-- </div> -->
 </template>
 
 <script>

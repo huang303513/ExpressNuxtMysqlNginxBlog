@@ -60,10 +60,13 @@ export default {
         }
     },
     // 按创建时间降序获取所有用户文章或者某个特定用户的所有文章
-    async getPosts(authorId) {
-        let sql = 'SELECT * FROM posts';
+    async getPosts(authorId,pageIndex) {
+        var pageSize = 10;
+        let sql = 'SELECT author,_id,pv,title,authorId,created_at,commentsCount FROM posts';
         if (authorId) {
             sql = sql + " where authorId=" + authorId;
+        }else{
+            sql = sql + ` LIMIT ${pageIndex * pageSize},${pageSize}`
         }
         let { err, result } = await mysqlQuery(sql);
         try {
