@@ -16,17 +16,19 @@
 			</div>
 			<div class="field required">
 				<label>性别：</label>
-				<div class="ui compact selection dropdown" tabindex="0"><select name="gender">
+				<div class="ui compact selection dropdown" tabindex="0">
+					<select v-model="user.gender" name="gender">
 			          <option value="m">男</option>
 			          <option value="f">女</option>
 			          <option value="x">保密</option>
-			        </select><i class="dropdown icon"></i>
-					<div class="text">男</div>
+			        </select>
+					<!-- <i class="dropdown icon"></i> -->
+					<!-- <div class="text">男</div>
 					<div class="menu transition hidden" tabindex="-1">
 						<div class="item active selected" data-value="m">男</div>
 						<div class="item" data-value="f">女</div>
 						<div class="item" data-value="x">保密</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="field required">
@@ -66,12 +68,12 @@
 		data() {
 			return {
 				user: {
-					name: (new Date()).toDateString(),
-					password: '123456',
-					repassword: '123456',
-					gender: "x",
+					name:null,
+					password: null,
+					repassword: null,
+					gender: null,
 					avatar: null,
-					bio: "注册测试"
+					bio: ""
 				}
 			}
 		},
