@@ -20,6 +20,7 @@ import axios from 'axios';
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
+
 const app = express();
 
 // app.use(express.static(path.join(__dirname, 'static/img')));
