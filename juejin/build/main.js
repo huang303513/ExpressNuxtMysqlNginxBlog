@@ -1605,7 +1605,7 @@ var devConfig = {
     session: {
         secret: 'session',
         key: 'session',
-        maxAge: 600000
+        maxAge: 1000 * 60 * 1500
     },
     dbConfig: {
         connectionLimit: 30,
@@ -2143,7 +2143,7 @@ module.exports = {
         bundleRenderer: {
             cache: __webpack_require__(35)({
                 max: 1000,
-                maxAge: 1000 * 60 * 15
+                maxAge: 1000 * 60 * 1500
             })
         }
     }
