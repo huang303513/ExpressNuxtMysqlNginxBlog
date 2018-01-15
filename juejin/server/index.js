@@ -29,7 +29,7 @@ app.use(cookieParser());
 // process.env.DEBUG = 'nuxt:*'
 
 
-const host = process.env.HOST || 'localhost';
+const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || config.port;
 
 // console.log("===========dirname",__dirname);
@@ -42,12 +42,12 @@ app.use(session({
     secret: config.session.secret,
     cookie: {
         maxAge: config.session.maxAge,
-        secure: config.devEnv ? false : true
+        secure: true
     },
     store: new MySQLStore(config.dbConfig),
     connectionLimit: 100,
     expiration: 86400000,
-    resave: config.devEnv ? false : true,
+    resave: true,
     saveUninitialized: true
 }));
 

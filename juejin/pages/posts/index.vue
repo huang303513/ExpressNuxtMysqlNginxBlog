@@ -10,7 +10,6 @@
 <script>
 	import PostCell from "~/components/PostCell.vue";
 	import axios from "axios";
-	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		components: {
 			PostCell
@@ -37,7 +36,7 @@
 				alert("meme");
 			});
 			var self = this;
-			var data = userLoginUtil.getSessionData(function(data) {
+			var data = this.userLoginUtil.getSessionData(function(data) {
 				try {
 					data = JSON.parse(data);
 					// console.log(data)
@@ -76,7 +75,7 @@
 				} else {
 					this.hasMore = false;
 				}
-				userLoginUtil.setSessionData({
+				this.userLoginUtil.setSessionData({
 					posts: this.posts,
 					hasMore: this.hasMore,
 					pageIndex: this.pageIndex

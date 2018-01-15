@@ -1,9 +1,4 @@
-import {
-    getCookie,
-    setCookie,
-    delCookie
-} from "~/util/cookieSessionStorate.js";
-
+import {getCookie,setCookie,delCookie} from "./cookieSessionStorate.js";
 let hasLoginedCookKey = 'hasLoginedCookKey';
 let userSessionKey = 'userSessionKey';
 let homeSessionListKey = "homeSessionListKey";
@@ -16,7 +11,9 @@ export default {
     },
     setLoginedUser(user) {
         setCookie(hasLoginedCookKey, true, 0.05);
-        sessionStorage.setItem(userSessionKey, JSON.stringify(user));
+        if (sessionStorage) {
+            sessionStorage.setItem(userSessionKey, JSON.stringify(user));
+        }
     },
     getLoginedUser() {
         let user;
@@ -24,7 +21,9 @@ export default {
             return null;
         }
         try {
-            user = sessionStorage.getItem(userSessionKey);
+            if (sessionStorage) {
+                user = sessionStorage.getItem(userSessionKey);
+            }
             if (user) {
                 user = JSON.parse(user);
             }
@@ -36,13 +35,21 @@ export default {
     },
     setLogout() {
         delCookie(hasLoginedCookKey);
-        sessionStorage.removeItem(userSessionKey);
+        if (sessionStorage) {
+            sessionStorage.removeItem(userSessionKey);
+        }
     },
     setSessionData(value){
-        sessionStorage.setItem(homeSessionListKey,JSON.stringify(value));
+        if (sessionStorage) {
+            sessionStorage.setItem(homeSessionListKey,JSON.stringify(value));
+        }
+        
     },
     getSessionData(cb){
-        let data = sessionStorage.getItem(homeSessionListKey) || {};
+        let data;
+        if (sessionStorage) {
+            data = sessionStorage.getItem(homeSessionListKey) || {};
+        }
         cb &&cb(data);
     }
 }

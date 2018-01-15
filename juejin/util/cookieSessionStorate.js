@@ -1,4 +1,7 @@
 export function getCookie(key) {
+    if (!document) {
+        return key;
+    }
     var cookies = document.cookie;
     var value;
     if (cookies) {
@@ -16,6 +19,9 @@ export function getCookie(key) {
 
 
 export function setCookie(cname, cvalue, exdays = 1) {
+    if (!document) {
+        return;
+    }
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toGMTString();
@@ -23,6 +29,9 @@ export function setCookie(cname, cvalue, exdays = 1) {
 }
 
 export function delCookie(name) {
+    if (!document) {
+        return;
+    }
     var exp = new Date();
     exp.setTime(exp.getTime() - 100000);
     var cval = getCookie(name);

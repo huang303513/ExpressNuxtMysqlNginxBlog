@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Notification from 'vue-notification'
+import userLoginUtil from "../util/userLoginUtil.js";
+
 
 Vue.use(Notification)
 Vue.prototype.$eventHub= Vue.prototype.$eventHub ||  new Vue();
@@ -14,3 +16,4 @@ Vue.prototype.$hiddenLoading = function() {
         loading: false
     });
 }
+Vue.prototype.userLoginUtil = userLoginUtil;

@@ -10,3 +10,10 @@
   mysql -u huang303513 -p -h 47.96.6.227
 
   git push orginization dev:dev
+
+/usr/local/webserver/nginx/sbin/nginx -s reload # 重新载入配置文件
+/usr/local/webserver/nginx/sbin/nginx -s reopen # 重启 Nginx
+/usr/local/webserver/nginx/sbin/nginx -s stop # 停止 Nginx
+
+客户端build以后再上传到服务端
+
