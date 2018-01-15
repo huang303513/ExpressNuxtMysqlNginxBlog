@@ -29,10 +29,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="field required">
-				<label>头像：</label>
-				<input type="file" @change="getFile($event)" name="avatar" accept="image/*">			
-			</div>
+			 <div class="field required">
+                <label>头像：</label>
+                <div class="upload-box">
+                    <input type="file" @change="getFile($event)" name="avatar" accept="image/*" class="upload">
+                    <div class="img">
+                        <img src="../../assets/img/demo.jpeg" alt="">
+                    </div>
+                    <div class="action-box">
+                        <span class="title">
+                            支持jpg、png等的图片
+                        </span>
+                        <button class="button" type="button">点击上传</button>
+                    </div>
+                </div>
+
+            </div>
 			<div class="field required">
 				<label>个人简介：</label>
 				<textarea name="bio" rows="2" v-model="user.bio"></textarea>
@@ -137,73 +149,115 @@
 </script>
 
 <style lang="less" scoped>
-	@import "~assets/less/define.less";
-	.index {
-		position: relative; // background-color: brown;
-		width: 100%;
-		max-width: 60rem;
-		margin: 0 auto;
-		background: #ffffff;
-		box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-		font-size: 1rem;
-		form {
-			padding: 2rem 5rem 5rem;
-			.title {
-				font-size: 1.3rem;
-				text-align: left;
-				margin-bottom: 1rem;
-			}
-			.field {
-				display: flex;
-				padding: 2rem 0;
-				border-bottom: 1px solid #f1f1f1;
-				border-top: 1px solid #f1f1f1;
-				&:first-of-type {
-					border-top: 1px solid #f1f1f1;
-				}
-				label {
-					display: inline-block;
-					width: 6rem;
-				}
-				input, textarea {
-					flex: 1
-				}
-				textarea {
-					border: 1px solid #e9e9e9;
-					padding: .7rem;
-					&:focus {
-						border: 1px solid @defaultBlue;
-					}
-				}
-				.upload {
-					display: flex;
-					.header {
-						flex: 1;
-						width: 5rem;
-						height: 5rem;
-					}
-				}
-			}
-			.footer {
-				margin-top: 1rem;
-				float: right;
-				.button {
-					display: inline-block;
-					height: 3rem;
-					width: 8rem;
-					line-height: 3rem;
-					text-align: center;
-					font-size: 1rem;
-					font-weight: 200;
-					color: #ffffff;
-					background: @defaultBlue;
-					box-sizing: content-box;
-					margin: 0;
-					border-radius: .2rem;
-				}
-			}
-			
-		}
-	}
+    @import "~assets/less/define.less";
+    .index {
+        position: relative; // background-color: brown;
+        width: 100%;
+        max-width: 60rem;
+        margin: 0 auto;
+        background: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+        font-size: 1rem;
+        form {
+            padding: 2rem 5rem 5rem;
+            .title {
+                font-size: 1.3rem;
+                text-align: left;
+                margin-bottom: 1rem;
+            }
+            .field {
+                display: flex;
+                padding: 2rem 0;
+                align-items: center;
+                border-bottom: 1px solid #f1f1f1;
+                &:first-of-type {
+                    border-top: 1px solid #f1f1f1;
+                }
+                &:nth-last-of-type(3) {
+                    padding: 1rem 0;
+                }
+                label {
+                    display: inline-block;
+                    width: 6rem;
+                }
+                input, textarea {
+                    flex: 1
+                }
+                textarea {
+                    border: 1px solid #e9e9e9;
+                    padding: .7rem;
+                    &:focus {
+                        border: 1px solid @defaultBlue;
+                    }
+                }
+                .upload-box {
+                    display: flex;
+                    position: relative;
+                    .upload {
+                        position: absolute;
+                        z-index: 1;
+                        filter: opacity(0);
+                        height: 2rem;
+                        width: 8rem;
+                        bottom: 0;
+                        left: 6rem;
+                        cursor: pointer;
+                    }
+                    .img {
+                        flex: 0 0 5rem;
+                        width: 5rem;
+                        height: 5rem;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .action-box {
+                        margin-left: 1rem;
+                        .title {
+                            display: block;
+                            color: #909090;
+                            font-size: 1rem;
+                            margin-bottom: 1.5rem;
+                        }
+                        .button {
+                            display: inline-block;
+                            height: 2rem;
+                            width: 8rem;
+                            line-height: 2rem;
+                            text-align: center;
+                            font-size: 1rem;
+                            font-weight: 200;
+                            color: #ffffff;
+                            background: @defaultBlue;
+                            box-sizing: content-box;
+                            margin: 0;
+                            border-radius: .2rem;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            .footer {
+                margin-top: 1rem;
+                float: right;
+                .button {
+                    display: inline-block;
+                    height: 3rem;
+                    width: 8rem;
+                    line-height: 3rem;
+                    text-align: center;
+                    font-size: 1rem;
+                    font-weight: 200;
+                    color: #ffffff;
+                    background: @defaultBlue;
+                    box-sizing: content-box;
+                    margin: 0;
+                    border-radius: .2rem;
+                }
+            }
+
+        }
+    }
 </style>
 
