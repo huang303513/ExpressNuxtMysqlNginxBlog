@@ -11,8 +11,10 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development backpack dev",
+    "local-build": "cross-env NODE_ENV=development nuxt build && backpack build",
     "build": "cross-env NODE_ENV=production nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production pm2 start build/main.js",
+    "local-start": "cross-env NODE_ENV=development pm2 start build/main.js",
     "generate": "cross-env NODE_ENV=production nuxt generate",
     "nuxt": "cross-env NODE_ENV=development nuxt",
     "nuxt-build": "cross-env NODE_ENV=production nuxt build",

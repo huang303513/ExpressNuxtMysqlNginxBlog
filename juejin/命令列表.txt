@@ -3,7 +3,7 @@
 1026  mkdir /usr/local/webserver/nginx/static/_nuxt
 1027  cd .nuxt/
 1029  cd dist/
-1032  cp -rf ./* /usr/local/webserver/nginx/static/_nuxt
+1032  cp -rf ./.nuxt/dist/* /usr/local/webserver/nginx/static/_nuxt
 
  sudo rsync -av --exclude="node_modules" ./  root@47.96.6.227:/root/node/nuxtBlog
 

@@ -146,12 +146,12 @@ module.exports = {
         // We add /api/login & /api/logout routes
         // '~/api'
     ],
-    render: {
-        // bundleRenderer: {
-        //     cache: require('lru-cache')({
-        //         max: 1,
-        //         maxAge: 1000 * 60 * 0.1
-        //     })
-        // }
-    }
+    // render: {
+    //     bundleRenderer: {
+    //         // cache: require('lru-cache')({
+    //         //     max: 1000,
+    //         //     maxAge: 1000 * 60 * 10
+    //         // })
+    //     }
+    // }
 }
