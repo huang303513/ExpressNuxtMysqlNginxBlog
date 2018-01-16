@@ -24,30 +24,32 @@ import cookieParser from 'cookie-parser'
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // process.env.DEBUG = 'nuxt:*'
 
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || config.port;
+const host = 'localhost';
+const port = config.port;
 
 // console.log("===========dirname",__dirname);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.set('trust proxy', 1);
 // session 中间件
 app.use(session({
     key: config.session.key,
     secret: config.session.secret,
     cookie: {
         maxAge: config.session.maxAge,
-        secure: config.devEnv ? false : true
+        secure: false,
+        sameSite:false,
     },
     store: new MySQLStore(config.dbConfig),
-    connectionLimit: 100,
+    connectionLimit: 10,
     expiration: 86400000,
-    resave: config.devEnv ? false : true,
+    resave: true,
     saveUninitialized: true
 }));
 
