@@ -2003,7 +2003,7 @@ module.exports = require("multer");
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 // var session = require('express-session');
 // var MySQLStore = require('express-mysql-session')(session);
@@ -2140,22 +2140,17 @@ module.exports = {
         // '~/api'
     ],
     render: {
-        bundleRenderer: {
-            cache: __webpack_require__(35)({
-                max: 1000,
-                maxAge: 1000 * 60 * 1500
-            })
-        }
+        // bundleRenderer: {
+        //     cache: require('lru-cache')({
+        //         max: 1,
+        //         maxAge: 1000 * 60 * 0.1
+        //     })
+        // }
     }
 };
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-module.exports = require("lru-cache");
-
-/***/ }),
+/* 35 */,
 /* 36 */
 /***/ (function(module, exports) {
 
