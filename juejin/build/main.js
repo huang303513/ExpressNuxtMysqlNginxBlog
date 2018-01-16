@@ -299,7 +299,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(4);
 var mysql = __webpack_require__(24);
 
-var config = Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])("production");
+var config = Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])("development");
 
 var pool = mysql.createPool(config.dbConfig);
 /**
@@ -790,7 +790,7 @@ var nuxtConfig = __webpack_require__(34);
 
 var path = __webpack_require__(12);
 var pkg = __webpack_require__(35);
-var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("production");
+var config = Object(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */])("development");
 var fs = __webpack_require__(11);
 
 
@@ -1886,7 +1886,7 @@ var formatDate = __webpack_require__(1).formatDate;
 var multer = __webpack_require__(33);
 var upload = multer();
 
-var config = Object(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */])("production");
+var config = Object(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */])("development");
 
 function getUploadPath(avatar) {
     if (config.devEnv) {
@@ -2005,7 +2005,7 @@ module.exports = require("multer");
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 // var session = require('express-session');
 // var MySQLStore = require('express-mysql-session')(session);
@@ -2140,15 +2140,15 @@ module.exports = {
         // Api middleware
         // We add /api/login & /api/logout routes
         // '~/api'
-    ]
-    // render: {
-    //     bundleRenderer: {
-    //         cache: require('lru-cache')({
-    //             max: 1000,
-    //             maxAge: 1000 * 60 * 10
-    //         })
-    //     }
-    // }
+    ],
+    render: {
+        bundleRenderer: {
+            cache: __webpack_require__(39)({
+                max: 1000,
+                maxAge: 1000 * 60 * 10
+            })
+        }
+    }
 };
 
 /***/ }),
@@ -2174,6 +2174,12 @@ module.exports = require("body-parser");
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("lru-cache");
 
 /***/ })
 /******/ ]);
