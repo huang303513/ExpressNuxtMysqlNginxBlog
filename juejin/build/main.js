@@ -2005,7 +2005,7 @@ module.exports = require("multer");
 
 /***/ }),
 /* 34 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 // var session = require('express-session');
 // var MySQLStore = require('express-mysql-session')(session);
@@ -2140,24 +2140,19 @@ module.exports = {
         // Api middleware
         // We add /api/login & /api/logout routes
         // '~/api'
-    ],
-    render: {
-        bundleRenderer: {
-            cache: __webpack_require__(35)({
-                max: 1000,
-                maxAge: 1000 * 60 * 10
-            })
-        }
-    }
+    ]
+    // render: {
+    //     bundleRenderer: {
+    //         cache: require('lru-cache')({
+    //             max: 1000,
+    //             maxAge: 1000 * 60 * 10
+    //         })
+    //     }
+    // }
 };
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-module.exports = require("lru-cache");
-
-/***/ }),
+/* 35 */,
 /* 36 */
 /***/ (function(module, exports) {
 

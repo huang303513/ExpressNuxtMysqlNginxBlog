@@ -27,7 +27,6 @@
 				let data = userLoginUtil.getSessionData();
 				data = JSON.parse(data);
 				if (data && data.posts) {
-					// console.log("========sessionData===========", data);
 					this.posts = data.posts;
 					this.hasMore = data.hasMore;
 					this.pageIndex = data.pageIndex;
