@@ -204,7 +204,7 @@
 			display: block; // width: 100%;
 			min-height: 4rem; // background-color: green;
 			padding: 0.1rem 0;
-			margin: 0 7.7rem 0 0.7rem; // min-height: 7rem;
+			margin: 0 0 0 0.7rem; // min-height: 7rem;
 			background-color: white;
 			.content-editable {
 				position: relative;
@@ -256,7 +256,7 @@
 			border-radius: 3px;
 			padding: 0.3rem 0.7rem;
 			bottom: 0.8rem;
-			right: 15rem;
+			right: 6.7rem;
 		}
 	}
 </style>

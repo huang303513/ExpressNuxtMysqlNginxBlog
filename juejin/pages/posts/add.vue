@@ -14,7 +14,7 @@
 <script>
     import axios from "axios";
     export default {
-        layout: 'regist',
+        layout: 'add',
         data() {
             return {
                 title: "",
@@ -23,16 +23,16 @@
         },
         methods: {
             async submitArticle() {
-                this.$showLoading();
                 var url = "/api/posts/create";
-                if (!(this.title.length >= 1)) {
-                    alert('名字请限制在 1-10 个字符');
+                if (this.title.length < 1) {
+                    alert('名字不能为空');
                     return;
                 }
                 if (this.content.length < 1) {
                     alert('内容不能为空');
                     return;
                 }
+                this.$showLoading();
                 let result = await axios({
                     method: "post",
                     url: url,
@@ -70,7 +70,7 @@
         background-color: white;
         padding: 1rem;
         // width: 100%;
-        height: 80%;
+        height: 100%;
         .addHeader {
             // background-color: green;
             height: 4rem;
