@@ -1,12 +1,13 @@
 ## 项目说明
 
-项目使用Express+mysql+nuxt+nginx写的一个项目。nuxt用于实现服务端渲染。nginx做代理服务器对静态资源代理</br>
-项目环境是node的8.5。</br>
-现在实现了常用的登陆、注册、列表、详情、评论、添加文章等功能。</br>
-详情页使用markdown语法，使用ejs模板来渲染。</br>
-项目线上部署地址: www.huangchengdu.com 。还原访问。
-项目地址：https://github.com/huang303513/ExpressNuxtMysqlNginxBlog.git 。
-这个项目是我玩node一年以来的结晶。O(∩_∩)O~。
+1项目使用Express+mysql+nuxt+nginx写的一个项目。nuxt用于实现服务端渲染。nginx做代理服务器对静态资源代理</br>
+2项目环境是node的8.5。</br>
+3详情页使用markdown语法，使用ejs模板来渲染。兼容移动端和桌面端</br>
+4项目线上部署地址: www.huangchengdu.com 。欢迎访问。</br>
+5项目地址：https://github.com/huang303513/ExpressNuxtMysqlNginxBlog.git 。</br>
+6这个项目是我玩node一年以来的结晶。O(∩_∩)O~。</br>
+7整个项目布局都是less写的，没有使用任何第三方框架。</br>
+8添加博客页面部署到服务器以后布局乱了，本地是好的，暂时没有找到原因。欢迎有兴趣的修复。
 
 
 ## 项目运行
@@ -20,7 +21,8 @@ npm run start
 npm run dev
 ````
 
-最后需要把.nuxt/dist/(build以后生成的)目录下面的所有文件和static目录下的所有文件都放到代理服务器的静态资源根目录。这样才能完整的使用样式表，如果不使用代理服务器就不用了。
+最后需要把.nuxt/dist/(build以后生成的)目录下面的所有文件和static目录下的所有文件都放到代理服务器的静态资源根目录。</br>
+这样才能完整的使用样式表，如果不使用代理服务器就不用了。
 
 
 ## 关于nuxt
@@ -30,7 +32,7 @@ nuxt是vue官方的服务端渲染框架。犹豫还是比较新颖的东西，�
 
 ## 演示
 
-![](https://github.com/huang303513/ExpressNuxtMysqlNginxBlog/master/gif/19.gif)
+![](https://github.com/huang303513/ExpressNuxtMysqlNginxBlog/blob/master/19.gif)
 
 
 
