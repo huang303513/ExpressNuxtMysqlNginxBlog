@@ -23,7 +23,6 @@
         },
         methods: {
             async submitArticle() {
-                this.$showLoading();
                 var url = "/api/posts/create";
                 if (this.title.length < 1) {
                     alert('名字不能为空');
@@ -33,6 +32,7 @@
                     alert('内容不能为空');
                     return;
                 }
+                this.$showLoading();
                 let result = await axios({
                     method: "post",
                     url: url,
