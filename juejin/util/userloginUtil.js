@@ -45,11 +45,11 @@ export default {
         }
         
     },
-    getSessionData(cb){
-        let data;
+    getSessionData(){
+        let data = {};
         if (sessionStorage) {
             data = sessionStorage.getItem(homeSessionListKey) || {};
         }
-        cb &&cb(data);
+        return data;
     }
 }

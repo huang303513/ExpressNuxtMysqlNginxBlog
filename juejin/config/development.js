@@ -5,7 +5,7 @@ let proConfig = {
     devEnv: true,
     port: 5389,
     apiPort:5389,
-    apiHost:"http://127.0.0.1",
+    apiHost:"http://localhost",
     sslModel: false,
     uploadPath:'/../../static/img/'
 }

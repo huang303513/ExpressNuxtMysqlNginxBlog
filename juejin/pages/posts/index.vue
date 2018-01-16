@@ -10,20 +10,11 @@
 <script>
 	import PostCell from "~/components/PostCell.vue";
 	import axios from "axios";
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		components: {
 			PostCell
 		},
-		// async asyncData() {
-		// 	var url = "/api/posts?pageIndex=0";
-		// 	let result = await axios.get(url).catch(error => {
-		// 		console.log("===============error==========", error);
-		// 	});
-		// 	return {
-		// 		posts: result && result.data || [],
-		// 		hasMore: (result && (result.data.length == 10)) ? true : false
-		// 	};
-		// },
 		data() {
 			return {
 				posts: [],
@@ -32,25 +23,18 @@
 			}
 		},
 		mounted() {
-			this.$eventHub.$on("REFRESHPOSTS", params => {
-				alert("meme");
-			});
-			var self = this;
-			var data = this.userLoginUtil.getSessionData(function(data) {
-				try {
-					data = JSON.parse(data);
-					// console.log(data)
-					if (data && data.posts) {
-						console.log("========sessionData===========", data);
-						self.posts = data.posts;
-						self.hasMore = data.hasMore;
-						self.pageIndex = data.pageIndex;
-					}
-				} catch (error) {
-					self.requestData();
+			try {
+				let data = userLoginUtil.getSessionData();
+				data = JSON.parse(data);
+				if (data && data.posts) {
+					// console.log("========sessionData===========", data);
+					this.posts = data.posts;
+					this.hasMore = data.hasMore;
+					this.pageIndex = data.pageIndex;
 				}
-	
-			});
+			} catch (error) {
+				this.requestData();
+			}
 		},
 		methods: {
 			loadMorePosts() {
@@ -75,7 +59,7 @@
 				} else {
 					this.hasMore = false;
 				}
-				this.userLoginUtil.setSessionData({
+				userLoginUtil.setSessionData({
 					posts: this.posts,
 					hasMore: this.hasMore,
 					pageIndex: this.pageIndex

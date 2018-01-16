@@ -38,6 +38,7 @@
 
 <script>
 	import axios from "axios";
+	import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		data() {
 			return {
@@ -71,7 +72,7 @@
 			},
 			requestData() {},
 			async submitComment() {
-				if (!this.userLoginUtil.checkLogined()) {
+				if (!userLoginUtil.checkLogined()) {
 					this.$eventHub.$emit("SHOWLOGIN", {
 						name: "参数"
 					});

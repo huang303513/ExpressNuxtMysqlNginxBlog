@@ -54,7 +54,7 @@
                     });
                     setTimeout(function() {
                         window.location.replace("/posts/" + result.data.post._id);
-                    }, 1000);
+                    }, 500);
                 } else {
                     alert(result.data.err && result.data.err.message || "发布出错");
                 }
@@ -69,8 +69,8 @@
         position: relative;
         background-color: white;
         padding: 1rem;
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        height: 80%;
         .addHeader {
             // background-color: green;
             height: 4rem;
@@ -92,13 +92,13 @@
             }
         }
         .addContent {
-            position: absolute;
-            // height: 100%;
-            // width: 100%;
-            top: 6rem;
-            bottom: 3.5rem;
-            right: 1rem;
-            left: 1rem;
+            position: relative;
+            margin-top: 2rem;
+            height: 80%;
+            width: 100%;
+            // bottom: 3.5rem;
+            // right: 1rem;
+            // left: 1rem;
             // margin-top: 2rem;
             //  margin-bottom: 2rem;
             border-radius: 5px;
