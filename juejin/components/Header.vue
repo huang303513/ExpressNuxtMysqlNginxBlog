@@ -39,7 +39,7 @@
 <script>
 	import axios from "axios";
 	import loading from "~/components/loading.vue";
-	import userLoginUtil from "~/util/userLoginUtil.js";
+	// import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		components: {
 			"loading": loading
@@ -76,7 +76,7 @@
 				this.loginBoxState = "hiddenLoginBox";
 			},
 			asyncLoginIofo() {
-				let user = userLoginUtil.getLoginedUser();
+				let user = this.$userLoginUtil.getLoginedUser();
 				if (user) {
 					this.imgsrc = "/img/" + user.avatar;
 					this.desc = user.bio;
@@ -129,7 +129,7 @@
 					this.desc = user.bio;
 					this.loginBoxState = "hiddenLoginBox";
 					this.hasLogined = true;
-					userLoginUtil.setLoginedUser(user);
+					this.$userLoginUtil.setLoginedUser(user);
 				} else {
 					alert(result.data.errr.message);
 				}
@@ -145,7 +145,7 @@
 				});
 				this.$hiddenLoading();
 				if (result.data && !result.data.err && (result.data.code == 200)) {
-					userLoginUtil.setLogout();
+					this.$userLoginUtil.setLogout();
 					this.asyncLoginIofo();
 				}
 			}

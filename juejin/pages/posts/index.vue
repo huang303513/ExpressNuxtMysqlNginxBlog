@@ -10,7 +10,7 @@
 <script>
 	import PostCell from "~/components/PostCell.vue";
 	import axios from "axios";
-	import userLoginUtil from "~/util/userLoginUtil.js";
+	// import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		components: {
 			PostCell
@@ -24,7 +24,7 @@
 		},
 		mounted() {
 			try {
-				let data = userLoginUtil.getSessionData();
+				let data = this.$userLoginUtil.getSessionData();
 				data = JSON.parse(data);
 				if (data && data.posts) {
 					this.posts = data.posts;
@@ -58,7 +58,7 @@
 				} else {
 					this.hasMore = false;
 				}
-				userLoginUtil.setSessionData({
+				this.$userLoginUtil.setSessionData({
 					posts: this.posts,
 					hasMore: this.hasMore,
 					pageIndex: this.pageIndex

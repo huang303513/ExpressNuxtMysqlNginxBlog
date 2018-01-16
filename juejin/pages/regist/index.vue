@@ -53,7 +53,7 @@
 
 <script>
 	import axios from "axios";
-	import userLoginUtil from "~/util/userLoginUtil.js";
+	// import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		layout: 'regist',
 		components: {},
@@ -98,7 +98,7 @@
 				var user;
 				if (result.data && !result.data.err && result.data.user) {
 					user = result.data.user;
-					userLoginUtil.setLoginedUser(user);
+					this.$userLoginUtil.setLoginedUser(user);
 					history.go(-1);
 				} else {
 					alert(result.data.err && result.data.err.message || "注册失败");

@@ -1,4 +1,4 @@
-import {getCookie,setCookie,delCookie} from "./cookieSessionStorate.js";
+import {getCookie,setCookie,delCookie} from "~/util/cookieSessionStorate.js";
 let hasLoginedCookKey = 'hasLoginedCookKey';
 let userSessionKey = 'userSessionKey';
 let homeSessionListKey = "homeSessionListKey";
