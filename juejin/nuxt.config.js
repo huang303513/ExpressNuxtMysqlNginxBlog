@@ -12,7 +12,7 @@ module.exports = {
         },{
             src: 'https://hm.baidu.com/hm.js?96b0d09e8d132a6e61f66ea86b479b70'
         },{
-            src:'https://www.googletagmanager.com/gtag/js?id=UA-112607359-1'
+            src:'https://www.huangchengdu.com/javascripts/googleAsys.js'
         }],
         title: '黄成都的技术博客',
         meta: [{
@@ -29,7 +29,7 @@ module.exports = {
             },
             {
                 name:"keywords",
-                content:"黄成都,技术博客,黄成都的技术博客,iOS,Vue,Nuxt,Vue开发,AFNetWorking源码,SDWebImage源码,AFNetWorking,SDWebImage,JSONP,JavascriptCoreBridge,SSR,服务端渲染"
+                content:"黄成都,技术博客,黄成都的技术博客,iOS,Vue,Nuxt,Vue开发,AFNetWorking源码,SDWebImage源码,AFNetWorking,SDWebImage,JSONP,JavaScript,JavascriptCoreBridge,SSR,服务端渲染"
             },
             {
                 name:'subject',
