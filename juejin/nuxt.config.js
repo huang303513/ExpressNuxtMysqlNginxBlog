@@ -11,6 +11,8 @@ module.exports = {
             src: 'https://www.huangchengdu.com/javascripts/screen.js'
         },{
             src: 'https://hm.baidu.com/hm.js?96b0d09e8d132a6e61f66ea86b479b70'
+        },{
+            src:'https://www.googletagmanager.com/gtag/js?id=UA-112607359-1'
         }],
         title: '黄成都的技术博客',
         meta: [{
