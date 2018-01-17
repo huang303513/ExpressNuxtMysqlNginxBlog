@@ -49,9 +49,7 @@
 				postId: null
 			};
 		},
-		async asyncData({
-			params
-		}) {
+		async asyncData({params}) {
 			var url = "/api/posts/" + params.id;
 			let result = await axios.get(url).catch(error => {
 				console.log("===============error==========", error);
