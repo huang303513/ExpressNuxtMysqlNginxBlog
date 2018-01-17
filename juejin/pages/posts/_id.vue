@@ -93,7 +93,7 @@
 					this.deliveryLocation = null;
 					this.comments = result.data.comments;
 				} else {
-					alert((result.data && result.data.err && result.data.err.message) ||
+					this.$showAlert((result.data && result.data.err && result.data.err.message) ||
 						"添加评论出错");
 				}
 			}

@@ -1,6 +1,7 @@
 <template>
 	<header class="header">
 		<loading :loading-options="loadingOptions"></loading>
+		<alert :alert-options="alertOptions"></alert>
 		<div class="header-div">
 			<div class="header-div-span">
 				<img class="header-img" :src="imgsrc">
@@ -39,10 +40,11 @@
 <script>
 	import axios from "axios";
 	import loading from "~/components/loading.vue";
-	// import userLoginUtil from "~/util/userLoginUtil.js";
+	import alert from "~/components/Alert.vue";
 	export default {
 		components: {
-			"loading": loading
+			"loading": loading,
+			"alert":alert
 		},
 		data() {
 			return {
@@ -54,7 +56,13 @@
 				password: "",
 				loadingOptions: {
 					loading:false
-				}
+				},
+				alertOptions:{
+                    show: false,
+                    title:"通知",
+                    message:"说明",
+                    butttonTitle:"确定"
+                }
 			};
 		},
 		mounted() {
@@ -63,6 +71,15 @@
 			});
 			this.$eventHub.$on("SHOWLOADING", params => {
 				this.loadingOptions.loading = params.loading;
+			});
+			this.$eventHub.$on("SHOWALERT", params => {
+				this.alertOptions.title = params.title||"通知";
+				this.alertOptions.message = params.message;
+				this.alertOptions.butttonTitle = params.title||"确定";
+				this.alertOptions.show = true;
+			});
+			this.$eventHub.$on("HIDDENALERT", params => {
+				this.alertOptions.show = false;
 			});
 			this.asyncLoginIofo();
 		},
@@ -99,16 +116,19 @@
 				this.loginBoxState = "showLoginBox";
 			},
 			async doLogin() {
-				this.$showLoading();
+				
 				var url = "/api/login";
 				if (!(this.name.length >= 1 && this.name.length <= 20)) {
-					alert('名字请限制在 1-10 个字符');
+					this.$showAlert('请输入正确的用户名');
+					this.loginBoxState = "hiddenLoginBox";
 					return;
 				}
 				if (this.password.length < 6) {
-					alert('密码至少 6 个字符');
+					this.$showAlert('请输入正确的密码');
+					this.loginBoxState = "hiddenLoginBox";
 					return;
 				}
+				this.$showLoading();
 				let result = await axios({
 					method: "post",
 					url: url,

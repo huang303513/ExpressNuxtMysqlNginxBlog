@@ -18,10 +18,10 @@
 				<label>性别：</label>
 				<div class="selection" tabindex="0">
 					<select v-model="user.gender" name="gender">
-				          <option value="m">男</option>
-				          <option value="f">女</option>
-				          <option value="x">保密</option>
-				    </select>
+						          <option value="m">男</option>
+						          <option value="f">女</option>
+						          <option value="x">保密</option>
+						    </select>
 				</div>
 			</div>
 			<div class="field">
@@ -33,8 +33,8 @@
 					</div>
 					<div class="action-box">
 						<span class="title">
-	                            支持jpg、png等的图片
-	                        </span>
+			                            支持jpg、png等的图片
+			                        </span>
 						<button class="button" type="button">点击上传</button>
 					</div>
 				</div>
@@ -78,6 +78,30 @@
 			async submit() {
 				event.preventDefault();
 				var url = "/api/signup";
+	
+				try {
+					if (!(this.user.name&&this.user.name.length >= 1 && this.user.name.length <= 20)) {
+						throw new Error('名字请限制在 1-10 个字符');
+					}
+					if (this.user.password&&this.user.password.length < 6) {
+						throw new Error('密码至少 6 个字符');
+					}
+					if (this.user.password !== this.user.repassword) {
+						throw new Error('两次输入密码不一致');
+					}
+					if (['m', 'f', 'x'].indexOf(this.user.gender) === -1) {
+						throw new Error('性别只能是 m、f 或 x');
+					}
+					if (!this.user.avatar) {
+						throw new Error('图片不能为空');
+					}
+					if (!(this.user.bio&&this.user.bio.length >= 1 && this.user.bio.length <= 30)) {
+						throw new Error('个人简介请限制在 1-30 个字符');
+					}
+				} catch (e) {
+					this.$showAlert(e.message||"请补全信息");
+					return;
+				}
 				this.$showLoading();
 				let formData = new FormData();
 				formData.append('name', this.user.name);
@@ -101,7 +125,7 @@
 					this.$userLoginUtil.setLoginedUser(user);
 					history.go(-1);
 				} else {
-					alert(result.data.err && result.data.err.message || "注册失败");
+					this.$showAlert(result.data.err && result.data.err.message || "注册失败");
 				}
 				console.log(result);
 			}

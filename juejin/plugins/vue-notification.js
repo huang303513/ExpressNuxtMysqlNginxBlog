@@ -16,4 +16,15 @@ Vue.prototype.$hiddenLoading = function() {
         loading: false
     });
 }
+Vue.prototype.$showAlert = function(params) {
+    if (typeof(params) == 'string') {
+        params = {
+            message:params
+        };
+    }
+    this.$eventHub.$emit("SHOWALERT", params);
+}
+Vue.prototype.$hiddenAlert = function() {
+    this.$eventHub.$emit("HIDDENALERT", {});
+}
 Vue.prototype.$userLoginUtil = userLoginUtil;

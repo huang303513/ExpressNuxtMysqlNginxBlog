@@ -15,5 +15,4 @@
 /usr/local/webserver/nginx/sbin/nginx -s reopen # 重启 Nginx
 /usr/local/webserver/nginx/sbin/nginx -s stop # 停止 Nginx
 
-客户端build以后再上传到服务端
 

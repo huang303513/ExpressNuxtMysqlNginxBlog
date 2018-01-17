@@ -25,11 +25,11 @@
             async submitArticle() {
                 var url = "/api/posts/create";
                 if (this.title.length < 1) {
-                    alert('名字不能为空');
+                    this.$showAlert('名字不能为空');
                     return;
                 }
                 if (this.content.length < 1) {
-                    alert('内容不能为空');
+                    this.$showAlert('内容不能为空');
                     return;
                 }
                 this.$showLoading();
@@ -41,7 +41,7 @@
                         content: this.content
                     }
                 }).catch(error => {
-                    alert(error && error.message || "发布出错");
+                    this.$showAlert(error && error.message || "发布出错");
                     console.log("===============error==========", error);
                 });
                 this.$hiddenLoading();
@@ -56,7 +56,7 @@
                         window.location.replace("/posts/" + result.data.post._id);
                     }, 500);
                 } else {
-                    alert(result.data.err && result.data.err.message || "发布出错");
+                    this.$showAlert(result.data.err && result.data.err.message || "发布出错");
                 }
             }
         }
