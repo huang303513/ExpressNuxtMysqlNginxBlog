@@ -24,9 +24,9 @@
       return {}
     },
     mounted() {
-      if (!config.devEnv) {
-        baidutongji();
-      }
+      // if (!config.devEnv) {
+      //   baidutongji();
+      // }
     }
   }
 </script>

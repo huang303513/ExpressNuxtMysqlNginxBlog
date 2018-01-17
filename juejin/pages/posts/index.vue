@@ -22,6 +22,26 @@
 				pageIndex: 0
 			}
 		},
+		async asyncData() {
+			var posts;
+			var hasMore;
+			var pageIndex = 0;
+			var url = "/api/posts?" + "pageIndex=0";
+			let result = await axios.get(url).catch(error => {});
+			if (result && result.data) {
+				posts = result.data;
+			}
+			if (result.data && (result.data.length == 10)) {
+				hasMore = true;
+			} else {
+				hasMore = false;
+			}
+			return {
+				posts: posts,
+				hasMore: hasMore,
+				pageIndex: pageIndex
+			};
+		},
 		mounted() {
 			try {
 				let data = this.$userLoginUtil.getSessionData();
@@ -50,7 +70,11 @@
 				});
 				this.$hiddenLoading();
 				if (result && result.data) {
-					this.posts = this.posts.concat(result.data);
+					if (this.pageIndex == 0) {
+						this.posts = result.data;
+					}else{
+						this.posts = this.posts.concat(result.data);
+					}
 					this.pageIndex++;
 				}
 				if (result.data && (result.data.length == 10)) {

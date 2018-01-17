@@ -2018,6 +2018,8 @@ module.exports = {
     head: {
         script: [{
             src: 'https://www.huangchengdu.com/javascripts/screen.js'
+        }, {
+            src: 'https://hm.baidu.com/hm.js?96b0d09e8d132a6e61f66ea86b479b70'
         }],
         title: '黄成都的技术博客',
         meta: [{
@@ -2029,6 +2031,21 @@ module.exports = {
             hid: 'description',
             name: 'description',
             content: '黄成都的技术博客'
+        }, {
+            name: "keywords",
+            content: "黄成都,技术博客,黄成都的技术博客,iOS,Vue,Nuxt,Vue开发,AFNetWorking源码,SDWebImage源码,AFNetWorking,SDWebImage,JSONP,JavascriptCoreBridge,SSR,服务端渲染"
+        }, {
+            name: 'subject',
+            content: '技术博客'
+        }, {
+            name: 'robots',
+            content: 'index,follow'
+        }, {
+            name: 'googlebot',
+            content: 'index,follow'
+        }, {
+            name: 'owner',
+            content: "黄成都"
         },
         // /*优先使用 IE 最新版本和 Chrome  */
         {
