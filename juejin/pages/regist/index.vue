@@ -18,10 +18,10 @@
 				<label>性别：</label>
 				<div class="selection" tabindex="0">
 					<select v-model="user.gender" name="gender">
-						          <option value="m">男</option>
-						          <option value="f">女</option>
-						          <option value="x">保密</option>
-						    </select>
+							          <option value="m">男</option>
+							          <option value="f">女</option>
+							          <option value="x">保密</option>
+							    </select>
 				</div>
 			</div>
 			<div class="field">
@@ -29,12 +29,12 @@
 				<div class="upload-box">
 					<input type="file" @change="getFile($event)" name="avatar" accept="image/*" class="upload">
 					<div class="img">
-						<img src="../../assets/img/demo.jpeg" alt="">
+						<img :src="imageUrl" alt="">
 					</div>
 					<div class="action-box">
 						<span class="title">
-			                            支持jpg、png等的图片
-			                        </span>
+				                            支持jpg、png等的图片
+				                        </span>
 						<button class="button" type="button">点击上传</button>
 					</div>
 				</div>
@@ -53,37 +53,58 @@
 
 <script>
 	import axios from "axios";
+	import imageUrl from '~/assets/img/default.jpg';
 	// import userLoginUtil from "~/util/userLoginUtil.js";
 	export default {
 		layout: 'regist',
 		components: {},
 		data() {
 			return {
+				imageUrl: imageUrl,
 				user: {
 					name: null,
 					password: null,
 					repassword: null,
-					gender: null,
+					gender: "m",
 					avatar: null,
-					bio: null
+					bio: null,
 				}
 			}
 		},
-		mounted() {},
+		mounted() {
+
+		},
+		activated(){
+			// alert("heh");
+		},
+		beforeRouteEnter(to,from,next){
+			next(vm =>{
+				// this.imageUrl = imageUrl;
+			});
+		},
 		methods: {
 			getFile(event) {
-				console.log("");
 				this.user.avatar = event.target.files[0];
+				var file = this.user.avatar;
+				var self = this;
+				if (file) {
+					var reader = new FileReader();
+					reader.onload = (e) => {
+						//图片url
+						self.imageUrl = e.target.result;
+					};
+					reader.readAsDataURL(file);
+				}
 			},
 			async submit() {
-				event.preventDefault();
+				//event.preventDefault();
 				var url = "/api/signup";
 	
 				try {
-					if (!(this.user.name&&this.user.name.length >= 1 && this.user.name.length <= 20)) {
+					if (!(this.user.name && this.user.name.length >= 1 && this.user.name.length <= 20)) {
 						throw new Error('名字请限制在 1-10 个字符');
 					}
-					if (this.user.password&&this.user.password.length < 6) {
+					if (this.user.password && this.user.password.length < 6) {
 						throw new Error('密码至少 6 个字符');
 					}
 					if (this.user.password !== this.user.repassword) {
@@ -95,11 +116,12 @@
 					if (!this.user.avatar) {
 						throw new Error('图片不能为空');
 					}
-					if (!(this.user.bio&&this.user.bio.length >= 1 && this.user.bio.length <= 30)) {
+					if (!(this.user.bio && this.user.bio.length >= 1 && this.user.bio.length <= 30)) {
 						throw new Error('个人简介请限制在 1-30 个字符');
 					}
 				} catch (e) {
-					this.$showAlert(e.message||"请补全信息");
+					console.log("=========err=========", e, e.message);
+					this.$showAlert(e.message || "请补全信息");
 					return;
 				}
 				this.$showLoading();
