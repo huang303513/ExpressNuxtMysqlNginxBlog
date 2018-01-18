@@ -211,7 +211,7 @@
 				display: block;
 				width: 100%;
 				line-height: normal;
-				font-size: 0.5rem;
+				font-size: 0.8rem;
 				color: @darkTextColor;
 				white-space: pre;
 			}
@@ -225,7 +225,7 @@
 				box-sizing: border-box;
 				padding: 0.1rem 0;
 				line-height: normal;
-				font-size: 0.5rem;
+				font-size: 0.8rem;
 				// color: #464545;
 				color: black;
 				text-align: left;
@@ -234,7 +234,7 @@
 				background-color: transparent;
 				&::-webkit-input-placeholder {
 					text-align: left;
-					font-size: 0.5rem;
+					font-size: 0.8rem;
 					color: @darkTextColor;
 				}
 			}

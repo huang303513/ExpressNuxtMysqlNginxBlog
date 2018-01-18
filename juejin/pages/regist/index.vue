@@ -1,6 +1,6 @@
 <template>
 	<div class="index">
-		<form method="post" @submit.prevent="submit">
+		<form>
 			<h1 class="title">注册</h1>
 			<div class="field">
 				<label>用户名：</label>
@@ -45,7 +45,7 @@
 				<textarea name="bio" rows="2" v-model="user.bio"></textarea>
 			</div>
 			<div class="footer">
-				<input type="submit" class="button" value="注册">
+				<input @click.stop="submit" class="button" value="注册">
 			</div>
 		</form>
 	</div>
@@ -97,7 +97,6 @@
 				}
 			},
 			async submit() {
-				//event.preventDefault();
 				var url = "/api/signup";
 	
 				try {
