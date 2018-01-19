@@ -45,7 +45,7 @@
 				<textarea name="bio" rows="2" v-model="user.bio"></textarea>
 			</div>
 			<div class="footer">
-				<input @click.stop="submit" class="button" value="注册">
+				<input type="button" @click.stop="submit" class="button" value="注册">
 			</div>
 		</form>
 	</div>
