@@ -4,8 +4,6 @@
  * @Last Modified by:   huangchengdu
  * @Last Modified time: 2017-01-15 08:18:01
  */
-
-// let devConfig = require('./default.js');
 import {default as devConfig} from './development.js';
 
 let proConfig = {

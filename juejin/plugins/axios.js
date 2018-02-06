@@ -4,9 +4,7 @@ import {
 } from '../util/assist'
 import getConfig from '../config';
 let config = getConfig(process.env.NODE_ENV);
-// console.log("url=================>",config.apiHost + ":" + config.apiPort);
 axios.defaults.baseURL = config.apiHost + ":" + config.apiPort;
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
 
 axios.defaults.withCredentials = true
 axios.interceptors.response.use(response => {

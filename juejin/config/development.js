@@ -1,4 +1,3 @@
-// let devConfig = require('./default.js');
 import {default as devConfig} from './default.js';
 
 let proConfig = {

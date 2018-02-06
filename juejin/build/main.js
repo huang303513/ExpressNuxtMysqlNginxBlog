@@ -599,7 +599,6 @@ function contentToHtml(posts) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__default_js__ = __webpack_require__(25);
-// let devConfig = require('./default.js');
 
 
 var proConfig = {
@@ -1637,8 +1636,6 @@ var devConfig = {
  * @Last Modified time: 2017-01-15 08:18:01
  */
 
-// let devConfig = require('./default.js');
-
 
 var proConfig = {
     devEnv: false,
@@ -1856,24 +1853,6 @@ router.get('/', function (req, res, next) {
  * @Last Modified by:   huangchengdu
  * @Last Modified time: 2017-01-14 11:22:20
  */
-
-// let express = require('express');
-// let router = express.Router();
-
-// let checkNotLogin = require('../middlewares/check').checkNotLogin;
-
-// // GET /signup 注册页
-// router.get('/', checkNotLogin, function(req, res, next) {
-//   res.render('signup');
-// });
-
-// // POST /signup 用户注册
-// router.post('/', checkNotLogin, function(req, res, next) {
-//   res.send(req.flash());
-// });
-
-// module.exports = router;
-
 var fs = __webpack_require__(11);
 var path = __webpack_require__(12);
 var sha1 = __webpack_require__(9);
