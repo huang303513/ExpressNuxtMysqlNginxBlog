@@ -23,7 +23,7 @@
     "precommit": "cross-env NODE_ENV=development npm run lint"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "backpack-core": "^0.4.3",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
